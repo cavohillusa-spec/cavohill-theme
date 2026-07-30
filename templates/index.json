@@ -15,8 +15,15 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "heading": "<strong>BIGGEST PRE-SUMMER SALE</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_he3P6a": {
+          "type": "text",
+          "settings": {
+            "text": "Up to 50% Off — Limited Stock",
+            "text_style": "body"
           }
         },
         "button": {
@@ -33,6 +40,7 @@
       },
       "block_order": [
         "heading",
+        "text_he3P6a",
         "button"
       ],
       "settings": {
@@ -43,7 +51,7 @@
         "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-5",
         "stack_images_on_mobile": false,
         "mobile_content_alignment": "center",
         "show_text_below": false
