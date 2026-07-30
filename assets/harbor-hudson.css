@@ -119,6 +119,21 @@ h3 {
   display: none !important;
 }
 
+/* Anker: de badge moet hangen aan de fotocontainer (.card__inner, het vak met
+   de vierkante verhouding), niet aan de overlay erbinnen. Dawn geeft die
+   overlay position: relative, waardoor die het ankerpunt onderschepte.
+   We zetten de overlay op static, zodat .card__inner het dichtstbijzijnde
+   gepositioneerde element wordt en top/right 0 exact de hoek van de foto is.
+   Dit kan veilig: in die overlay staat alleen de badge, want Dawn verbergt
+   de titel daar bij kaarten met een foto. */
+.card__inner {
+  position: relative !important;
+}
+
+.card--media .card__inner > .card__content {
+  position: static !important;
+}
+
 .card__badge {
   position: absolute !important;
   top: 0 !important;
@@ -139,4 +154,7 @@ h3 {
   padding: 0.5rem 1rem !important;
   border-radius: 6px !important;
   font-weight: 700 !important;
+  /* Dawn geeft elke badge border: 1px solid transparent. Dat is aan elke kant
+     een echte pixel ruimte, ook bovenaan. Weg ermee. */
+  border: 0 !important;
 }
