@@ -109,8 +109,8 @@ h3 {
 .card:not(.card--horizontal) > .card__content > .card__badge,
 .card__badge {
   position: absolute !important;
-  top: 0.8rem !important;
-  right: 0.8rem !important;
+  top: 0 !important;
+  right: 0 !important;
   left: auto !important;
   bottom: auto !important;
   margin: 0 !important;
