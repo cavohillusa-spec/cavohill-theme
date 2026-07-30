@@ -1,0 +1,93 @@
+/*
+  Harbor Hudson — merk-overrides bovenop Dawn.
+  Wordt na base.css geladen, zodat Dawn zelf onaangeraakt blijft.
+  Mobiel-first: basisregels gelden voor mobiel, desktop volgt in min-width blokken.
+*/
+
+:root {
+  --hh-brown: #40260c;
+  --hh-cream: #faf6f0;
+  --hh-ink: #1a1a1a;
+  --hh-muted: #6b6257;
+  --hh-sale: #1e7a5a;
+  --hh-was: #b23a2e;
+}
+
+/* --- Leesbaarheid 50+ ------------------------------------------------ */
+/* Dawn zet tekst op 75% dekking (op body en op elke color-scheme wrapper);
+   dat leest grijzig. Volledige dekking = inkt #1A1A1A op wit, hoog contrast. */
+body,
+[class*='color-scheme-'] {
+  color: rgb(var(--color-foreground));
+}
+
+body {
+  line-height: 1.75;
+}
+
+.rte,
+.rte p,
+p {
+  line-height: 1.75;
+}
+
+/* Secundaire tekst blijft rustig, maar niet te licht. */
+.caption,
+.caption-with-letter-spacing,
+.caption-large,
+.product__tax,
+.card__caption {
+  color: var(--hh-muted);
+}
+
+/* --- Koppen ---------------------------------------------------------- */
+/* Playfair Display is een serif; iets strakker regelverloop oogt eleganter. */
+.h0,
+.h1,
+.h2,
+.h3,
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+/* --- Producttitels altijd in inkt ------------------------------------ */
+/* Volgt het schema: zwart op lichte secties, wit op de bruine/donkere. */
+.card__heading,
+.card__heading a,
+.card-information .card__heading,
+.product__title,
+.product__title h1,
+.product__title h2 {
+  color: rgb(var(--color-foreground));
+}
+
+/* --- Prijzen --------------------------------------------------------- */
+/* Drie klassen diep, want component-price.css laadt later in de pagina. */
+.price--on-sale .price__sale .price-item--sale {
+  color: var(--hh-sale);
+}
+
+.price--on-sale .price__sale .price-item--regular {
+  color: var(--hh-was);
+  text-decoration: line-through;
+}
+
+/* --- Knoppen --------------------------------------------------------- */
+/* Ruime tikdoelen op mobiel; 50+ raakt liever een grote knop. */
+.button,
+.shopify-challenge__button,
+.customer button {
+  min-height: 4.8rem;
+  letter-spacing: 0.05rem;
+}
+
+@media screen and (min-width: 750px) {
+  .button,
+  .shopify-challenge__button,
+  .customer button {
+    min-height: 4.5rem;
+  }
+}
