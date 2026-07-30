@@ -91,3 +91,37 @@ h3 {
     min-height: 4.5rem;
   }
 }
+
+/* --- Productraster --------------------------------------------------- */
+/* Vangnet: op mobiel altijd twee kaarten naast elkaar, ook als een sectie
+   nog op 1 kolom staat opgeslagen. Alleen de mobiele slider (slider--tablet)
+   slaan we over; die rekent zijn eigen breedte uit voor het "peek" effect.
+   Let op: een sectie met alleen de desktop-slider krijgt ook de klasse
+   .slider mee, dus daar mogen we niet op filteren. */
+@media screen and (max-width: 749px) {
+  .product-grid:not(.slider--tablet) .grid__item {
+    width: calc(50% - var(--grid-mobile-horizontal-spacing) / 2);
+    max-width: calc(50% - var(--grid-mobile-horizontal-spacing) / 2);
+  }
+}
+
+/* --- Sale-badge ------------------------------------------------------ */
+/* Kleur, hoek en positie komen uit de thema-instellingen (schema 6, 4px,
+   rechtsboven). Hier alleen de badge iets dichter in de hoek op mobiel,
+   want de kaarten zijn daar smal. */
+/* De dubbele klasse is bewust: component-card.css laadt later in de pagina,
+   dus we hebben een tikje meer specificiteit nodig om te winnen. */
+.card:not(.card--horizontal) > .card__content > .card__badge.card__badge {
+  margin: 0.8rem;
+}
+
+@media screen and (min-width: 750px) {
+  .card:not(.card--horizontal) > .card__content > .card__badge.card__badge {
+    margin: 1.2rem;
+  }
+}
+
+.card__badge .badge {
+  font-size: 1.1rem;
+  padding: 0.4rem 0.9rem 0.5rem 0.9rem;
+}
