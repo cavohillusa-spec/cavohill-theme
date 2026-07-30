@@ -105,58 +105,19 @@ h3 {
   }
 }
 
-/* --- Sale-badge ------------------------------------------------------ */
-/* Kleur en hoekradius komen uit de thema-instellingen (schema 6, 4px).
-   De positie regelen we hier. Dawn duwde de badge via drie lagen naar
-   binnen, en die moeten alle drie weg:
-     1. de overlay over de foto heeft padding: 1rem  (~11px)
-     2. de badge zelf heeft margin: 1.3rem           (~15px)
-     3. de badge ligt in een grid met grid-row-start en align-self
-   Samen ruim 26px van de rand: het "zwevende" effect.
-   De overlay dekt precies de fotocontainer (.card__inner met de vierkante
-   verhouding), dus daar positioneren we tegenaan. Bij deze kaartstijl staat
-   in die overlay alleen de badge - Dawn verbergt de titel daar - dus de
-   padding weghalen is veilig.
-   De dubbele klasse is bewust: component-card.css laadt later in de pagina
-   dan dit bestand, dus we hebben iets meer specificiteit nodig om te winnen. */
-.card--media .card__inner > .card__content.card__content {
-  padding: 0;
+/* ===== Sale-badge: altijd strak in de rechterbovenhoek van de foto ===== */
+.card:not(.card--horizontal) > .card__content > .card__badge,
+.card__badge {
+  position: absolute !important;
+  top: 0.8rem !important;
+  right: 0.8rem !important;
+  left: auto !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  z-index: 3 !important;
 }
-
-/* Basis = linksonder, net als Dawn. De klassen top/right komen uit de
-   instelling badge_position, zodat die keuze blijft werken. */
-.card--media .card__inner > .card__content > .card__badge.card__badge {
-  position: absolute;
-  top: auto;
-  right: auto;
-  bottom: 10px;
-  left: 10px;
-  margin: 0;
-  z-index: 2;
-}
-
-.card--media .card__inner > .card__content > .card__badge.card__badge.top {
-  top: 10px;
-  bottom: auto;
-}
-
-.card--media .card__inner > .card__content > .card__badge.card__badge.right {
-  right: 10px;
-  left: auto;
-}
-
-/* Goed leesbaar formaat, ook voor 50+. In px zodat de badge niet meeschaalt
-   met de body-instelling en overal even groot blijft. */
 .card__badge .badge {
-  font-size: 13px;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  padding: 6px 12px;
-  border-width: 0;
-}
-
-@media screen and (min-width: 750px) {
-  .card__badge .badge {
-    font-size: 14px;
-  }
+  font-size: 1.2rem !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px !important;
 }
