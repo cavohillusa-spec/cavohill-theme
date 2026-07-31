@@ -158,6 +158,82 @@ h3 {
   transform: none;
 }
 
+/* --- Footer ---------------------------------------------------------- */
+/* De bruine achtergrond komt uit de instelling (kleurenschema 4).
+   Let op: section-footer.css laadt in de body, dus na dit bestand. Daarom
+   staan de selectors hieronder telkens een klasse dieper dan die van Dawn. */
+
+/* Eén variabele omzetten naar creme, en de hele footer volgt: Dawn rekent
+   overal met --color-foreground, dus tekst, links en scheidingslijnen
+   worden in één keer creme in plaats van wit. */
+.footer {
+  --color-foreground: 250, 246, 240;
+}
+
+/* Kolomkoppen: rustig, met wat letterruimte en lucht eronder. */
+.footer .footer-block__heading {
+  color: rgb(var(--color-foreground));
+  letter-spacing: 0.08rem;
+  margin-bottom: 1.6rem;
+}
+
+/* Links: volle creme in plaats van Dawn's 75% dekking, met ruime regelhoogte
+   zodat ze op mobiel makkelijk te raken zijn. */
+.footer .footer-block__details-content .list-menu__item--link,
+.footer .copyright__content a,
+.footer .policies a {
+  color: rgb(var(--color-foreground));
+  line-height: 1.6;
+}
+
+.footer .footer-block__details-content .list-menu__item--link {
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+}
+
+/* Rustige hover: geen kleurwissel, alleen een fijne onderstreping. */
+.footer .footer-block__details-content .list-menu__item--link:hover,
+.footer .copyright__content a:hover,
+.footer .policies a:hover {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+/* Scheidingslijn onderaan: Dawn zet die op 8% dekking, wat op bruin bijna
+   onzichtbaar is. */
+.footer .footer__content-bottom {
+  border-top: solid 0.1rem rgba(var(--color-foreground), 0.2);
+}
+
+/* Policy-links onderaan: nette rij die netjes afbreekt op smalle schermen. */
+.footer .policies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 2rem;
+  row-gap: 0.4rem;
+}
+
+/* Betaalicoontjes: gecentreerd op mobiel, rechts op desktop. */
+.footer .list-payment {
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+/* Meer lucht tussen de kolommen op mobiel. */
+@media screen and (max-width: 749px) {
+  .footer .footer-block__details-content {
+    margin-bottom: 2.4rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .footer .list-payment {
+    justify-content: flex-end;
+  }
+}
+
 /* ===== Sale-badge: altijd strak in de rechterbovenhoek van de foto ===== */
 /* Dawn rendert twee badge-blokken per kaart:
      1. in .card__inner > .card__content -> ligt over de foto  (deze houden we)

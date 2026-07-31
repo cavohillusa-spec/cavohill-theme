@@ -4,10 +4,28 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "blocks": {},
-      "block_order": [],
+      "blocks": {
+        "shop": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "hoofd-1"
+          }
+        },
+        "support": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Support",
+            "menu": "support"
+          }
+        }
+      },
+      "block_order": [
+        "shop",
+        "support"
+      ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-4",
         "newsletter_enable": true,
         "newsletter_heading": "Subscribe to our emails",
         "enable_follow_on_shop": true,
