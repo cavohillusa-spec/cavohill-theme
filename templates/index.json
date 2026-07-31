@@ -81,7 +81,7 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
-        "swipe_on_mobile": false,
+        "swipe_on_mobile": true,
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -99,12 +99,12 @@
         "columns_desktop": 4,
         "enable_desktop_slider": true,
         "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "outline",
+        "show_view_all": true,
+        "view_all_style": "solid",
         "color_scheme": "scheme-1",
         "image_ratio": "square",
         "image_shape": "default",
-        "show_secondary_image": true,
+        "show_secondary_image": false,
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "none",
@@ -113,11 +113,53 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "collection_list_QM9DBB": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_GLYxtk": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "summer-dresses"
+          }
+        },
+        "featured_collection_kganrH": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "orthopedic-sandals"
+          }
+        },
+        "featured_collection_jfKraX": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "tops-blouse"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_GLYxtk",
+        "featured_collection_kganrH",
+        "featured_collection_jfKraX"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "image_banner",
     "featured_collection_UTi6LU",
-    "featured_collection"
+    "featured_collection",
+    "collection_list_QM9DBB"
   ]
 }
