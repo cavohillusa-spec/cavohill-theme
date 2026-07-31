@@ -1,0 +1,216 @@
+/*
+  Harbor Hudson — eigen footer.
+  Mobiel-first: kolommen zijn inklapbare accordions, vanaf 750px drie kolommen.
+
+  Over de accordion: de <details> bevat ALLEEN de titel (<summary>), het paneel
+  staat er als broer/zus naast. Daardoor verbergt <details> zelf nooit iets en
+  gebruiken we [open] puur als CSS-schakelaar. Op desktop kunnen we het paneel
+  dan gewoon altijd tonen, wat niet lukt als de inhoud in de details zit.
+*/
+
+.hh-footer {
+  /* Creme tekst. Alles hieronder rekent met deze variabele, net als Dawn. */
+  --color-foreground: 250, 246, 240;
+  --hh-footer-line: rgba(var(--color-foreground), 0.22);
+}
+
+/* --- Raster ---------------------------------------------------------- */
+.hh-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* --- Kolomtitels ----------------------------------------------------- */
+.hh-footer__toggle {
+  border-top: 1px solid var(--hh-footer-line);
+}
+
+.hh-footer__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.6rem 0;
+  margin: 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground));
+}
+
+/* Het standaard driehoekje van de browser weghalen. */
+.hh-footer__title::-webkit-details-marker {
+  display: none;
+}
+
+.hh-footer__title::marker {
+  content: '';
+}
+
+/* Chevron rechts, draait een kwartslag als de kolom openstaat. */
+.hh-footer__title::after {
+  content: '';
+  width: 0.8rem;
+  height: 0.8rem;
+  border-right: 1px solid rgb(var(--color-foreground));
+  border-bottom: 1px solid rgb(var(--color-foreground));
+  transform: rotate(45deg);
+  transform-origin: center;
+  margin-bottom: 0.4rem;
+  flex: none;
+  transition: transform var(--duration-short) ease;
+}
+
+.hh-footer__toggle[open] .hh-footer__title::after {
+  transform: rotate(-135deg);
+  margin-bottom: 0;
+  margin-top: 0.4rem;
+}
+
+/* --- Paneel ---------------------------------------------------------- */
+.hh-footer__panel {
+  padding-bottom: 2rem;
+}
+
+/* Mobiel: dicht tenzij de bijbehorende titel openstaat. */
+.hh-footer__toggle:not([open]) + .hh-footer__panel {
+  display: none;
+}
+
+/* --- Tekst en links -------------------------------------------------- */
+.hh-footer__intro {
+  margin: 0 0 1.6rem;
+  line-height: 1.7;
+}
+
+.hh-footer__intro p {
+  margin: 0 0 1rem;
+}
+
+.hh-footer__intro p:last-child {
+  margin-bottom: 0;
+}
+
+.hh-footer__details,
+.hh-footer__links {
+  margin: 0;
+  padding: 0;
+}
+
+.hh-footer__details li {
+  margin-bottom: 0.8rem;
+  line-height: 1.7;
+}
+
+.hh-footer__label {
+  display: inline;
+  font-weight: 600;
+  margin-right: 0.4rem;
+}
+
+.hh-footer__links li {
+  margin-bottom: 0.2rem;
+}
+
+.hh-footer a {
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+}
+
+/* Links in de kolommen krijgen wat hoogte, zodat ze op mobiel goed
+   aan te tikken zijn. */
+.hh-footer__links a {
+  display: inline-block;
+  padding: 0.7rem 0;
+  line-height: 1.5;
+}
+
+/* Rustige hover: geen kleurwissel, alleen een fijne onderstreping. */
+.hh-footer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.hh-footer__returns {
+  margin-top: 0;
+}
+
+/* --- Onderbalk ------------------------------------------------------- */
+.hh-footer__bottom {
+  border-top: 1px solid var(--hh-footer-line);
+  margin-top: 1.6rem;
+  padding-top: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.hh-footer__payment .list-payment {
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.hh-footer__copyright {
+  margin: 0;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.85);
+  text-align: center;
+}
+
+/* --- Desktop --------------------------------------------------------- */
+@media screen and (min-width: 750px) {
+  .hh-footer__grid {
+    grid-template-columns: 2fr 1fr 1fr;
+    column-gap: 4rem;
+  }
+
+  /* Geen accordion meer: titel is een gewone kop, paneel altijd zichtbaar. */
+  .hh-footer__toggle {
+    border-top: 0;
+    pointer-events: none;
+  }
+
+  .hh-footer__title {
+    cursor: default;
+    padding: 0 0 1.6rem;
+  }
+
+  .hh-footer__title::after {
+    display: none;
+  }
+
+  .hh-footer__toggle:not([open]) + .hh-footer__panel {
+    display: block;
+  }
+
+  .hh-footer__panel {
+    padding-bottom: 0;
+  }
+
+  .hh-footer__returns {
+    margin-top: 3.2rem;
+  }
+
+  .hh-footer__bottom {
+    margin-top: 4rem;
+    padding-top: 2.4rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .hh-footer__payment .list-payment {
+    justify-content: flex-start;
+  }
+
+  .hh-footer__copyright {
+    text-align: right;
+  }
+}

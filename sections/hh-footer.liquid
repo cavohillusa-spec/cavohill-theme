@@ -1,0 +1,359 @@
+{{ 'hh-footer.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<footer class="hh-footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="hh-footer__grid">
+      {%- comment -%} Kolom 1: klantenservice, met het Returns-blok eronder {%- endcomment -%}
+      <div class="hh-footer__col hh-footer__col--service">
+        {%- if section.settings.service_heading != blank -%}
+          <details class="hh-footer__toggle">
+            <summary class="hh-footer__title">{{ section.settings.service_heading | escape }}</summary>
+          </details>
+        {%- endif -%}
+
+        <div class="hh-footer__panel">
+          {%- if section.settings.service_intro != blank -%}
+            <div class="hh-footer__intro rte">{{ section.settings.service_intro }}</div>
+          {%- endif -%}
+
+          <ul class="hh-footer__details list-unstyled" role="list">
+            {%- if section.settings.store_name != blank -%}
+              <li>
+                <span class="hh-footer__label">{{ section.settings.store_name_label | escape }}</span>
+                {{ section.settings.store_name | escape }}
+              </li>
+            {%- endif -%}
+
+            {%- if section.settings.phone != blank -%}
+              <li>
+                <span class="hh-footer__label">{{ section.settings.phone_label | escape }}</span>
+                <a href="tel:{{ section.settings.phone | strip | replace: ' ', '' }}">
+                  {{- section.settings.phone | escape -}}
+                </a>
+              </li>
+            {%- endif -%}
+
+            {%- if section.settings.email != blank -%}
+              <li>
+                <span class="hh-footer__label">{{ section.settings.email_label | escape }}</span>
+                <a href="mailto:{{ section.settings.email | strip }}">{{ section.settings.email | escape }}</a>
+              </li>
+            {%- endif -%}
+
+            {%- if section.settings.hours != blank -%}
+              <li>
+                <span class="hh-footer__label">{{ section.settings.hours_label | escape }}</span>
+                {{ section.settings.hours | escape }}
+              </li>
+            {%- endif -%}
+          </ul>
+        </div>
+
+        {%- if section.settings.returns_heading != blank or section.settings.returns_text != blank -%}
+          <div class="hh-footer__returns">
+            {%- if section.settings.returns_heading != blank -%}
+              <details class="hh-footer__toggle">
+                <summary class="hh-footer__title">{{ section.settings.returns_heading | escape }}</summary>
+              </details>
+            {%- endif -%}
+
+            <div class="hh-footer__panel">
+              <div class="hh-footer__intro rte">{{ section.settings.returns_text }}</div>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Kolom 2: support-links uit de blokken {%- endcomment -%}
+      <div class="hh-footer__col">
+        {%- if section.settings.support_heading != blank -%}
+          <details class="hh-footer__toggle">
+            <summary class="hh-footer__title">{{ section.settings.support_heading | escape }}</summary>
+          </details>
+        {%- endif -%}
+
+        <div class="hh-footer__panel">
+          <ul class="hh-footer__links list-unstyled" role="list">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'support_link' -%}
+                <li {{ block.shopify_attributes }}>
+                  <a href="{{ block.settings.url | default: '#' }}">{{ block.settings.label | escape }}</a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+
+      {%- comment -%} Kolom 3: policy-links uit de blokken {%- endcomment -%}
+      <div class="hh-footer__col">
+        {%- if section.settings.policy_heading != blank -%}
+          <details class="hh-footer__toggle">
+            <summary class="hh-footer__title">{{ section.settings.policy_heading | escape }}</summary>
+          </details>
+        {%- endif -%}
+
+        <div class="hh-footer__panel">
+          <ul class="hh-footer__links list-unstyled" role="list">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'policy_link' -%}
+                <li {{ block.shopify_attributes }}>
+                  <a href="{{ block.settings.url | default: '#' }}">{{ block.settings.label | escape }}</a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Onderbalk: betaalicoontjes en copyright, altijd zichtbaar {%- endcomment -%}
+    <div class="hh-footer__bottom">
+      {%- if section.settings.payment_enable and shop.enabled_payment_types.size > 0 -%}
+        <div class="hh-footer__payment">
+          <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+          <ul class="list list-payment" role="list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li class="list-payment__item">
+                {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.copyright_text != blank -%}
+        <p class="hh-footer__copyright">{{ section.settings.copyright_text | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Harbor Hudson footer",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Kleurenschema",
+      "default": "scheme-4"
+    },
+    {
+      "type": "header",
+      "content": "Kolom 1 - Klantenservice"
+    },
+    {
+      "type": "text",
+      "id": "service_heading",
+      "label": "Kolomtitel",
+      "default": "CUSTOMER SERVICE"
+    },
+    {
+      "type": "richtext",
+      "id": "service_intro",
+      "label": "Introtekst",
+      "default": "<p>At harborhudson.com, we aim to provide the best possible experience. If you have any questions or need assistance, please don't hesitate to get in touch.</p>"
+    },
+    {
+      "type": "text",
+      "id": "store_name_label",
+      "label": "Label winkelnaam",
+      "default": "Store name:"
+    },
+    {
+      "type": "text",
+      "id": "store_name",
+      "label": "Winkelnaam",
+      "default": "harborhudson.com"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Label telefoon",
+      "default": "Phone:"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Telefoonnummer",
+      "default": "+31 6 44883399"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Label e-mail",
+      "default": "Email:"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "E-mailadres",
+      "info": "Wordt automatisch een mailto-link.",
+      "default": "info@harborhudson.com"
+    },
+    {
+      "type": "text",
+      "id": "hours_label",
+      "label": "Label openingstijden",
+      "default": "Business hours:"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Openingstijden",
+      "default": "Monday - Friday, 9:00 am - 4:00 pm"
+    },
+    {
+      "type": "header",
+      "content": "Returns-blok (onder kolom 1)"
+    },
+    {
+      "type": "text",
+      "id": "returns_heading",
+      "label": "Titel",
+      "default": "RETURNS"
+    },
+    {
+      "type": "richtext",
+      "id": "returns_text",
+      "label": "Tekst",
+      "info": "Selecteer woorden en gebruik de link-knop om naar het retourbeleid te verwijzen.",
+      "default": "<p>Please review our <a href=\"/policies/refund-policy\">Refund Policy</a> before starting your return.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Kolom 2 - Support"
+    },
+    {
+      "type": "text",
+      "id": "support_heading",
+      "label": "Kolomtitel",
+      "default": "SUPPORT"
+    },
+    {
+      "type": "paragraph",
+      "content": "Voeg de links toe als blokken van het type Support-link."
+    },
+    {
+      "type": "header",
+      "content": "Kolom 3 - Policy"
+    },
+    {
+      "type": "text",
+      "id": "policy_heading",
+      "label": "Kolomtitel",
+      "default": "POLICY"
+    },
+    {
+      "type": "paragraph",
+      "content": "Voeg de links toe als blokken van het type Policy-link."
+    },
+    {
+      "type": "header",
+      "content": "Onderbalk"
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_enable",
+      "label": "Betaalmethode-iconen tonen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright-regel",
+      "default": "© 2026 Harbor Hudson"
+    },
+    {
+      "type": "header",
+      "content": "Ruimte"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Ruimte boven",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Ruimte onder",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "support_link",
+      "name": "Support-link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tekst",
+          "default": "About us"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "policy_link",
+      "name": "Policy-link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tekst",
+          "default": "Shipping Policy"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Harbor Hudson footer",
+      "blocks": [
+        { "type": "support_link", "settings": { "label": "About us" } },
+        { "type": "support_link", "settings": { "label": "Contact" } },
+        { "type": "support_link", "settings": { "label": "FAQS" } },
+        { "type": "policy_link", "settings": { "label": "Shipping Policy" } },
+        { "type": "policy_link", "settings": { "label": "Privacy Policy" } },
+        { "type": "policy_link", "settings": { "label": "Terms Of Service" } },
+        { "type": "policy_link", "settings": { "label": "Billing Terms & Conditions" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

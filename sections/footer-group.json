@@ -3,39 +3,86 @@
   "type": "footer",
   "sections": {
     "footer": {
-      "type": "footer",
+      "type": "hh-footer",
       "blocks": {
-        "shop": {
-          "type": "link_list",
+        "support-1": {
+          "type": "support_link",
           "settings": {
-            "heading": "Shop",
-            "menu": "hoofd-1"
+            "label": "About us",
+            "url": "/pages/about-us"
           }
         },
-        "support": {
-          "type": "link_list",
+        "support-2": {
+          "type": "support_link",
           "settings": {
-            "heading": "Support",
-            "menu": "support"
+            "label": "Contact",
+            "url": "/pages/contact"
+          }
+        },
+        "support-3": {
+          "type": "support_link",
+          "settings": {
+            "label": "FAQS",
+            "url": "/pages/faqs"
+          }
+        },
+        "policy-1": {
+          "type": "policy_link",
+          "settings": {
+            "label": "Shipping Policy",
+            "url": "/pages/shipping-policy"
+          }
+        },
+        "policy-2": {
+          "type": "policy_link",
+          "settings": {
+            "label": "Privacy Policy",
+            "url": "/pages/privacy-policy"
+          }
+        },
+        "policy-3": {
+          "type": "policy_link",
+          "settings": {
+            "label": "Terms Of Service",
+            "url": "/pages/terms-of-service"
+          }
+        },
+        "policy-4": {
+          "type": "policy_link",
+          "settings": {
+            "label": "Billing Terms & Conditions",
+            "url": "/pages/cookie-policy"
           }
         }
       },
       "block_order": [
-        "shop",
-        "support"
+        "support-1",
+        "support-2",
+        "support-3",
+        "policy-1",
+        "policy-2",
+        "policy-3",
+        "policy-4"
       ],
       "settings": {
         "color_scheme": "scheme-4",
-        "newsletter_enable": true,
-        "newsletter_heading": "Subscribe to our emails",
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
+        "service_heading": "CUSTOMER SERVICE",
+        "service_intro": "<p>At harborhudson.com, we aim to provide the best possible experience. If you have any questions or need assistance, please don't hesitate to get in touch.</p>",
+        "store_name_label": "Store name:",
+        "store_name": "harborhudson.com",
+        "phone_label": "Phone:",
+        "phone": "+31 6 44883399",
+        "email_label": "Email:",
+        "email": "info@harborhudson.com",
+        "hours_label": "Business hours:",
+        "hours": "Monday - Friday, 9:00 am - 4:00 pm",
+        "returns_heading": "RETURNS",
+        "returns_text": "<p>Please review our <a href=\"/policies/refund-policy\">Refund Policy</a> before starting your return.</p>",
+        "support_heading": "SUPPORT",
+        "policy_heading": "POLICY",
         "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 36,
+        "copyright_text": "© 2026 Harbor Hudson",
+        "padding_top": 48,
         "padding_bottom": 36
       }
     }
