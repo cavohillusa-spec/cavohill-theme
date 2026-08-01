@@ -168,6 +168,41 @@
         "padding_bottom": 0
       }
     },
+    "summer-bundles": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Summer Sale Bundles!",
+            "heading_size": "h1"
+          }
+        },
+        "body": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Buy More, Save More.</strong></p><p>For one day only, our Harbor Hudson Circle gets exclusive access to Summer Bundle Deals on our most-loved pieces.</p><p>Whether you're gifting a daughter, a sister, or treating yourself, today is the moment to secure the styles everyone has been asking about.</p><ul><li><strong>Buy 2 pieces → Extra 10% off</strong></li><li><strong>Buy 3 → Extra 15% off</strong></li><li><strong>Buy 4 → Extra 20% off</strong></li><li><strong>Buy 5+ → Extra 25% off</strong></li></ul><p>These bundles are Summer-Exclusive and live for today only — once this offer ends, it won't return.</p><p><strong>Stock is limited. Today is the day.</strong></p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": ["heading", "body"],
+      "settings": {
+        "image": "shopify://shop_images/7a19f36a-a894-46c0-ba7c-5a12961b755e_666ef6f5-6cab-4b59-8988-abb69bacdc51.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "service-columns": {
       "type": "multicolumn",
       "blocks": {
@@ -234,6 +269,7 @@
   "order": [
     "main",
     "disclosures",
+    "summer-bundles",
     "service-columns",
     "related-products"
   ]

@@ -459,6 +459,55 @@ h3 {
   background-color: var(--hh-dot-color, var(--hh-was));
 }
 
+/* --- Image with text -------------------------------------------------- */
+/* Dawn's eigen sectie, dus alles blijft bewerkbaar in de editor. Hier alleen
+   de Harbor Hudson-opmaak. section-image-with-text.css laadt in de sectie en
+   dus ná dit bestand — vandaar de extra klasse ervoor. */
+
+.image-with-text .image-with-text__heading {
+  font-family: var(--font-heading-family);
+  line-height: 1.2;
+  letter-spacing: 0;
+  margin-bottom: 1.2rem;
+}
+
+.image-with-text .image-with-text__text {
+  font-family: var(--font-body-family);
+  font-size: 1.6rem;
+  line-height: 1.75;
+  color: rgb(var(--color-foreground));
+}
+
+.image-with-text .image-with-text__text p {
+  margin: 0 0 1.4rem;
+}
+
+.image-with-text .image-with-text__text > :last-child {
+  margin-bottom: 0;
+}
+
+/* De staffellijst leest als een rijtje, niet als opsomming: geen bolletjes,
+   maar dunne scheidingslijntjes. Zo springt de korting eruit. */
+.image-with-text .image-with-text__text ul {
+  list-style: none;
+  margin: 0 0 1.6rem;
+  padding: 0;
+}
+
+.image-with-text .image-with-text__text ul li {
+  padding: 0.9rem 0;
+  border-top: 1px solid rgba(26, 26, 26, 0.12);
+}
+
+.image-with-text .image-with-text__text ul li:first-child {
+  border-top: 0;
+}
+
+.image-with-text .image-with-text__text ul li strong {
+  font-weight: 700;
+  color: var(--hh-brown);
+}
+
 /* --- Multicolumn: service-kolommen ------------------------------------ */
 /* Dawn's eigen Multicolumn-sectie, dus alles blijft bewerkbaar in de editor.
    Hieronder alleen de Harbor Hudson-opmaak. section-multicolumn.css laadt in
