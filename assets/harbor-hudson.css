@@ -482,19 +482,33 @@ h3 {
   font-family: var(--font-body-family);
 }
 
+/* Normaal gewicht en een zachtere donkergrijze tint. Niet pikzwart: dat leest
+   als een blok en oogt zwaar. 0.82 dekking op de inkt geeft ongeveer #4a4a4a,
+   ruim genoeg contrast om prettig te lezen, maar rustiger. */
 .image-with-text .image-with-text__text {
   font-size: 1.6rem;
+  font-weight: 400;
   line-height: 1.65;
-  color: rgb(var(--color-foreground));
+  color: rgba(var(--color-foreground), 0.82);
 }
 
-/* Een kop die in de tekst is beland, leest gewoon mee als vette regel. */
+/* De rich-text-editor zet alinea's soms weg als <h4> in plaats van <p>. Zonder
+   deze regel erven die Dawn's kopgewicht en wordt de hele tekst vet. Ze lezen
+   hier gewoon mee als lopende tekst; alleen echte <strong> blijft vet. */
 .image-with-text .image-with-text__text :is(h1, h2, h3, h4, h5, h6) {
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.65;
   letter-spacing: 0;
-  margin: 0 0 0.6rem;
+  margin: 0 0 1rem;
+  color: inherit;
+}
+
+/* Accenten die jij in de editor vet zet, blijven vet — en iets donkerder, zodat
+   ze uit de rustige grijstint springen. */
+.image-with-text .image-with-text__text :is(strong, b) {
+  font-weight: 700;
+  color: rgb(var(--color-foreground));
 }
 
 .image-with-text .image-with-text__text p {
@@ -517,6 +531,13 @@ h3 {
   margin: 0;
   padding: 0;
   border: 0;
+  line-height: 1.5;
+}
+
+/* Staat er een <h4> ín een staffelregel, dan mag die geen onderruimte
+   meebrengen; anders valt het rijtje alsnog uit elkaar. */
+.image-with-text .image-with-text__text ul li :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
   line-height: 1.5;
 }
 
