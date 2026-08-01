@@ -117,6 +117,34 @@
                     }}
                   </div>
                 </div>
+              {%- elsif block.settings.icon != blank and block.settings.icon != 'none' -%}
+                {%- comment -%}
+                  Harbor Hudson: geen eigen afbeelding geüpload? Dan tonen we
+                  een ingebouwd icoon, zodat de kolom er meteen goed uitziet.
+                  Upload je wel een afbeelding, dan wint die altijd.
+                {%- endcomment -%}
+                <div class="multicolumn-card__icon">
+                  {%- case block.settings.icon -%}
+                    {%- when 'thumbs_up' -%}
+                      {{- 'icon-thumbs-up.svg' | inline_asset_content -}}
+                    {%- when 'truck' -%}
+                      {{- 'icon-truck.svg' | inline_asset_content -}}
+                    {%- when 'wallet' -%}
+                      {{- 'icon-wallet.svg' | inline_asset_content -}}
+                    {%- when 'return' -%}
+                      {{- 'icon-return.svg' | inline_asset_content -}}
+                    {%- when 'chat_bubble' -%}
+                      {{- 'icon-chat-bubble.svg' | inline_asset_content -}}
+                    {%- when 'lock' -%}
+                      {{- 'icon-lock.svg' | inline_asset_content -}}
+                    {%- when 'star' -%}
+                      {{- 'icon-star.svg' | inline_asset_content -}}
+                    {%- when 'heart' -%}
+                      {{- 'icon-heart.svg' | inline_asset_content -}}
+                    {%- when 'price_tag' -%}
+                      {{- 'icon-price-tag.svg' | inline_asset_content -}}
+                  {%- endcase -%}
+                </div>
               {%- endif -%}
               <div class="multicolumn-card__info">
                 {%- if block.settings.title != blank -%}
@@ -408,6 +436,25 @@
           "type": "image_picker",
           "id": "image",
           "label": "t:sections.multicolumn.blocks.column.settings.image.label"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            { "value": "none", "label": "Geen" },
+            { "value": "thumbs_up", "label": "Duim omhoog" },
+            { "value": "truck", "label": "Vrachtwagen" },
+            { "value": "wallet", "label": "Portemonnee" },
+            { "value": "return", "label": "Retour" },
+            { "value": "chat_bubble", "label": "Chatballon" },
+            { "value": "lock", "label": "Slot" },
+            { "value": "star", "label": "Ster" },
+            { "value": "heart", "label": "Hart" },
+            { "value": "price_tag", "label": "Prijskaartje" }
+          ],
+          "default": "none",
+          "label": "Ingebouwd icoon",
+          "info": "Wordt gebruikt als er hierboven geen afbeelding staat."
         },
         {
           "type": "inline_richtext",

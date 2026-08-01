@@ -87,7 +87,7 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
           }
         },
@@ -152,7 +152,7 @@
         "constrain_to_viewport": false,
         "media_fit": "contain",
         "gallery_layout": "thumbnail",
-        "mobile_thumbnails": "show",
+        "mobile_thumbnails": "hide",
         "media_position": "left",
         "image_zoom": "lightbox",
         "hide_variants": true,
@@ -166,6 +166,50 @@
       "settings": {
         "padding_top": 36,
         "padding_bottom": 0
+      }
+    },
+    "service-columns": {
+      "type": "multicolumn",
+      "blocks": {
+        "returns": {
+          "type": "column",
+          "settings": {
+            "icon": "thumbs_up",
+            "title": "30-DAY RETURNS",
+            "text": "<p>If your piece isn't the perfect fit, you can easily return it within 30 days of delivery. Your satisfaction always comes first.</p>"
+          }
+        },
+        "shipping": {
+          "type": "column",
+          "settings": {
+            "icon": "truck",
+            "title": "FREE US SHIPPING",
+            "text": "<p>We make shopping effortless with free delivery anywhere in the United States on all orders, so your items arrive safely and conveniently at your door.</p>"
+          }
+        },
+        "support": {
+          "type": "column",
+          "settings": {
+            "icon": "wallet",
+            "title": "24/7 CUSTOMER SUPPORT",
+            "text": "<p>Enjoy peace of mind knowing our dedicated customer support team is available 24/7, ready to assist with any question or concern to make your experience truly seamless.</p>"
+          }
+        }
+      },
+      "block_order": ["returns", "shipping", "support"],
+      "settings": {
+        "title": "",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "related-products": {
@@ -190,6 +234,7 @@
   "order": [
     "main",
     "disclosures",
+    "service-columns",
     "related-products"
   ]
 }

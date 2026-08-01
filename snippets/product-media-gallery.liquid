@@ -153,6 +153,13 @@
         </span>
       </button>
     </div>
+    {%- comment -%}
+      Harbor Hudson: stipjes onder de mobiele galerij, in plaats van Dawn's
+      teller met pijltjes. harbor-hudson-gallery.js bouwt ze op uit de slides
+      die er echt staan, zodat het aantal altijd klopt — ook als hide_variants
+      een deel van de foto's wegfiltert.
+    {%- endcomment -%}
+    <hh-gallery-dots class="hh-dots" role="group" aria-label="{{ 'products.product.media.gallery_viewer' | t }}"></hh-gallery-dots>
   </slider-component>
   {%- if first_3d_model -%}
     <button
