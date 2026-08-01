@@ -464,48 +464,85 @@ h3 {
    de Harbor Hudson-opmaak. section-image-with-text.css laadt in de sectie en
    dus ná dit bestand — vandaar de extra klasse ervoor. */
 
+/* Alleen de kop is Playfair. */
 .image-with-text .image-with-text__heading {
   font-family: var(--font-heading-family);
+  font-size: 2.6rem;
   line-height: 1.2;
   letter-spacing: 0;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* Al het andere in Assistant. De sterretje-selector pakt bewust ook koppen
+   die per ongeluk ín de rich-text zijn beland: een <h2> daar zou anders
+   Playfair en zwaar zijn, precies wat we niet willen. Twee klassen weegt
+   zwaarder dan Dawn's h1/h2-regels, dus dit wint altijd. */
+.image-with-text .image-with-text__text,
+.image-with-text .image-with-text__text * {
+  font-family: var(--font-body-family);
 }
 
 .image-with-text .image-with-text__text {
-  font-family: var(--font-body-family);
   font-size: 1.6rem;
-  line-height: 1.75;
+  line-height: 1.65;
   color: rgb(var(--color-foreground));
 }
 
+/* Een kop die in de tekst is beland, leest gewoon mee als vette regel. */
+.image-with-text .image-with-text__text :is(h1, h2, h3, h4, h5, h6) {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.65;
+  letter-spacing: 0;
+  margin: 0 0 0.6rem;
+}
+
 .image-with-text .image-with-text__text p {
-  margin: 0 0 1.4rem;
+  margin: 0 0 1rem;
 }
 
 .image-with-text .image-with-text__text > :last-child {
   margin-bottom: 0;
 }
 
-/* De staffellijst leest als een rijtje, niet als opsomming: geen bolletjes,
-   maar dunne scheidingslijntjes. Zo springt de korting eruit. */
+/* De staffel is een strak rijtje: geen bolletjes, geen lijntjes, en de regels
+   dicht op elkaar. Zo lees je de vier stappen in één oogopslag. */
 .image-with-text .image-with-text__text ul {
   list-style: none;
-  margin: 0 0 1.6rem;
+  margin: 0 0 1.2rem;
   padding: 0;
 }
 
 .image-with-text .image-with-text__text ul li {
-  padding: 0.9rem 0;
-  border-top: 1px solid rgba(26, 26, 26, 0.12);
-}
-
-.image-with-text .image-with-text__text ul li:first-child {
-  border-top: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  line-height: 1.5;
 }
 
 .image-with-text .image-with-text__text ul li strong {
   font-weight: 700;
   color: var(--hh-brown);
+}
+
+/* Dawn zet 2rem tussen elk onderdeel van de kolom en een royale binnenmarge.
+   Compacter, zodat de tekst als één blok leest in plaats van losse eilandjes. */
+.image-with-text .image-with-text__content > * + * {
+  margin-top: 1.2rem;
+}
+
+.image-with-text .image-with-text__content {
+  padding: 2.4rem 0 0;
+}
+
+@media screen and (min-width: 750px) {
+  .image-with-text .image-with-text__heading {
+    font-size: 3.2rem;
+  }
+
+  .image-with-text .image-with-text__content {
+    padding: 0 0 0 4rem;
+  }
 }
 
 /* --- Multicolumn: service-kolommen ------------------------------------ */
