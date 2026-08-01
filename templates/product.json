@@ -3,6 +3,15 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "rating": {
+          "type": "hh_rating",
+          "settings": {
+            "rating_value": 4.7,
+            "rating_label": "Out of",
+            "rating_count": "3.172+",
+            "star_color": "#40260c"
+          }
+        },
         "vendor": {
           "type": "text",
           "settings": {
@@ -15,6 +24,43 @@
         },
         "price": {
           "type": "price"
+        },
+        "usp_shipping": {
+          "type": "hh_usp",
+          "settings": {
+            "text": "Free shipping with USPS",
+            "icon": "truck"
+          }
+        },
+        "usp_guarantee": {
+          "type": "hh_usp",
+          "settings": {
+            "text": "30 Day Money-Back Guarantee",
+            "icon": "return"
+          }
+        },
+        "usp_bundle": {
+          "type": "hh_usp",
+          "settings": {
+            "text": "Buy 2 get 10%, buy 5+ get 25%",
+            "icon": "price_tag"
+          }
+        },
+        "sale_badge": {
+          "type": "hh_sale_badge",
+          "settings": {
+            "text": "LIMITED SUMMER SALE",
+            "background_color": "#40260c",
+            "text_color": "#ffffff"
+          }
+        },
+        "urgency": {
+          "type": "hh_urgency",
+          "settings": {
+            "text": "Limited pairs available during our Summer Sale",
+            "dot_color": "#b23a2e",
+            "text_color": "#1a1a1a"
+          }
         },
         "variant_picker": {
           "type": "variant_picker",
@@ -36,6 +82,30 @@
         "description": {
           "type": "description"
         },
+        "faq_shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "FREE US SHIPPING + TRACKING!",
+            "icon": "none",
+            "content": "<p>All orders ship free within the US. You'll receive a tracking link by email as soon as your parcel leaves our warehouse, usually within 1-2 business days.</p>"
+          }
+        },
+        "faq_returns": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "30 DAY RETURNS",
+            "icon": "none",
+            "content": "<p>Not the right fit? Send it back within 30 days of delivery for a full refund. Items should be unworn and in their original packaging.</p>"
+          }
+        },
+        "faq_service": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "5 STAR CUSTOMER SERVICE",
+            "icon": "none",
+            "content": "<p>Questions about sizing, your order or a return? Send us a message and a real person answers within one business day.</p>"
+          }
+        },
         "share": {
           "type": "share",
           "settings": {
@@ -44,25 +114,34 @@
         }
       },
       "block_order": [
+        "rating",
         "vendor",
         "title",
         "price",
+        "usp_shipping",
+        "usp_guarantee",
+        "usp_bundle",
+        "sale_badge",
+        "urgency",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
         "description",
+        "faq_shipping",
+        "faq_returns",
+        "faq_service",
         "share"
       ],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
         "media_position": "left",
-        "gallery_layout": "stacked",
+        "gallery_layout": "thumbnail",
         "media_size": "large",
-        "constrain_to_viewport": true,
+        "constrain_to_viewport": false,
         "media_fit": "contain",
         "image_zoom": "lightbox",
-        "mobile_thumbnails": "hide",
+        "mobile_thumbnails": "show",
         "hide_variants": true,
         "enable_video_looping": false,
         "padding_top": 36,

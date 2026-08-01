@@ -38,6 +38,14 @@
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
+
+  # Harbor Hudson: kortingspercentage automatisch uit oude en nieuwe prijs.
+  # Liquid deelt hier hele getallen, dus het resultaat rondt naar beneden af —
+  # liever 20% tonen bij 20,4% korting dan te veel beloven.
+  assign savings_percent = 0
+  if compare_at_price > price
+    assign savings_percent = compare_at_price | minus: price | times: 100 | divided_by: compare_at_price
+  endif
 -%}
 
 {%- unless target == null and placeholder == null -%}
@@ -114,7 +122,11 @@
     </div>
     {%- if show_badges -%}
       <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
-        {{ 'products.product.on_sale' | t }}
+        {%- if savings_percent > 0 -%}
+          Save {{ savings_percent }}%
+        {%- else -%}
+          {{ 'products.product.on_sale' | t }}
+        {%- endif -%}
       </span>
 
       <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">

@@ -97,6 +97,38 @@
                   >
                     {{- block.settings.text -}}
                   </p>
+                {%- when 'hh_rating' -%}
+                  {%- liquid
+                    # Statische beoordeling: alle waarden komen uit de editor.
+                    # De sterren tekenen we met Dawn's rating-star, die een
+                    # halve of hele ster kan vullen via --rating-decimal.
+                    assign hh_rating_whole = block.settings.rating_value | floor
+                    assign hh_rating_rest = block.settings.rating_value | modulo: 1
+                    assign hh_rating_decimal = 0
+                    if hh_rating_rest >= 0.3 and hh_rating_rest <= 0.7
+                      assign hh_rating_decimal = 0.5
+                    elsif hh_rating_rest > 0.7
+                      assign hh_rating_decimal = 1
+                    endif
+                  -%}
+                  <div class="hh-rating" {{ block.shopify_attributes }}>
+                    <div
+                      class="rating"
+                      role="img"
+                      aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: block.settings.rating_value, rating_max: 5 }}"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="rating-star"
+                        style="--rating: {{ hh_rating_whole }}; --rating-max: 5; --rating-decimal: {{ hh_rating_decimal }}; --color-rating-star: {{ block.settings.star_color }};"
+                      ></span>
+                    </div>
+                    <span class="hh-rating__text">
+                      <strong class="hh-rating__value">{{ block.settings.rating_value }}</strong>
+                      {{ block.settings.rating_label }}
+                      {{ block.settings.rating_count }}
+                    </span>
+                  </div>
                 {%- when 'title' -%}
                   <div class="product__title" {{ block.shopify_attributes }}>
                     <h1>{{ product.title | escape }}</h1>
@@ -106,6 +138,72 @@
                       </h2>
                     </a>
                   </div>
+                {%- when 'hh_usp' -%}
+                  {%- comment -%}
+                    Eén USP-regel per blok. Wil je er een vierde bij, dan voeg
+                    je in de theme-editor gewoon nog een blok toe; verwijderen
+                    en verslepen kan net zo goed. Het icoon is een eigen
+                    upload, en zonder upload valt hij terug op een van de
+                    ingebouwde icoontjes uit de keuzelijst.
+                  {%- endcomment -%}
+                  <div class="hh-usp" {{ block.shopify_attributes }}>
+                    <span class="hh-usp__icon" aria-hidden="true">
+                      {%- if block.settings.icon_image != blank -%}
+                        {{
+                          block.settings.icon_image
+                          | image_url: width: 96
+                          | image_tag: loading: 'lazy', widths: '24, 32, 48, 64, 96', alt: ''
+                        }}
+                      {%- else -%}
+                        {%- case block.settings.icon -%}
+                          {%- when 'truck' -%}
+                            {{- 'icon-truck.svg' | inline_asset_content -}}
+                          {%- when 'return' -%}
+                            {{- 'icon-return.svg' | inline_asset_content -}}
+                          {%- when 'price_tag' -%}
+                            {{- 'icon-price-tag.svg' | inline_asset_content -}}
+                          {%- when 'discount' -%}
+                            {{- 'icon-discount.svg' | inline_asset_content -}}
+                          {%- when 'lock' -%}
+                            {{- 'icon-lock.svg' | inline_asset_content -}}
+                          {%- when 'star' -%}
+                            {{- 'icon-star.svg' | inline_asset_content -}}
+                          {%- when 'check' -%}
+                            {{- 'icon-check-mark.svg' | inline_asset_content -}}
+                        {%- endcase -%}
+                      {%- endif -%}
+                    </span>
+                    <span class="hh-usp__text">{{ block.settings.text }}</span>
+                  </div>
+                {%- when 'hh_sale_badge' -%}
+                  <div class="hh-sale-badge-wrap" {{ block.shopify_attributes }}>
+                    <span
+                      class="hh-sale-badge"
+                      style="--hh-badge-bg: {{ block.settings.background_color }}; --hh-badge-fg: {{ block.settings.text_color }};"
+                    >
+                      <span class="hh-sale-badge__icon" aria-hidden="true">
+                        {%- if block.settings.icon_image != blank -%}
+                          {{
+                            block.settings.icon_image
+                            | image_url: width: 64
+                            | image_tag: loading: 'lazy', widths: '16, 24, 32, 48, 64', alt: ''
+                          }}
+                        {%- else -%}
+                          {{- 'icon-discount.svg' | inline_asset_content -}}
+                        {%- endif -%}
+                      </span>
+                      {{ block.settings.text }}
+                    </span>
+                  </div>
+                {%- when 'hh_urgency' -%}
+                  <p
+                    class="hh-urgency"
+                    style="--hh-dot-color: {{ block.settings.dot_color }}; --hh-urgency-color: {{ block.settings.text_color }};"
+                    {{ block.shopify_attributes }}
+                  >
+                    <span class="hh-urgency__dot" aria-hidden="true"></span>
+                    <span class="hh-urgency__text">{{ block.settings.text }}</span>
+                  </p>
                 {%- when 'price' -%}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                     {%- render 'price',
@@ -120,20 +218,10 @@
                       <span>{{ 'products.product.volume_pricing.note' | t }}</span>
                     </div>
                   {%- endif -%}
-                  {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
-                    <div class="product__tax caption rte">
-                      {%- if cart.duties_included and cart.taxes_included -%}
-                        {{ 'products.product.duties_and_taxes_included' | t }}
-                      {%- elsif cart.taxes_included -%}
-                        {{ 'products.product.taxes_included' | t }}
-                      {%- elsif cart.duties_included -%}
-                        {{ 'products.product.duties_included' | t }}
-                      {%- endif -%}
-                      {%- if shop.shipping_policy.body != blank -%}
-                        {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
-                      {%- endif -%}
-                    </div>
-                  {%- endif -%}
+                  {%- comment -%}
+                    Harbor Hudson: de regel "Taxes included. Shipping calculated at
+                    checkout." is hier bewust verwijderd. De prijsregel blijft zo rustig.
+                  {%- endcomment -%}
                   <div {{ block.shopify_attributes }}>
                     {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
                     {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
@@ -486,11 +574,24 @@
                     surface: 'product_page'
                   -%}
                 {%- when 'variant_picker' -%}
-                  {% render 'product-variant-picker',
-                    product: product,
-                    block: block,
-                    product_form_id: product_form_id
-                  %}
+                  {%- comment -%}
+                    Harbor Hudson: er mag maar EEN variant-picker in de DOM staan.
+                    Staan er per ongeluk meerdere variant_picker-blokken in de
+                    sectie, dan renderen we alleen de eerste. Dawn's
+                    product-info.js pakt met querySelector namelijk ook alleen de
+                    eerste <variant-selects>; een tweede wordt nooit bijgewerkt,
+                    raakt uit de pas met de gekozen variant en stuurt bij het
+                    toevoegen aan de winkelwagen dubbele options[]-waarden mee.
+                    Apps als SwatchKing zetten hun swatches bovendien op allebei.
+                  {%- endcomment -%}
+                  {%- unless hh_variant_picker_rendered -%}
+                    {%- assign hh_variant_picker_rendered = true -%}
+                    {% render 'product-variant-picker',
+                      product: product,
+                      block: block,
+                      product_form_id: product_form_id
+                    %}
+                  {%- endunless -%}
                 {%- when 'buy_buttons' -%}
                   {%- render 'buy-buttons',
                     block: block,
@@ -791,6 +892,137 @@
           ],
           "default": "body",
           "label": "t:sections.main-product.blocks.text.settings.text_style.label"
+        }
+      ]
+    },
+    {
+      "type": "hh_rating",
+      "name": "Beoordeling (vast)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Een vaste beoordelingsregel die je zelf instelt. Niet gekoppeld aan een reviews-app."
+        },
+        {
+          "type": "range",
+          "id": "rating_value",
+          "min": 0,
+          "max": 5,
+          "step": 0.1,
+          "unit": "★",
+          "default": 4.7,
+          "label": "Cijfer"
+        },
+        {
+          "type": "text",
+          "id": "rating_label",
+          "default": "Out of",
+          "label": "Tekst tussen cijfer en aantal"
+        },
+        {
+          "type": "text",
+          "id": "rating_count",
+          "default": "3.172+",
+          "label": "Aantal beoordelingen"
+        },
+        {
+          "type": "color",
+          "id": "star_color",
+          "default": "#40260c",
+          "label": "Kleur sterren"
+        }
+      ]
+    },
+    {
+      "type": "hh_usp",
+      "name": "USP-regel",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Eén regel per blok. Voeg blokken toe voor meer regels; verslepen bepaalt de volgorde."
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "Free shipping with USPS",
+          "label": "Tekst"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Eigen icoon",
+          "info": "Vierkant plaatje werkt het best. Laat leeg om het ingebouwde icoon hieronder te gebruiken."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            { "value": "truck", "label": "Vrachtwagen" },
+            { "value": "return", "label": "Retour" },
+            { "value": "price_tag", "label": "Prijskaartje" },
+            { "value": "discount", "label": "Korting" },
+            { "value": "lock", "label": "Slot" },
+            { "value": "star", "label": "Ster" },
+            { "value": "check", "label": "Vinkje" },
+            { "value": "none", "label": "Geen" }
+          ],
+          "default": "check",
+          "label": "Ingebouwd icoon"
+        }
+      ]
+    },
+    {
+      "type": "hh_sale_badge",
+      "name": "Sale-badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "LIMITED SUMMER SALE",
+          "label": "Tekst"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Eigen icoon",
+          "info": "Laat leeg voor het ingebouwde kortingsicoon."
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "default": "#40260c",
+          "label": "Achtergrondkleur"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "default": "#ffffff",
+          "label": "Tekstkleur"
+        }
+      ]
+    },
+    {
+      "type": "hh_urgency",
+      "name": "Urgentie-regel",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "Limited pairs available during our Summer Sale",
+          "label": "Tekst"
+        },
+        {
+          "type": "color",
+          "id": "dot_color",
+          "default": "#b23a2e",
+          "label": "Kleur bolletje"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "default": "#1a1a1a",
+          "label": "Tekstkleur"
         }
       ]
     },

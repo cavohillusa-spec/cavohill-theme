@@ -21,6 +21,12 @@
     {% # theme-check-enable %}
     {{ block.shopify_attributes }}
   >
+    {%- liquid
+      # Harbor Hudson: hoeveel varianten hebben een eigen foto? Zonder eigen
+      # variantfoto's heeft een fotoswatch geen zin en vallen we terug op de
+      # gewone knoppen.
+      assign variant_media_count = product.variants | map: 'featured_media' | compact | size
+    -%}
     {%- for option in product.options_with_values -%}
       {%- liquid
         assign swatch_count = option.values | map: 'swatch' | compact | size
@@ -33,8 +39,57 @@
             assign picker_type = 'swatch'
           endif
         endif
+
+        # De kleuroptie tonen we als fotoswatches: per kleur de foto van de
+        # bijbehorende variant, met naam en prijs eronder. Andere opties
+        # (Size) houden gewoon hun knoppen.
+        assign option_name_downcase = option.name | downcase
+        if variant_media_count > 0
+          if option_name_downcase == 'color'
+            assign picker_type = 'photo'
+          elsif option_name_downcase == 'colour'
+            assign picker_type = 'photo'
+          elsif option_name_downcase == 'kleur'
+            assign picker_type = 'photo'
+          endif
+        endif
       -%}
-      {%- if picker_type == 'swatch' -%}
+      {%- if picker_type == 'photo' -%}
+        {%- comment -%}
+          Is er maar één kleur, dan valt er niets te kiezen en tonen we de
+          swatch niet. We laten het veld wél in de pagina staan (onzichtbaar,
+          zie harbor-hudson.css): de radio blijft aangevinkt, zodat Dawn de
+          juiste variant blijft samenstellen en de winkelwagen klopt.
+        {%- endcomment -%}
+        <fieldset
+          class="js product-form__input product-form__input--photo{% if option.values.size == 1 %} product-form__input--photo-single{% endif %}"
+        >
+          <legend class="form__label">
+            {{ option.name }}
+            {%- comment -%}
+              De gekozen waarde staat al leesbaar op het kaartje zelf, dus het
+              label blijft kaal. Deze span houden we wel: Dawn schrijft er de
+              gekozen kleur in, en zo horen schermlezers de wissel.
+            {%- endcomment -%}
+            <span class="visually-hidden" data-selected-value>
+              {{- option.selected_value -}}
+            </span>
+          </legend>
+          {%- comment -%}
+            Eigen wikkel om de kaartjes. Nodig omdat de rij niet meer mag
+            wrappen: zonder wikkel zou de legend als flex-item náást de
+            kaartjes op dezelfde regel belanden.
+          {%- endcomment -%}
+          <div class="hh-photo-swatch-row">
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+          </div>
+        </fieldset>
+      {%- elsif picker_type == 'swatch' -%}
         <fieldset class="js product-form__input product-form__input--swatch">
           <legend class="form__label">
             {{ option.name }}:
