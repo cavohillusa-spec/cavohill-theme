@@ -39,7 +39,7 @@
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
 
-  # Harbor Hudson: kortingspercentage automatisch uit oude en nieuwe prijs.
+  # Let op: kortingspercentage automatisch uit oude en nieuwe prijs.
   # Liquid deelt hier hele getallen, dus het resultaat rondt naar beneden af —
   # liever 20% tonen bij 20,4% korting dan te veel beloven.
   assign savings_percent = 0

@@ -1,5 +1,6 @@
 {{ 'hh-footer.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
+{{ 'component-nap-block.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -31,37 +32,12 @@
             <div class="hh-footer__intro rte">{{ section.settings.service_intro }}</div>
           {%- endif -%}
 
-          <ul class="hh-footer__details list-unstyled" role="list">
-            {%- if section.settings.store_name != blank -%}
-              <li>
-                <span class="hh-footer__label">{{ section.settings.store_name_label | escape }}</span>
-                {{ section.settings.store_name | escape }}
-              </li>
-            {%- endif -%}
-
-            {%- if section.settings.phone != blank -%}
-              <li>
-                <span class="hh-footer__label">{{ section.settings.phone_label | escape }}</span>
-                <a href="tel:{{ section.settings.phone | strip | replace: ' ', '' }}">
-                  {{- section.settings.phone | escape -}}
-                </a>
-              </li>
-            {%- endif -%}
-
-            {%- if section.settings.email != blank -%}
-              <li>
-                <span class="hh-footer__label">{{ section.settings.email_label | escape }}</span>
-                <a href="mailto:{{ section.settings.email | strip }}">{{ section.settings.email | escape }}</a>
-              </li>
-            {%- endif -%}
-
-            {%- if section.settings.hours != blank -%}
-              <li>
-                <span class="hh-footer__label">{{ section.settings.hours_label | escape }}</span>
-                {{ section.settings.hours | escape }}
-              </li>
-            {%- endif -%}
-          </ul>
+          {%- comment -%}
+            NAP-gegevens komen uit Theme Settings > Company / GMC info,
+            zodat footer/about/contact altijd hetzelfde tonen (GMC-vereiste
+            NAP-consistentie). Niet meer lokaal per sectie instelbaar.
+          {%- endcomment -%}
+          {%- render 'nap-block' -%}
         </div>
 
         {%- if section.settings.returns_heading != blank or section.settings.returns_text != blank -%}
@@ -137,16 +113,25 @@
         </div>
       {%- endif -%}
 
-      {%- if section.settings.copyright_text != blank -%}
-        <p class="hh-footer__copyright">{{ section.settings.copyright_text | escape }}</p>
-      {%- endif -%}
+      {%- comment -%}
+        Copyright-tekst: gebruik het ingevulde veld, of val terug op
+        "© <jaar> <shop.name>" zodat elke nieuwe store direct een correcte
+        regel toont zonder handmatig een oud jaartal/naam te laten staan.
+      {%- endcomment -%}
+      <p class="hh-footer__copyright">
+        {%- if section.settings.copyright_text != blank -%}
+          {{ section.settings.copyright_text | escape }}
+        {%- else -%}
+          &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
+        {%- endif -%}
+      </p>
     </div>
   </div>
 </footer>
 
 {% schema %}
 {
-  "name": "Harbor Hudson footer",
+  "name": "Footer",
   "settings": [
     {
       "type": "color_scheme",
@@ -168,56 +153,11 @@
       "type": "richtext",
       "id": "service_intro",
       "label": "Introtekst",
-      "default": "<p>At harborhudson.com, we aim to provide the best possible experience. If you have any questions or need assistance, please don't hesitate to get in touch.</p>"
+      "info": "Optioneel. Leeg = niets tonen."
     },
     {
-      "type": "text",
-      "id": "store_name_label",
-      "label": "Label winkelnaam",
-      "default": "Store name:"
-    },
-    {
-      "type": "text",
-      "id": "store_name",
-      "label": "Winkelnaam",
-      "default": "harborhudson.com"
-    },
-    {
-      "type": "text",
-      "id": "phone_label",
-      "label": "Label telefoon",
-      "default": "Phone:"
-    },
-    {
-      "type": "text",
-      "id": "phone",
-      "label": "Telefoonnummer",
-      "default": "+31 6 44883399"
-    },
-    {
-      "type": "text",
-      "id": "email_label",
-      "label": "Label e-mail",
-      "default": "Email:"
-    },
-    {
-      "type": "text",
-      "id": "email",
-      "label": "E-mailadres",
-      "info": "Wordt automatisch een mailto-link.",
-      "default": "info@harborhudson.com"
-    },
-    {
-      "type": "text",
-      "id": "hours_label",
-      "label": "Label openingstijden",
-      "default": "Business hours:"
-    },
-    {
-      "type": "text",
-      "id": "hours",
-      "label": "Openingstijden",
-      "default": "Monday - Friday, 9:00 am - 4:00 pm"
+      "type": "paragraph",
+      "content": "Naam, adres, telefoon, e-mail en uren komen nu uit Theme Settings > Company / GMC info (NAP) — één bron voor footer, About us en Contact. Pas ze daar aan."
     },
     {
       "type": "header",
@@ -278,7 +218,7 @@
       "type": "text",
       "id": "copyright_text",
       "label": "Copyright-regel",
-      "default": "© 2026 Harbor Hudson"
+      "info": "Leeg = automatisch \"© <jaar> <winkelnaam>\"."
     },
     {
       "type": "header",
@@ -343,7 +283,7 @@
   ],
   "presets": [
     {
-      "name": "Harbor Hudson footer",
+      "name": "Footer",
       "blocks": [
         { "type": "support_link", "settings": { "label": "About us" } },
         { "type": "support_link", "settings": { "label": "Contact" } },

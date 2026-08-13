@@ -67,21 +67,11 @@
       "settings": {
         "color_scheme": "scheme-4",
         "service_heading": "CUSTOMER SERVICE",
-        "service_intro": "<p>At harborhudson.com, we aim to provide the best possible experience. If you have any questions or need assistance, please don't hesitate to get in touch.</p>",
-        "store_name_label": "Store name:",
-        "store_name": "harborhudson.com",
-        "phone_label": "Phone:",
-        "phone": "+31 6 44883399",
-        "email_label": "Email:",
-        "email": "info@harborhudson.com",
-        "hours_label": "Business hours:",
-        "hours": "Monday - Friday, 9:00 am - 4:00 pm",
         "returns_heading": "RETURNS",
         "returns_text": "<p>Please review our <a href=\"/policies/refund-policy\">Refund Policy</a> before starting your return.</p>",
         "support_heading": "SUPPORT",
         "policy_heading": "POLICY",
         "payment_enable": true,
-        "copyright_text": "© 2026 Harbor Hudson",
         "padding_top": 48,
         "padding_bottom": 36
       }
