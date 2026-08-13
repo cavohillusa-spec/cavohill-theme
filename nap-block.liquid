@@ -1,0 +1,77 @@
+{%- comment -%}
+  NAP-blok (Name / Address / Phone)
+  ----------------------------------
+  Centrale weergave van de GMC-bedrijfsgegevens uit Theme Settings
+  (settings.gmc_*). Wordt gebruikt in footer, About us en Contact,
+  zodat de gegevens overal identiek zijn — dat is zelf een GMC-vereiste
+  (NAP-consistentie).
+
+  Toont alleen velden die zijn ingevuld. Leeg = niets tonen, geen
+  placeholders op de live site.
+
+  Parameters (optioneel):
+    show_heading : bool  — toont "Business details"-kopje boven het blok
+    class        : string — extra CSS-klasse op de wrapper
+{%- endcomment -%}
+
+{%- liquid
+  assign has_name = settings.gmc_company_name | default: '' | strip
+  assign has_address = settings.gmc_address_line1 | default: '' | strip
+  assign has_contact = settings.gmc_phone | default: '' | strip
+  assign has_email = settings.gmc_email | default: '' | strip
+  assign has_hours = settings.gmc_hours | default: '' | strip
+  assign has_reply = settings.gmc_reply_time | default: '' | strip
+  assign has_reg = settings.gmc_registration_number | default: '' | strip
+-%}
+
+{%- if has_name != '' or has_address != '' or has_contact != '' or has_email != '' -%}
+  <div class="nap-block{% if class %} {{ class }}{% endif %}">
+    {%- if show_heading -%}
+      <p class="nap-block__heading">Business details</p>
+    {%- endif -%}
+
+    <ul class="nap-block__list list-unstyled" role="list">
+      {%- if has_name != '' -%}
+        <li class="nap-block__item nap-block__item--name">{{ settings.gmc_company_name | escape }}</li>
+      {%- endif -%}
+
+      {%- if has_address != '' -%}
+        <li class="nap-block__item nap-block__item--address">
+          {{ settings.gmc_address_line1 | escape }}{% if settings.gmc_address_line2 != blank %}, {{ settings.gmc_address_line2 | escape }}{% endif %}<br>
+          {%- assign city_line = '' -%}
+          {%- if settings.gmc_address_city != blank -%}{% assign city_line = settings.gmc_address_city %}{%- endif -%}
+          {%- if settings.gmc_address_region != blank -%}{% assign city_line = city_line | append: ', ' | append: settings.gmc_address_region %}{%- endif -%}
+          {%- if settings.gmc_address_zip != blank -%}{% assign city_line = city_line | append: ' ' | append: settings.gmc_address_zip %}{%- endif -%}
+          {{ city_line | escape }}
+          {%- if settings.gmc_address_country != blank -%}<br>{{ settings.gmc_address_country | escape }}{%- endif -%}
+        </li>
+      {%- endif -%}
+
+      {%- if has_reg != '' -%}
+        <li class="nap-block__item nap-block__item--registration">
+          {{ settings.gmc_registration_label | default: 'Registration no.' | escape }}: {{ settings.gmc_registration_number | escape }}
+        </li>
+      {%- endif -%}
+
+      {%- if has_contact != '' -%}
+        <li class="nap-block__item nap-block__item--phone">
+          <a href="tel:{{ settings.gmc_phone | strip | replace: ' ', '' }}">{{ settings.gmc_phone | escape }}</a>
+        </li>
+      {%- endif -%}
+
+      {%- if has_email != '' -%}
+        <li class="nap-block__item nap-block__item--email">
+          <a href="mailto:{{ settings.gmc_email | strip }}">{{ settings.gmc_email | escape }}</a>
+        </li>
+      {%- endif -%}
+
+      {%- if has_hours != '' -%}
+        <li class="nap-block__item nap-block__item--hours">{{ settings.gmc_hours | escape }}</li>
+      {%- endif -%}
+
+      {%- if has_reply != '' -%}
+        <li class="nap-block__item nap-block__item--reply">{{ settings.gmc_reply_time | escape }}</li>
+      {%- endif -%}
+    </ul>
+  </div>
+{%- endif -%}
