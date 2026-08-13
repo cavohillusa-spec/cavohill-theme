@@ -146,6 +146,12 @@
                     upload, en zonder upload valt hij terug op een van de
                     ingebouwde icoontjes uit de keuzelijst.
                   {%- endcomment -%}
+                  {%- comment -%}
+                    Leeg tekstveld = niets tonen. De basis levert geen ingevulde
+                    USP-claims meer: elke belofte ("gratis verzending", "30 dagen
+                    retour") moet per store waar zijn en wordt daar bewust ingevuld.
+                  {%- endcomment -%}
+                  {%- if block.settings.text != blank -%}
                   <div class="hh-usp" {{ block.shopify_attributes }}>
                     <span class="hh-usp__icon" aria-hidden="true">
                       {%- if block.settings.icon_image != blank -%}
@@ -175,6 +181,7 @@
                     </span>
                     <span class="hh-usp__text">{{ block.settings.text }}</span>
                   </div>
+                  {%- endif -%}
                 {%- when 'hh_sale_badge' -%}
                   <div class="hh-sale-badge-wrap" {{ block.shopify_attributes }}>
                     <span
@@ -299,6 +306,11 @@
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
                 {%- when 'collapsible_tab' -%}
+                  {%- comment -%}
+                    Leeg = niets tonen. Zelfde reden als bij hh_usp: de basis doet
+                    geen feitelijke toezeggingen over verzending of retour.
+                  {%- endcomment -%}
+                  {%- if block.settings.heading != blank or block.settings.content != blank or block.settings.page != blank -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
                       <summary>
@@ -316,6 +328,7 @@
                       </div>
                     </details>
                   </div>
+                  {%- endif -%}
                 {%- when 'quantity_selector' -%}
                   <div
                     id="Quantity-Form-{{ section.id }}"
@@ -946,8 +959,8 @@
         {
           "type": "inline_richtext",
           "id": "text",
-          "default": "Free shipping with USPS",
-          "label": "Tekst"
+          "label": "Tekst",
+          "info": "Leeg = dit blok wordt niet getoond. Vul alleen een belofte in die voor deze store waar is."
         },
         {
           "type": "image_picker",

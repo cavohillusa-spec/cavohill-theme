@@ -15,21 +15,21 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "<strong>BIGGEST PRE-SUMMER SALE</strong>",
+            "heading": "",
             "heading_size": "h1"
           }
         },
         "text_he3P6a": {
           "type": "text",
           "settings": {
-            "text": "Up to 50% Off — Limited Stock",
+            "text": "",
             "text_style": "body"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "SHOP NOW",
+            "button_label_1": "",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": false,
             "button_label_2": "",

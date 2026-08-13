@@ -10,3 +10,6 @@ Thumbs.db
 .shopify
 node_modules
 *.zip
+# Lokale secrets voor scripts/gmc-audit — nooit committen
+.env
+.env.*
