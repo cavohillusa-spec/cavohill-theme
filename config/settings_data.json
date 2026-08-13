@@ -128,6 +128,12 @@
     "cart_color_scheme": "scheme-1",
     "gmc_email": "info@cavohill.com",
     "gmc_phone": "+1 917 718 9438",
+    "gmc_address_line1": "30 N Gould St",
+    "gmc_address_line2": "Ste R",
+    "gmc_address_city": "Sheridan",
+    "gmc_address_region": "WY",
+    "gmc_address_zip": "82801",
+    "gmc_address_country": "United States",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
