@@ -126,6 +126,8 @@
     "show_cart_note": false,
     "cart_drawer_collection": "",
     "cart_color_scheme": "scheme-1",
+    "gmc_email": "info@cavohill.com",
+    "gmc_phone": "+1 917 718 9438",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
