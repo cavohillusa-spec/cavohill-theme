@@ -22,6 +22,7 @@
   assign has_hours = settings.gmc_hours | default: '' | strip
   assign has_reply = settings.gmc_reply_time | default: '' | strip
   assign has_reg = settings.gmc_registration_number | default: '' | strip
+  assign has_dba = settings.gmc_dba_line | default: '' | strip
 -%}
 
 {%- if has_name != '' or has_address != '' or has_contact != '' or has_email != '' -%}
@@ -73,5 +74,14 @@
         <li class="nap-block__item nap-block__item--reply">{{ settings.gmc_reply_time | escape }}</li>
       {%- endif -%}
     </ul>
+
+    {%- comment -%}
+      DBA-regel: koppelt merknaam aan juridische entiteit als die verschillen
+      (bv. "Cavo Hill is a brand operated by Novelle House LLC"). Leeg = niets
+      tonen, zelfde patroon als de rest van het blok.
+    {%- endcomment -%}
+    {%- if has_dba != '' -%}
+      <p class="nap-block__dba">{{ settings.gmc_dba_line | escape }}</p>
+    {%- endif -%}
   </div>
 {%- endif -%}

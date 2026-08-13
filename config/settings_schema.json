@@ -1314,6 +1314,12 @@
         "info": "Exacte juridische naam zoals geregistreerd. Moet overal identiek zijn (site, Merchant Center, registratie)."
       },
       {
+        "type": "text",
+        "id": "gmc_dba_line",
+        "label": "DBA-regel (optioneel)",
+        "info": "Optionele zin die merknaam en juridische entiteit expliciet koppelt, bv. \"Cavo Hill is a brand operated by Novelle House LLC\". Leeg = niet tonen."
+      },
+      {
         "type": "header",
         "content": "Adres"
       },
