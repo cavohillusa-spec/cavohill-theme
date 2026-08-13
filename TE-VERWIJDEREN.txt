@@ -1,0 +1,18 @@
+Deze bestanden moeten VERWIJDERD worden uit de repo (niet geupload, gewist):
+
+.github/CODE_OF_CONDUCT.md
+.github/CONTRIBUTING.md
+.github/ISSUE_TEMPLATE/Bug_issue.md
+.github/ISSUE_TEMPLATE/Feature_request.md
+.github/PULL_REQUEST_TEMPLATE.md
+.github/dependabot.yaml
+.github/workflows/ci.yml
+.github/workflows/cla.yml
+.github/workflows/stale.yml
+
+Reden: Shopify-upstream open-source-boilerplate + CI-workflows die altijd
+faalden (secrets bestaan niet in deze private fork). Irrelevant/ruis voor
+een privé-basisrepo.
+
+In GitHub: navigeer naar elk bestand > prullenbak-icoon rechtsboven >
+commit op dezelfde branch (feat/gmc-nap-info).
