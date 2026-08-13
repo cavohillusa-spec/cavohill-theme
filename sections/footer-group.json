@@ -53,6 +53,13 @@
             "label": "Billing Terms & Conditions",
             "url": "/pages/cookie-policy"
           }
+        },
+        "policy-5": {
+          "type": "policy_link",
+          "settings": {
+            "label": "Refund Policy",
+            "url": "/pages/refund-policy"
+          }
         }
       },
       "block_order": [
@@ -62,7 +69,8 @@
         "policy-1",
         "policy-2",
         "policy-3",
-        "policy-4"
+        "policy-4",
+        "policy-5"
       ],
       "settings": {
         "color_scheme": "scheme-4",
