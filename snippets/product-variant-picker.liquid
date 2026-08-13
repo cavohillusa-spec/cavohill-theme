@@ -22,7 +22,7 @@
     {{ block.shopify_attributes }}
   >
     {%- liquid
-      # Harbor Hudson: hoeveel varianten hebben een eigen foto? Zonder eigen
+      # Let op: hoeveel varianten hebben een eigen foto? Zonder eigen
       # variantfoto's heeft een fotoswatch geen zin en vallen we terug op de
       # gewone knoppen.
       assign variant_media_count = product.variants | map: 'featured_media' | compact | size

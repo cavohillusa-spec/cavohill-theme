@@ -1301,6 +1301,112 @@
     ]
   },
   {
+    "name": "Company / GMC info (NAP)",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Centrale bedrijfsgegevens (Naam, Adres, Telefoon). Wordt gebruikt in footer, About us en Contact — vul één keer in per store, overal consistent. Leeg = wordt nergens getoond (geen placeholders op de live site)."
+      },
+      {
+        "type": "text",
+        "id": "gmc_company_name",
+        "label": "Bedrijfsnaam (juridisch)",
+        "info": "Exacte juridische naam zoals geregistreerd. Moet overal identiek zijn (site, Merchant Center, registratie)."
+      },
+      {
+        "type": "header",
+        "content": "Adres"
+      },
+      {
+        "type": "text",
+        "id": "gmc_address_line1",
+        "label": "Straat + huisnummer"
+      },
+      {
+        "type": "text",
+        "id": "gmc_address_line2",
+        "label": "Toevoeging (optioneel)",
+        "info": "Bv. unit/suite-nummer."
+      },
+      {
+        "type": "text",
+        "id": "gmc_address_city",
+        "label": "Plaats"
+      },
+      {
+        "type": "text",
+        "id": "gmc_address_region",
+        "label": "Provincie / staat"
+      },
+      {
+        "type": "text",
+        "id": "gmc_address_zip",
+        "label": "Postcode"
+      },
+      {
+        "type": "text",
+        "id": "gmc_address_country",
+        "label": "Land"
+      },
+      {
+        "type": "header",
+        "content": "Registratie"
+      },
+      {
+        "type": "text",
+        "id": "gmc_registration_label",
+        "label": "Label registratienummer",
+        "info": "Bv. \"KVK\", \"VAT\", \"EIN\" — afhankelijk van vestigingsland.",
+        "default": "Registration no."
+      },
+      {
+        "type": "text",
+        "id": "gmc_registration_number",
+        "label": "Registratienummer",
+        "info": "Optioneel. Alleen tonen als je een geregistreerde entiteit gebruikt (checklist Optie B)."
+      },
+      {
+        "type": "header",
+        "content": "Contact"
+      },
+      {
+        "type": "text",
+        "id": "gmc_phone",
+        "label": "Telefoonnummer",
+        "info": "Telefoonnummer uit het doelland van deze store."
+      },
+      {
+        "type": "text",
+        "id": "gmc_email",
+        "label": "E-mailadres",
+        "info": "Domein-e-mail, geen Gmail/Hotmail/etc."
+      },
+      {
+        "type": "text",
+        "id": "gmc_hours",
+        "label": "Klantenservice-uren",
+        "info": "Bv. \"Monday – Friday, 9:00 am – 5:00 pm\"."
+      },
+      {
+        "type": "text",
+        "id": "gmc_reply_time",
+        "label": "Reactietijd",
+        "info": "Bv. \"We reply within 24–48 hours on business days.\""
+      },
+      {
+        "type": "header",
+        "content": "Structured data"
+      },
+      {
+        "type": "checkbox",
+        "id": "gmc_show_schema_org",
+        "label": "Organization-structured data uitzenden (JSON-LD)",
+        "info": "Alleen actief als bedrijfsnaam + adres zijn ingevuld. Helpt Google de bedrijfsinfo als betrouwbaar signaal herkennen.",
+        "default": true
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.social-media.name",
     "settings": [
       {

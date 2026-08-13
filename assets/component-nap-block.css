@@ -1,0 +1,30 @@
+.nap-block {
+  font-size: 1.4rem;
+  line-height: 1.6;
+}
+
+.nap-block__heading {
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.nap-block__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nap-block__item--name {
+  font-weight: 600;
+}
+
+.nap-block__item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nap-block__item a:hover {
+  text-decoration: underline;
+}
