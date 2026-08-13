@@ -28,3 +28,9 @@
 .nap-block__item a:hover {
   text-decoration: underline;
 }
+
+.nap-block__dba {
+  margin: 0.8rem 0 0;
+  font-size: 1.3rem;
+  opacity: 0.85;
+}
