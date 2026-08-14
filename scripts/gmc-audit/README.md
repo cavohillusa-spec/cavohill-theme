@@ -28,6 +28,17 @@ tegen de live config gehouden:
 | `charges_sales_tax` | `shop.taxesIncluded` |
 | `identity.email` / `phone` / `address` / `legal_name` | `shop.contactEmail`, `shopAddress.*` |
 | `identity.phone` | élk telefoonnummer in élke paginatekst |
+| `claims.*` op `false` | de bijbehorende zinnen in élke pagina- en policytekst |
+| `commerce.returns.window_days` / `refund_processing_days` | de tekst van het retourbeleid |
+| `pricing.compare_at_prices_active: false` | `compareAtPrice` op de varianten |
+
+Het claims-blok werkt omgekeerd aan de rest: staat een belofte op `false`, dan
+zoekt het script of die tóch ergens beloofd wordt. Zo blijft een claim niet
+staan omdat niemand eraan dacht — precies hoe de Azië-tekst in de Terms
+maandenlang overleefde.
+
+Een claim die je leeg laat wordt "Handmatig controleren", nooit stilzwijgend
+goedgekeurd.
 
 Wijken voornemen en werkelijkheid af, dan is dat **Voldoet niet** — nooit
 "handmatig controleren". Een mismatch is een feit, geen twijfelgeval.

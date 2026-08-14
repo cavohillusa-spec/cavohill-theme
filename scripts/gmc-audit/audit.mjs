@@ -218,6 +218,117 @@ export function checkCatalog(s) {
     zonderSku.length ? `${zonderSku.length} producten met varianten zonder SKU` : 'Alle bekeken varianten hebben een SKU');
 }
 
+export /**
+ * Claims die op `false` staan mogen nergens in de site-teksten voorkomen.
+ * Zonder deze check kan een belofte blijven staan omdat niemand eraan dacht —
+ * precies hoe de Azië-tekst in de Terms maanden overleefde.
+ */
+const CLAIM_PHRASES = {
+  free_shipping: ['free shipping', 'free delivery', 'ships free', 'ship free'],
+  free_shipping_worldwide: ['free worldwide shipping', 'free shipping worldwide'],
+  tracking_provided: ['tracking link', 'tracking number'],
+  money_back_guarantee: ['money-back guarantee', 'money back guarantee'],
+  thirty_day_returns: ['30 day', '30-day'],
+  support_24_7: ['24/7'],
+  same_day_dispatch: ['same day dispatch', 'same-day dispatch', 'ships same day'],
+};
+
+export function checkClaims(cfg, s) {
+  const claims = cfg.claims ?? {};
+  const bronnen = [
+    ...s.pages.nodes.map((p) => [`pagina/${p.handle}`, txt(p.body)]),
+    ...s.shop.shopPolicies.map((p) => [`policy/${p.type}`, txt(p.body)]),
+  ];
+
+  for (const [claim, zinnen] of Object.entries(CLAIM_PHRASES)) {
+    const waarde = claims[claim];
+    if (waarde === undefined || waarde === null) {
+      add(26, `Claim "${claim}" niet opgegeven`, 'Handmatig controleren',
+        'Niet ingevuld in store.yml — onbekend of deze belofte waar is', 'Vragenlijst aanvullen');
+      continue;
+    }
+    if (waarde === true) continue; // waar; de bijbehorende config-checks doen de rest
+
+    const gevonden = [];
+    for (const [bron, tekst] of bronnen) {
+      const lower = tekst.toLowerCase();
+      for (const z of zinnen) if (lower.includes(z)) gevonden.push(`${bron}: "${z}"`);
+    }
+    if (gevonden.length) {
+      add(26, `Claim "${claim}" staat op false maar wordt wél beloofd`, 'Voldoet niet',
+        gevonden.join('; '), 'BLOCKER: tekst verwijderen of de claim waarmaken');
+    }
+  }
+
+  if (claims.real_customer_reviews === false) {
+    add(27, 'Reviews', 'Handmatig controleren',
+      'store.yml: geen echte reviews-app. Controleer of er nergens sterren of reviewcijfers staan');
+  }
+  if (claims.own_product_photography === false) {
+    add(27, 'Eigen productfoto\'s', 'Voldoet niet',
+      'store.yml geeft aan dat de foto\'s niet eigen zijn — gekopieerde leverancierscontent is een afkeuringsreden',
+      'Eigen fotografie regelen');
+  }
+}
+
+export function checkReturns(cfg, s) {
+  const r = cfg.commerce?.returns ?? {};
+  const refund = s.shop.shopPolicies.find((p) => p.type === 'REFUND_POLICY');
+  const pagina = s.pages.nodes.find((p) => p.handle === 'refund-policy');
+  const tekst = txt(refund?.body ?? pagina?.body ?? '');
+
+  if (!tekst) {
+    add(46, 'Retourbeleid vindbaar', 'Voldoet niet', 'Geen retourbeleid gevonden');
+    return;
+  }
+  if (r.window_days) {
+    const heeft = new RegExp(`${r.window_days}[\\s-]*day`, 'i').test(tekst);
+    add(46, 'Retourtermijn staat in het beleid', heeft ? 'Voldoet' : 'Voldoet niet',
+      heeft ? `"${r.window_days} days" gevonden` : `store.yml zegt ${r.window_days} dagen, maar die termijn staat niet in de tekst`);
+  }
+  if (r.refund_processing_days) {
+    const heeft = new RegExp(`${r.refund_processing_days}[\\s-]*(business\\s*)?day`, 'i').test(tekst);
+    add(49, 'Terugbetaaltermijn staat in het beleid', heeft ? 'Voldoet' : 'Voldoet niet',
+      heeft ? 'Termijn gevonden' : `store.yml zegt ${r.refund_processing_days} dagen; die termijn ontbreekt in de tekst`,
+      heeft ? '' : 'Toevoegen aan het retourbeleid');
+  }
+  if (r.return_address_public === true) {
+    const heeft = /return (address|to)[:\s]/i.test(tekst);
+    add(48, 'Retouradres in het beleid', heeft ? 'Voldoet' : 'Voldoet niet',
+      heeft ? 'Adresverwijzing gevonden' : 'store.yml zegt dat het adres publiek is, maar het staat niet in de tekst');
+  }
+}
+
+export function checkPricing(cfg, s) {
+  const wil = cfg.pricing?.compare_at_prices_active;
+  const heeft = s.products.nodes.some((p) => p.variants.nodes.some((v) => v.compareAtPrice));
+  if (wil === false && heeft) {
+    add(90, 'Compare-at-prijzen uit', 'Voldoet niet',
+      'store.yml zegt dat ze uit staan, maar er zijn varianten met compareAtPrice',
+      'BLOCKER tot goedkeuring (stap 8)');
+  }
+}
+
+export function checkIdentityExtras(cfg, s) {
+  const i = cfg.identity ?? {};
+  if (i.brand_name && i.legal_name && i.brand_name !== i.legal_name && !i.dba_line) {
+    add(73, 'DBA-regel ontbreekt', 'Voldoet niet',
+      `Merknaam "${i.brand_name}" wijkt af van "${i.legal_name}", maar er is geen zin die het verband legt`,
+      'Vul identity.dba_line in');
+  }
+  if (i.address_is_physical_premises === false) {
+    add(94, 'Echt bedrijfsadres', 'Voldoet niet',
+      'store.yml geeft aan dat dit geen fysieke vestiging is (registered agent / virtueel kantoor)',
+      'Bewust geaccepteerd risico — bij afkeuring als eerste heroverwegen');
+  }
+  if (!i.reply_time) {
+    add(36, 'Reactietermijn vermeld', 'Voldoet niet', 'Niet opgegeven in store.yml');
+  }
+  if (!i.business_hours) {
+    add(35, 'Klantenservice-tijden vermeld', 'Voldoet niet', 'Niet opgegeven in store.yml');
+  }
+}
+
 export function checkTriggerWords(s) {
   const treffers = [];
   const zoek = (bron, tekst) => {
@@ -320,7 +431,11 @@ guardCategory(cfg);
 
 const state = await fetchStoreState();
 checkIdentity(cfg, state);
+checkIdentityExtras(cfg, state);
 checkNapConsistency(cfg, state);
+checkClaims(cfg, state);
+checkReturns(cfg, state);
+checkPricing(cfg, state);
 checkPolicies(state);
 checkShipping(cfg, state);
 checkTax(cfg, state);
