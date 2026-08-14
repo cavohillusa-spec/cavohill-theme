@@ -1,105 +1,117 @@
-# THEMA-BANG — All-round basisthema
+# Cavo Hill — thema-brief
 
 ## Project
-Herbruikbare Shopify-thema-basis, gebouwd op de gratis Dawn-basis, bedoeld om per store te forken/dupliceren en daarna custom te maken (kleuren, fonts, stijl, doelgroep). Deze repo zelf blijft store-neutraal — merkspecifieke keuzes horen in de repo van de individuele store, niet hier.
+Shopify-thema voor **Cavo Hill**, een Amerikaanse fashion-webshop. Gebouwd op
+[THEMA-BANG](https://github.com/meesdix/THEMA-BANG), dat als `upstream`-remote is
+gekoppeld. Deze repo is store-specifiek: merkkeuzes horen hier, niet in de basis.
+
+Juridische entiteit: **Novelle House LLC**. Cavo Hill is een merk van die entiteit — de
+DBA-regel in het NAP-blok maakt dat expliciet, want een reviewer die twee losse namen ziet
+zonder verband gaat vragen stellen.
 
 ## Belangrijkste regel
-ALLES moet mobiel-first zijn. Eerst mobiel perfect, dan pas desktop. Dit geldt voor elke store die op deze basis draait.
+ALLES mobiel-first. Eerst mobiel perfect, dan pas desktop. Overgenomen uit de basis en
+hier onverkort van kracht.
+
+## Merk
+
+**Kleuren** — het bruin `#40260C` dat via de fork uit Harbor Hudson meekwam is op
+14-08-2026 vervangen; het was nooit voor Cavo Hill gekozen.
+
+| Rol | Hex |
+|---|---|
+| Accent — knoppen, footer, announcement-balk | Diepe teal `#1F4B47` |
+| Creme — rustige secties | `#FAF6F0` |
+| Announcement-creme | `#F6EDCF` |
+| Wit — hoofdachtergrond | `#FFFFFF` |
+| Inkt — tekst | `#1A1A1A` |
+| Gedempt — secundaire tekst | `#6B6257` |
+| Sale-groen | `#1E7A5A` |
+
+Teal op wit haalt 9,7:1 contrast — ruim boven AAA. Let op dat het sale-groen dicht bij de
+teal ligt in tint; als dat bij visueel nalopen vlak oogt, verschuift het **sale-groen**,
+niet de teal.
+
+**Fonts**: koppen Playfair Display, body Assistant, beide op scale 115 voor leesbaarheid.
+
+**Waar de kleuren staan**: `config/settings_data.json` (acht accentvelden in
+`current.color_schemes` én dezelfde acht in `presets.Dawn`, zodat een reset het bruin niet
+terughaalt) en `assets/harbor-hudson.css`. Die CSS heet nog naar de vorige store en de
+variabele heet nog `--hh-brown` terwijl er teal in zit — bewust, want hernoemen laat elke
+toekomstige merge met upstream op zestien regels conflicteren. `--hh-brown` verwijst naar
+`--hh-accent`.
+
+## Hoe deze winkel werkelijk werkt
+
+Dit is de context die het langst onduidelijk was en die de meeste teksten raakt:
+
+- **Fulfillment: rechtstreeks vanuit China.** Leverancier is Dayone Fulfillment Co., Ltd.
+  in Ningbo. Producten gaan van de leverancier naar de klant; er is geen eigen magazijn.
+- **Verzendzone: alleen de VS.** Dat gaat over wíe mag kopen, niet over waar het pakket
+  vandaan komt. Die twee zijn eerder door elkaar gehaald en dat kostte een halve dag.
+- **Levertijd**: 1–3 werkdagen verwerking, 6–12 werkdagen transit, 7–15 totaal.
+- **Geen douanekosten voor de klant** — in een jaar nooit voorgekomen, bevestigd door
+  Mees.
+- **Noem geen vervoerder.** Bij directe verzending uit China is de laatste etappe niet te
+  bevestigen. "Free shipping" wel, "Free shipping with USPS" niet.
+- **Markt**: USA (regio US), valuta USD, `taxesIncluded: false`, geen staten geregistreerd
+  dus 0% sales tax.
+- **Shopify-locatie**: `Supplier Location`, Ningbo, China. Dat veld voedt de
+  douaneberekening en moet de werkelijke verzendoorsprong zijn. Een locatie in de VS zou
+  fysieke nexus in Wyoming creëren — niet doen.
+
+## Claims
+
+De basisregel uit THEMA-BANG geldt hier dubbel: **elke feitelijke belofte staat standaard
+leeg en wordt bewust ingevuld.** Wat er nu staat en waarom het mag:
+
+| Claim | Onderbouwing |
+|---|---|
+| "Free shipping" | Verzendzone US rekent $ 0,00, geverifieerd |
+| "30-day returns" | Retourbeleid beschrijft 30 dagen. **Niet** "guarantee" — dat is een blocker-triggerwoord |
+| "1–3 business days" verwerking | Gelijk in Terms, Shipping Policy, FAQ en productpagina |
+
+Vier blokken in `sections/main-product.liquid` — `hh_rating`, `hh_urgency`,
+`hh_sale_badge`, `hh_usp` — bestaan wel maar hebben lege schema-defaults en een
+render-guard. Leeg = niet getoond. Vul ze alleen als de belofte voor déze store waar is.
 
 ## Werkwijze
-- Werk sectie voor sectie, netjes en simpel.
-- Leg kort in het Nederlands uit wat je doet, zodat het leerbaar blijft.
-- Verander geen kleuren/fonts/merktekst hier in de basis — dat hoort in de store-specifieke repo (zie "Nieuwe store opzetten" hieronder).
 
-## GMC-bedrijfsgegevens (NAP) — per store invullen
-De GMC-vereiste bedrijfsgegevens (naam, adres, telefoon, e-mail, uren, reactietijd, registratienummer) staan **leeg** in het thema en worden per store ingevuld via:
+- **Toon eerst, schrijf daarna** bij klantzichtbare of juridische tekst. Tags, attributen
+  en collectiekoppelingen mogen direct.
+- **Scan het hele bestand op verouderde verwijzingen** na elke wijziging, niet alleen de
+  regel die je aanpast. Een waarde die vanochtend klopte kan 's middags de tegenovergestelde
+  waarheid zijn — dat is hier letterlijk gebeurd met de verzendoorsprong.
+- **Bronclaims apart van geverifieerde feiten.** Kun je iets niet hard bevestigen, zeg dat.
+- **Meet vóór en ná** bij instellingen die aan meerdere systemen hangen (belasting,
+  duties, feed). Nulmeting van de storefrontprijs is de goedkoopste vangrail die er is.
+- **Deze repo is GitHub-gekoppeld aan Shopify op branch `main`.** Wijzigingen gaan via
+  commit + push, niet via de Admin API — een directe API-write werkt tegen die koppeling in.
+  Shopify pusht zelf terug bij theme-editor-wijzigingen, dus altijd eerst `git fetch`.
 
-**Theme Settings > Company / GMC info (NAP)**
+## Waar dingen staan
 
-Eén bron, overal consistent (NAP-consistentie is zelf een GMC-vereiste):
-- **Footer** (`sections/hh-footer.liquid`) rendert het automatisch via `snippets/nap-block.liquid`.
-- **About us**: wijs de Shopify-pagina toe aan het template `page.about-us` (Admin > Pages > About us > Theme template). Toont pagina-content + het NAP-blok onderaan.
-- **Contact**: `templates/page.contact.json` toont het formulier + het NAP-blok eronder (dekt ook "reactietijd vermeld").
-- Overal elders: voeg de sectie **"Company / GMC info (NAP)"** toe via de theme-editor.
-- **Structured data**: `snippets/organization-schema.liquid` zendt automatisch Organization/PostalAddress JSON-LD uit zodra naam + straat zijn ingevuld (uit te zetten via de toggle in dezelfde instellingen-groep).
+- **NAP-gegevens**: Theme Settings > Company / GMC info, opgeslagen in
+  `config/settings_data.json` als `gmc_*`. Eén bron; footer, About us en Contact renderen
+  hem via `snippets/nap-block.liquid`.
+- **Auditscript**: `scripts/gmc-audit/` — vergelijkt voornemen (`store.yml`) met de live
+  Shopify-config. Vereist een admin-token in de shell.
+- **GMC-handvat**: `~/gmc-project/GMC-handvat-cavohill.md` — de volledige checklist met
+  status per punt.
 
-Leeg veld = nergens getoond, geen placeholders op de live site. Vul minimaal naam + straat/plaats/land + e-mail + telefoon in vóór je een store indient voor GMC-review.
+## Belangrijk om te weten bij het oppakken
 
-## GMC-hardening — bewust uit de standaard-templates gehaald
-De standaard `templates/product.json` bevatte defaults die tegen Google's misrepresentation-beleid ingaan (fake social proof, ongekoppelde urgentie, ongeconfigureerde kortingsclaims). Deze zijn verwijderd uit de standaard-output, maar blijven als blok-type beschikbaar in de editor voor bewust, eerlijk gebruik:
-- `hh_rating` — los ingetypt sterrenaantal/reviewcount zonder echte reviews-app. Gebruik alleen met een echte reviews-app-koppeling.
-- `hh_urgency` — los urgentie-zinnetje zonder voorraadkoppeling. Gebruik alleen als de tekst een verifieerbaar feit beschrijft.
-- Verwijderd: het "Summer Sale Bundles"-blok (fake-urgency-copy: "one day only", "stock is limited"), de "LIMITED SUMMER SALE"-badge, de ongeconfigureerde bundelkorting-claim ("Buy 2 get 10%..."), en overclaims als "24/7"/"5 STAR" support zonder onderbouwing.
+Dit thema is op 14-08-2026 nog **niet gepubliceerd**. Live draait een ander thema dat
+"Dawn" heet maar dat niet is. Alles in deze repo — NAP, gecorrigeerde verzendteksten,
+herstelde homepage-links, teal — wordt pas zichtbaar na publicatie.
 
-Check bij het inrichten van een nieuwe store altijd of promotietaal/kortingsclaims/urgentie ook daadwerkelijk klopt (echte einddatum, echte voorraadlimiet, echt geconfigureerde korting) — zie het GMC self-approval handvat voor de volledige achtergrond.
+Openstaand op het moment van schrijven:
 
-## Nieuwe store opzetten
-1. Fork/dupliceer deze repo naar een eigen repo per store (Shopify's GitHub-koppeling is 1 repo/branch ↔ 1 store — deze basis kan niet direct aan meerdere stores tegelijk gekoppeld worden).
-2. Verbind die nieuwe repo aan de Shopify-admin van de store (Online Store > Themes > Add theme > Connect from GitHub).
-3. Vul Theme Settings > Company / GMC info (NAP) in.
-4. Pas kleuren/fonts/stijl aan via Theme Settings, en documenteer die keuzes in een eigen `CLAUDE.md`-brief in de store-repo (zie archief hieronder voor het format).
-5. Trek later verbeteringen uit deze basisrepo handmatig in via een `upstream`-remote (zie README.md, sectie "Staying up to date with Dawn changes" — zelfde principe, nu toegepast op THEMA-BANG als eigen upstream).
-
-## GMC-traject per store — vaste volgorde
-
-Deze volgorde is de uitkomst van het Cavo Hill-traject (13-08-2026). Hij bestaat
-omdat we het toen andersom deden: eerst het thema, en pas laat bleek dat het
-zwaartepunt bij winkelinstellingen lag.
-
-1. **Vragenlijst invullen.** Kopieer `scripts/gmc-audit/store.example.yml`, vul
-   hem in vóór er iets gebouwd wordt. Niets heeft een standaardwaarde: leeg
-   blijven is beter dan een aangenomen waarde.
-2. **Admin-acties in één sessie.** Deze kan géén API doen — Shopify staat geen
-   `shopUpdate` toe, in geen enkele scope:
-   - Settings > Store details: klantenservice-e-mail (domein, geen Gmail),
-     eigenaars-e-mail, telefoon, adresregel 2, bedrijfsnaam bij het adres
-   - Settings > Policies: refund, shipping, terms of service
-3. **Eén schrijfronde.** NAP-velden, verzendzones, paginateksten en claims —
-   allemaal in één keer, niet verspreid.
-4. **Auditscript draaien.** `scripts/gmc-audit/` — zie de README daar.
-5. **Alleen visuele checks blijven over.** Pagespeed, malware, mobiel,
-   beeldkwaliteit, test-checkout.
-
-### Vaste werkafspraken
-
-- **Claims horen niet in de basis.** Elke feitelijke belofte — gratis verzending,
-  retourtermijn, levertijd — staat standaard **leeg** en wordt per store bewust
-  ingevuld. Leeg = niet tonen, zelfde patroon als het NAP-blok. De basis mag
-  nooit een belofte doen die per store waar moet zijn.
-- **Toon eerst, schrijf daarna** bij klantzichtbare of juridische tekst. Ook als
-  het lezen geautomatiseerd is.
-- **Scan het hele bestand op verouderde verwijzingen** na elke wijziging aan een
-  document of pagina, niet alleen de regel die je aanpast. Op 13-08 verouderden
-  zo zes regels stil in het auditdocument.
-- **Bronclaims apart houden van geverifieerde feiten.** Kun je iets niet hard
-  bevestigen, zeg dat dan expliciet in plaats van het over te nemen.
-- **Genereer het auditrapport, onderhoud het niet met de hand.** Dat is precies
-  waarom het script bestaat.
-
----
-
-## Archief — Harbor Hudson merkbrief (voorbeeld, niet actief hier)
-Deze store-specifieke brief stond eerder in dit bestand. Bewaard als voorbeeld/referentie voor het format van een store-`CLAUDE.md`; hoort thuis in Harbor Hudson's eigen repo, niet in deze gedeelde basis.
-
-> ### Harbor Hudson — Thema-brief
-> **Project:** Custom Shopify-thema voor Harbor Hudson, een fashion-webshop (Google dropshipping). Doelgroep: 50+. Stijl: clean en elegant, zoals Zara maar warmer en rustiger. Niet new-school, niet hyperig.
->
-> **Kleuren:**
-> - Warm bruin `#40260C` — knoppen, footer, accenten
-> - Creme `#FAF6F0` — rustige secties
-> - Wit `#FFFFFF` — hoofd-achtergrond
-> - Inkt `#1A1A1A` — tekst (hoog contrast)
-> - Gedempt `#6B6257` — secundaire tekst
-> - Announcement-balk `#F6EDCF`
-> - Sale-groen `#1E7A5A` — saleprijs
-> - Oud-prijs rood `#B23A2E` — doorgestreepte prijs
->
-> **Fonts:**
-> - Koppen: Playfair Display
-> - Body: Assistant
-> - Body-tekst 17px voor goede leesbaarheid (50+), ruime regelafstand
->
-> **Stijlprincipes:**
-> - Producttitel altijd zwart
-> - Veel witruimte, hoog contrast, gedempte kleuren
-> - Geen felle tinten, geen drukke effecten; rust en leesbaarheid voorop
+- De banner "BIGGEST PRE-SUMMER SALE / Up to 50% Off — Limited Stock" in
+  `templates/index.json` — kortingsclaim zonder geconfigureerde korting. Beslissen vóór
+  publicatie.
+- Handles en SKU's dragen verzonnen merknamen (`Caprize-`, `Loxen-`, `Vextor-`,
+  `Trekstr-`, `Kargen-`, `Verlaine-`, `Tierlova-`). Handle en SKU zijn één beslissing, niet
+  twee — wacht op de URL-/redirect-keuze.
+- Productfoto's: 1 van de 11 is schoon, de rest draagt risico op leveranciers- of
+  merkbeeld. Alleen op te lossen met eigen fotografie.
