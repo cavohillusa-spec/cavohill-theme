@@ -98,6 +98,12 @@
                     {{- block.settings.text -}}
                   </p>
                 {%- when 'hh_rating' -%}
+                  {%- comment -%}
+                    Cijfer 0 = niets tonen. De basis levert geen beoordeling mee:
+                    een voorgevuld sterrenaantal zonder echte reviews is
+                    verzonnen social proof.
+                  {%- endcomment -%}
+                  {%- if block.settings.rating_value > 0 -%}
                   {%- liquid
                     # Statische beoordeling: alle waarden komen uit de editor.
                     # De sterren tekenen we met Dawn's rating-star, die een
@@ -129,6 +135,7 @@
                       {{ block.settings.rating_count }}
                     </span>
                   </div>
+                  {%- endif -%}
                 {%- when 'title' -%}
                   <div class="product__title" {{ block.shopify_attributes }}>
                     <h1>{{ product.title | escape }}</h1>
@@ -183,6 +190,12 @@
                   </div>
                   {%- endif -%}
                 {%- when 'hh_sale_badge' -%}
+                  {%- comment -%}
+                    Leeg = niets tonen. Zelfde reden als bij hh_usp: de basis
+                    doet geen kortingsclaim. Zonder deze guard rendert een leeg
+                    tekstveld nog steeds een badge met alleen een icoontje.
+                  {%- endcomment -%}
+                  {%- if block.settings.text != blank -%}
                   <div class="hh-sale-badge-wrap" {{ block.shopify_attributes }}>
                     <span
                       class="hh-sale-badge"
@@ -202,7 +215,13 @@
                       {{ block.settings.text }}
                     </span>
                   </div>
+                  {%- endif -%}
                 {%- when 'hh_urgency' -%}
+                  {%- comment -%}
+                    Leeg = niets tonen. Zonder guard blijft anders het gekleurde
+                    bolletje zichtbaar zonder tekst ernaast.
+                  {%- endcomment -%}
+                  {%- if block.settings.text != blank -%}
                   <p
                     class="hh-urgency"
                     style="--hh-dot-color: {{ block.settings.dot_color }}; --hh-urgency-color: {{ block.settings.text_color }};"
@@ -211,6 +230,7 @@
                     <span class="hh-urgency__dot" aria-hidden="true"></span>
                     <span class="hh-urgency__text">{{ block.settings.text }}</span>
                   </p>
+                  {%- endif -%}
                 {%- when 'price' -%}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                     {%- render 'price',
@@ -925,8 +945,9 @@
           "max": 5,
           "step": 0.1,
           "unit": "★",
-          "default": 4.7,
-          "label": "Cijfer"
+          "default": 0,
+          "label": "Cijfer",
+          "info": "0 = dit blok wordt niet getoond. Vul alleen een cijfer in dat uit een echte reviews-app komt."
         },
         {
           "type": "text",
@@ -937,7 +958,6 @@
         {
           "type": "text",
           "id": "rating_count",
-          "default": "3.172+",
           "label": "Aantal beoordelingen"
         },
         {
@@ -993,8 +1013,8 @@
         {
           "type": "text",
           "id": "text",
-          "default": "LIMITED SUMMER SALE",
-          "label": "Tekst"
+          "label": "Tekst",
+          "info": "Leeg = dit blok wordt niet getoond. Vul alleen in als er een echte, geconfigureerde korting met een echte einddatum achter zit."
         },
         {
           "type": "image_picker",
@@ -1023,8 +1043,8 @@
         {
           "type": "inline_richtext",
           "id": "text",
-          "default": "Limited pairs available during our Summer Sale",
-          "label": "Tekst"
+          "label": "Tekst",
+          "info": "Leeg = dit blok wordt niet getoond. Vul alleen in als de tekst een verifieerbaar feit beschrijft, bijvoorbeeld een echte voorraadlimiet."
         },
         {
           "type": "color",
