@@ -61,7 +61,7 @@
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
-        "collection": "summer-dresses",
+        "collection": "women",
         "products_to_show": 4,
         "title": "Featured collection",
         "heading_size": "h2",
@@ -90,7 +90,7 @@
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
-        "collection": "loafers",
+        "collection": "shoes-footwear",
         "products_to_show": 4,
         "title": "Featured collection",
         "heading_size": "h2",
@@ -150,13 +150,13 @@
         "featured_collection_GLYxtk": {
           "type": "featured_collection",
           "settings": {
-            "collection": "summer-dresses"
+            "collection": "women"
           }
         },
         "featured_collection_kganrH": {
           "type": "featured_collection",
           "settings": {
-            "collection": "orthopedic-sandals"
+            "collection": "shoes-footwear-1"
           }
         },
         "featured_collection_jfKraX": {
