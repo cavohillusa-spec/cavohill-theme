@@ -29,7 +29,24 @@ Leeg veld = nergens getoond, geen placeholders op de live site. Vul minimaal naa
 De standaard `templates/product.json` bevatte defaults die tegen Google's misrepresentation-beleid ingaan (fake social proof, ongekoppelde urgentie, ongeconfigureerde kortingsclaims). Deze zijn verwijderd uit de standaard-output, maar blijven als blok-type beschikbaar in de editor voor bewust, eerlijk gebruik:
 - `hh_rating` — los ingetypt sterrenaantal/reviewcount zonder echte reviews-app. Gebruik alleen met een echte reviews-app-koppeling.
 - `hh_urgency` — los urgentie-zinnetje zonder voorraadkoppeling. Gebruik alleen als de tekst een verifieerbaar feit beschrijft.
-- Verwijderd: het "Summer Sale Bundles"-blok (fake-urgency-copy: "one day only", "stock is limited"), de "LIMITED SUMMER SALE"-badge, de ongeconfigureerde bundelkorting-claim ("Buy 2 get 10%..."), en overclaims als "24/7"/"5 STAR" support zonder onderbouwing.
+- `hh_sale_badge` — kortingsbadge. Gebruik alleen als er een echte, geconfigureerde korting met een echte einddatum achter zit.
+- `hh_usp` — USP-regel. Elke belofte hierin (verzending, retour, garantie) moet voor die store waar zijn.
+
+Uit de **standaard-output** (`templates/product.json`, `templates/index.json`) zijn weg: het "Summer Sale Bundles"-blok (fake-urgency-copy: "one day only", "stock is limited"), de ongeconfigureerde bundelkorting-claim ("Buy 2 get 10%..."), en overclaims als "24/7"/"5 STAR" support zonder onderbouwing.
+
+Let op het onderscheid — het is drie verschillende dingen:
+
+| Wat | Status |
+|---|---|
+| Blok-**types** `hh_rating`, `hh_urgency`, `hh_sale_badge`, `hh_usp` | **Bestaan nog** in `sections/main-product.liquid`, bewust, voor eerlijk gebruik per store |
+| Die blokken in de standaard-**output** | **Niet aanwezig** — geen enkele staat in de meegeleverde `templates/*.json` |
+| De **schema-defaults** van die blokken | **Leeg**, met een `info`-regel die uitlegt wanneer je hem wél invult |
+
+Die laatste rij is de reden dat dit onderscheid ertoe doet. Zolang een blok een default als `"LIMITED SUMMER SALE"` of `"Free shipping with USPS"` in het schema heeft staan, komt de claim voorgevuld terug zodra iemand het blok in de editor toevoegt — ook al is hij uit de output gehaald. Een claim uit de output halen is dus niet genoeg; de default moet óók weg.
+
+Het scherpste voorbeeld was `hh_rating`: dat blok kwam voorgevuld met **4,7 sterren uit "3.172+" beoordelingen**. Wie het blok toevoegde kreeg dus verzonnen social proof zonder daar zelf iets voor in te tikken. Beide defaults zijn nu leeg (`rating_value` op `0`).
+
+Elk van de vier blokken rendert niets als het niet bewust is ingevuld — `hh_usp`, `hh_sale_badge` en `hh_urgency` bij een leeg tekstveld, `hh_rating` bij cijfer `0`. Zonder die guards bleef er anders een lege badge, een los gekleurd bolletje of een rij van nul sterren staan.
 
 Check bij het inrichten van een nieuwe store altijd of promotietaal/kortingsclaims/urgentie ook daadwerkelijk klopt (echte einddatum, echte voorraadlimiet, echt geconfigureerde korting) — zie het GMC self-approval handvat voor de volledige achtergrond.
 
