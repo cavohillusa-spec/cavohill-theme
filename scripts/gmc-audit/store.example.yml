@@ -1,0 +1,54 @@
+# Vragenlijst per store — kopieer naar een eigen bestand BUITEN deze repo
+# (of naar de store-repo) en vul in. Niets heeft een voorgevulde waarde:
+# leeg blijven is altijd beter dan een aangenomen standaard.
+#
+# Dit bestand is het "voornemen". Het auditscript vergelijkt het met de
+# werkelijke Shopify-config. Wijken ze af, dan is dat een Blocker.
+#
+# NB: dit is de minimale versie die het script nodig heeft. De volledige
+# vragenlijst (met per-claim bevestiging) volgt.
+
+store:
+  name:
+  # apparel = kleding/schoenen/accessoires. Andere categorieën zijn NIET
+  # gedekt: supplements, health, medical, financial en adult vallen onder
+  # Google's restricted-products-beleid en hebben een eigen checklist nodig.
+  # Het script weigert te draaien bij een niet-ondersteunde categorie.
+  category:
+
+identity:
+  # Exacte juridische naam zoals geregistreerd, inclusief rechtsvorm.
+  legal_name:
+  # Merknaam zoals klanten die kennen. Mag afwijken van legal_name.
+  brand_name:
+  # Domein-e-mail. Gmail/Hotmail/Outlook/Yahoo is een harde afkeuringsreden.
+  email:
+  # Eén notatie, overal identiek doorvoeren.
+  phone:
+  address:
+    line1:
+    line2:
+    city:
+    region:
+    zip:
+    country:
+
+commerce:
+  # Landcodes waar je bewust naartoe verkoopt, bv:
+  #   - US
+  target_countries:
+  # Wordt er sales tax geheven? Bij false is punt 78 N.v.t.
+  charges_sales_tax:
+  shipping:
+    # free_all        = altijd gratis, ongeacht land
+    # free_in_target  = gratis binnen de doelmarkt
+    # rate_per_zone   = tarief per zone; de site mag dan nergens
+    #                   "free shipping" beloven
+    cost_model:
+    carrier:
+    processing_days:
+    transit_days:
+  returns:
+    window_days:
+    who_pays_return_shipping:
+    refund_processing_days:

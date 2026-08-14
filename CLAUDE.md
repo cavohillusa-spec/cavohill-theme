@@ -40,6 +40,42 @@ Check bij het inrichten van een nieuwe store altijd of promotietaal/kortingsclai
 4. Pas kleuren/fonts/stijl aan via Theme Settings, en documenteer die keuzes in een eigen `CLAUDE.md`-brief in de store-repo (zie archief hieronder voor het format).
 5. Trek later verbeteringen uit deze basisrepo handmatig in via een `upstream`-remote (zie README.md, sectie "Staying up to date with Dawn changes" — zelfde principe, nu toegepast op THEMA-BANG als eigen upstream).
 
+## GMC-traject per store — vaste volgorde
+
+Deze volgorde is de uitkomst van het Cavo Hill-traject (13-08-2026). Hij bestaat
+omdat we het toen andersom deden: eerst het thema, en pas laat bleek dat het
+zwaartepunt bij winkelinstellingen lag.
+
+1. **Vragenlijst invullen.** Kopieer `scripts/gmc-audit/store.example.yml`, vul
+   hem in vóór er iets gebouwd wordt. Niets heeft een standaardwaarde: leeg
+   blijven is beter dan een aangenomen waarde.
+2. **Admin-acties in één sessie.** Deze kan géén API doen — Shopify staat geen
+   `shopUpdate` toe, in geen enkele scope:
+   - Settings > Store details: klantenservice-e-mail (domein, geen Gmail),
+     eigenaars-e-mail, telefoon, adresregel 2, bedrijfsnaam bij het adres
+   - Settings > Policies: refund, shipping, terms of service
+3. **Eén schrijfronde.** NAP-velden, verzendzones, paginateksten en claims —
+   allemaal in één keer, niet verspreid.
+4. **Auditscript draaien.** `scripts/gmc-audit/` — zie de README daar.
+5. **Alleen visuele checks blijven over.** Pagespeed, malware, mobiel,
+   beeldkwaliteit, test-checkout.
+
+### Vaste werkafspraken
+
+- **Claims horen niet in de basis.** Elke feitelijke belofte — gratis verzending,
+  retourtermijn, levertijd — staat standaard **leeg** en wordt per store bewust
+  ingevuld. Leeg = niet tonen, zelfde patroon als het NAP-blok. De basis mag
+  nooit een belofte doen die per store waar moet zijn.
+- **Toon eerst, schrijf daarna** bij klantzichtbare of juridische tekst. Ook als
+  het lezen geautomatiseerd is.
+- **Scan het hele bestand op verouderde verwijzingen** na elke wijziging aan een
+  document of pagina, niet alleen de regel die je aanpast. Op 13-08 verouderden
+  zo zes regels stil in het auditdocument.
+- **Bronclaims apart houden van geverifieerde feiten.** Kun je iets niet hard
+  bevestigen, zeg dat dan expliciet in plaats van het over te nemen.
+- **Genereer het auditrapport, onderhoud het niet met de hand.** Dat is precies
+  waarom het script bestaat.
+
 ---
 
 ## Archief — Harbor Hudson merkbrief (voorbeeld, niet actief hier)
