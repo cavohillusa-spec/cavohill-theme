@@ -444,7 +444,7 @@
     "order": {
       "title": "Order {{ name }}",
       "date_html": "Placed on {{ date }}",
-      "cancelled_html": "Order Cancelled on {{ date }}",
+      "cancelled_html": "Order Canceled on {{ date }}",
       "cancelled_reason": "Reason: {{ reason }}",
       "billing_address": "Billing Address",
       "payment_status": "Payment Status",
