@@ -5,7 +5,10 @@
 */
 
 :root {
-  --hh-brown: #40260c;
+  /* Cavo Hill: diepe teal. Variabelenaam blijft --hh-brown zodat
+     toekomstige merges met THEMA-BANG niet op 16 regels conflicteren. */
+  --hh-accent: #1f4b47;
+  --hh-brown: var(--hh-accent);
   --hh-cream: #faf6f0;
   --hh-ink: #1a1a1a;
   --hh-muted: #6b6257;
