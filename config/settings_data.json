@@ -108,6 +108,17 @@
     "brand_headline": "",
     "brand_description": "<p></p>",
     "brand_image_width": 100,
+    "gmc_company_name": "Novelle House LLC",
+    "gmc_dba_line": "Cavo Hill is a brand operated by Novelle House LLC",
+    "gmc_address_line1": "30 N Gould St",
+    "gmc_address_line2": "Ste R",
+    "gmc_address_city": "Sheridan",
+    "gmc_address_region": "WY",
+    "gmc_address_zip": "82801",
+    "gmc_address_country": "United States",
+    "gmc_phone": "+1 917 718 9438",
+    "gmc_email": "info@cavohill.com",
+    "gmc_hours": "Monday – Friday, 9:00 am – 5:00 pm (US time)",
     "social_facebook_link": "",
     "social_instagram_link": "",
     "social_youtube_link": "",
@@ -126,17 +137,6 @@
     "show_cart_note": false,
     "cart_drawer_collection": "",
     "cart_color_scheme": "scheme-1",
-    "gmc_company_name": "Novelle House LLC",
-    "gmc_dba_line": "Cavo Hill is a brand operated by Novelle House LLC",
-    "gmc_email": "info@cavohill.com",
-    "gmc_phone": "+1 917 718 9438",
-    "gmc_hours": "Monday – Friday, 9:00 am – 5:00 pm (US time)",
-    "gmc_address_line1": "30 N Gould St",
-    "gmc_address_line2": "Ste R",
-    "gmc_address_city": "Sheridan",
-    "gmc_address_region": "WY",
-    "gmc_address_zip": "82801",
-    "gmc_address_country": "United States",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
@@ -152,6 +152,43 @@
       }
     },
     "content_for_index": [],
+    "blocks": {
+      "17920835415960095625": {
+        "type": "shopify://apps/swatch-king/blocks/variant-swatch-king/0850b1e4-ba30-4a0d-a8f4-f9a939276d7d",
+        "disabled": false,
+        "settings": {
+          "alignment": "left",
+          "swatch_location": "After image",
+          "switch_on_hover": true,
+          "preselect_variant": false
+        }
+      },
+      "10312807297210203588": {
+        "type": "shopify://apps/aftersell/blocks/utm-triggers/509ec35d-0632-4dfc-a105-fa799cd9d149",
+        "disabled": false,
+        "settings": {}
+      },
+      "4479348599444146043": {
+        "type": "shopify://apps/kiwi-variant-selector/blocks/variant-selector/019eb38a-4834-76cc-8c0d-c1ec62dd7417",
+        "disabled": false,
+        "settings": {}
+      },
+      "14952540001915115444": {
+        "type": "shopify://apps/upcart-cart-drawer/blocks/app-embed/af3da5fb-f5f7-40ec-8273-41bf50059d4b",
+        "disabled": false,
+        "settings": {}
+      },
+      "17198465164502963513": {
+        "type": "shopify://apps/cwill-parcel-panel/blocks/app.embed/fc785c3f-90e0-4c98-a20c-7cde9ba5e4b5",
+        "disabled": false,
+        "settings": {}
+      },
+      "14327677521557774844": {
+        "type": "shopify://apps/simprosys-google-shopping-feed/blocks/core_settings_block/1f0b859e-9fa6-4007-97e8-4513aff5ff3b",
+        "disabled": false,
+        "settings": {}
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
@@ -205,7 +242,7 @@
           "button": "#ffffff",
           "button_label": "#1a1a1a",
           "secondary_button_label": "#ffffff",
-          "shadow": "#00000000"
+          "shadow": "rgba(0,0,0,0)"
         }
       },
       "scheme-6": {
