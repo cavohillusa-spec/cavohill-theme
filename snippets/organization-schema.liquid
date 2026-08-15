@@ -9,6 +9,15 @@
 {%- liquid
   assign company_name = settings.gmc_company_name | default: '' | strip
   assign address_line1 = settings.gmc_address_line1 | default: '' | strip
+
+  # schema.org/PostalAddress kent geen "addressLine2". Een suite- of
+  # unitnummer hoort in streetAddress zelf, anders laat Google het vallen
+  # en wijkt de structured data af van het zichtbare NAP-blok — precies
+  # de inconsistentie die punt 76 verbiedt.
+  assign street_address = address_line1
+  if settings.gmc_address_line2 != blank
+    assign street_address = street_address | append: ', ' | append: settings.gmc_address_line2
+  endif
 -%}
 
 {%- if settings.gmc_show_schema_org and company_name != '' and address_line1 != '' -%}
@@ -16,7 +25,17 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
+      {%- comment -%}
+        "name" is bewust gelijk aan het NAP-blok (de juridische naam), niet aan
+        shop.name. De merknaam komt er als alternateName naast, zodat Google
+        Cavo Hill en Novelle House LLC aan elkaar knoopt — dezelfde koppeling
+        die de DBA-regel zichtbaar maakt.
+      {%- endcomment -%}
       "name": {{ settings.gmc_company_name | json }},
+      "legalName": {{ settings.gmc_company_name | json }},
+      {%- if shop.name != blank and shop.name != settings.gmc_company_name -%}
+      "alternateName": {{ shop.name | json }},
+      {%- endif -%}
       "url": {{ request.origin | json }},
       {%- if settings.gmc_phone != blank -%}
       "telephone": {{ settings.gmc_phone | json }},
@@ -26,8 +45,7 @@
       {%- endif -%}
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": {{ settings.gmc_address_line1 | json }}
-        {%- if settings.gmc_address_line2 != blank -%}, "addressLine2": {{ settings.gmc_address_line2 | json }}{%- endif -%}
+        "streetAddress": {{ street_address | json }}
         {%- if settings.gmc_address_city != blank -%}, "addressLocality": {{ settings.gmc_address_city | json }}{%- endif -%}
         {%- if settings.gmc_address_region != blank -%}, "addressRegion": {{ settings.gmc_address_region | json }}{%- endif -%}
         {%- if settings.gmc_address_zip != blank -%}, "postalCode": {{ settings.gmc_address_zip | json }}{%- endif -%}

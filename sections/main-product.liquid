@@ -98,6 +98,14 @@
                     {{- block.settings.text -}}
                   </p>
                 {%- when 'hh_rating' -%}
+                  {%- comment -%}
+                    Leeg aantal beoordelingen = niets tonen. Zelfde regel als bij
+                    hh_usp: een beoordelingscijfer is een feitelijke claim en die
+                    staat standaard leeg. Zonder deze guard toont een vers
+                    toegevoegd blok meteen een verzonnen cijfer — precies waar
+                    Google's editorial policy op afkeurt.
+                  {%- endcomment -%}
+                  {%- if block.settings.rating_count != blank -%}
                   {%- liquid
                     # Statische beoordeling: alle waarden komen uit de editor.
                     # De sterren tekenen we met Dawn's rating-star, die een
@@ -129,6 +137,7 @@
                       {{ block.settings.rating_count }}
                     </span>
                   </div>
+                  {%- endif -%}
                 {%- when 'title' -%}
                   <div class="product__title" {{ block.shopify_attributes }}>
                     <h1>{{ product.title | escape }}</h1>
@@ -183,6 +192,11 @@
                   </div>
                   {%- endif -%}
                 {%- when 'hh_sale_badge' -%}
+                  {%- comment -%}
+                    Leeg tekstveld = niets tonen. Een sale-badge zonder lopende
+                    korting is een kortingsclaim die de checkout niet waarmaakt.
+                  {%- endcomment -%}
+                  {%- if block.settings.text != blank -%}
                   <div class="hh-sale-badge-wrap" {{ block.shopify_attributes }}>
                     <span
                       class="hh-sale-badge"
@@ -202,7 +216,13 @@
                       {{ block.settings.text }}
                     </span>
                   </div>
+                  {%- endif -%}
                 {%- when 'hh_urgency' -%}
+                  {%- comment -%}
+                    Leeg tekstveld = niets tonen. Urgentie zonder echte
+                    voorraadkoppeling is ongefundeerd — zie de triggerwoordlijst.
+                  {%- endcomment -%}
+                  {%- if block.settings.text != blank -%}
                   <p
                     class="hh-urgency"
                     style="--hh-dot-color: {{ block.settings.dot_color }}; --hh-urgency-color: {{ block.settings.text_color }};"
@@ -211,6 +231,7 @@
                     <span class="hh-urgency__dot" aria-hidden="true"></span>
                     <span class="hh-urgency__text">{{ block.settings.text }}</span>
                   </p>
+                  {%- endif -%}
                 {%- when 'price' -%}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                     {%- render 'price',
@@ -916,7 +937,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "Een vaste beoordelingsregel die je zelf instelt. Niet gekoppeld aan een reviews-app."
+          "content": "Een vaste beoordelingsregel die je zelf instelt. Niet gekoppeld aan een reviews-app. Leeg aantal = het hele blok wordt niet getoond — vul alleen in wat je met echte reviews kunt onderbouwen."
         },
         {
           "type": "range",
@@ -925,7 +946,7 @@
           "max": 5,
           "step": 0.1,
           "unit": "★",
-          "default": 4.7,
+          "default": 0,
           "label": "Cijfer"
         },
         {
@@ -937,13 +958,14 @@
         {
           "type": "text",
           "id": "rating_count",
-          "default": "3.172+",
-          "label": "Aantal beoordelingen"
+          "default": "",
+          "label": "Aantal beoordelingen",
+          "info": "Leeg = dit blok wordt niet getoond."
         },
         {
           "type": "color",
           "id": "star_color",
-          "default": "#40260c",
+          "default": "#1f4b47",
           "label": "Kleur sterren"
         }
       ]
@@ -993,8 +1015,9 @@
         {
           "type": "text",
           "id": "text",
-          "default": "LIMITED SUMMER SALE",
-          "label": "Tekst"
+          "default": "",
+          "label": "Tekst",
+          "info": "Leeg = dit blok wordt niet getoond. Vul alleen in als er een échte, geconfigureerde korting loopt."
         },
         {
           "type": "image_picker",
@@ -1005,7 +1028,7 @@
         {
           "type": "color",
           "id": "background_color",
-          "default": "#40260c",
+          "default": "#1f4b47",
           "label": "Achtergrondkleur"
         },
         {
@@ -1023,8 +1046,9 @@
         {
           "type": "inline_richtext",
           "id": "text",
-          "default": "Limited pairs available during our Summer Sale",
-          "label": "Tekst"
+          "default": "",
+          "label": "Tekst",
+          "info": "Leeg = dit blok wordt niet getoond. Urgentie mag alleen als de voorraad echt gekoppeld is."
         },
         {
           "type": "color",

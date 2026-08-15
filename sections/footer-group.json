@@ -76,7 +76,7 @@
         "color_scheme": "scheme-4",
         "service_heading": "CUSTOMER SERVICE",
         "returns_heading": "RETURNS",
-        "returns_text": "<p>Please review our <a href=\"/policies/refund-policy\">Refund Policy</a> before starting your return.</p>",
+        "returns_text": "<p>Please review our <a href=\"/pages/refund-policy\">Refund Policy</a> before starting your return.</p>",
         "support_heading": "SUPPORT",
         "policy_heading": "POLICY",
         "payment_enable": true,

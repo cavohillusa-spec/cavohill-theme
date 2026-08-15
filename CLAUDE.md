@@ -70,10 +70,18 @@ leeg en wordt bewust ingevuld.** Wat er nu staat en waarom het mag:
 | "Free shipping" | Verzendzone US rekent $ 0,00, geverifieerd |
 | "30-day returns" | Retourbeleid beschrijft 30 dagen. **Niet** "guarantee" — dat is een blocker-triggerwoord |
 | "1–3 business days" verwerking | Gelijk in Terms, Shipping Policy, FAQ en productpagina |
+| "6–12 business days" transit / "7–15" totaal | Gelijk in Terms artikel 7, Shipping Policy en de productpagina-FAQ |
+| "We reply within 1–2 business days" | Toegevoegd 15-08. Haalbaar bij een e-mailpostvak dat ma-vr wordt gelezen; **de enige claim in deze tabel die op een voornemen rust en niet op een gemeten instelling** |
 
 Vier blokken in `sections/main-product.liquid` — `hh_rating`, `hh_urgency`,
 `hh_sale_badge`, `hh_usp` — bestaan wel maar hebben lege schema-defaults en een
 render-guard. Leeg = niet getoond. Vul ze alleen als de belofte voor déze store waar is.
+
+Dat gold op 14-08 alleen voor `hh_usp`. De andere drie hadden nog ingevulde defaults
+(`4.7` / `3.172+`, "LIMITED SUMMER SALE", "Limited pairs available…") én geen guard, dus
+een vers toegevoegd blok toonde meteen een verzonnen cijfer. Op 15-08 rechtgezet: alle
+vier hebben nu een lege default en een `!= blank`-guard. Wie hier een blok toevoegt en
+niets invult, publiceert niets.
 
 ## Werkwijze
 
@@ -105,13 +113,19 @@ Dit thema is op 14-08-2026 nog **niet gepubliceerd**. Live draait een ander them
 "Dawn" heet maar dat niet is. Alles in deze repo — NAP, gecorrigeerde verzendteksten,
 herstelde homepage-links, teal — wordt pas zichtbaar na publicatie.
 
-Openstaand op het moment van schrijven:
+Openstaand op het moment van schrijven (bijgewerkt 15-08-2026):
 
-- De banner "BIGGEST PRE-SUMMER SALE / Up to 50% Off — Limited Stock" in
-  `templates/index.json` — kortingsclaim zonder geconfigureerde korting. Beslissen vóór
-  publicatie.
-- Handles en SKU's dragen verzonnen merknamen (`Caprize-`, `Loxen-`, `Vextor-`,
-  `Trekstr-`, `Kargen-`, `Verlaine-`, `Tierlova-`). Handle en SKU zijn één beslissing, niet
-  twee — wacht op de URL-/redirect-keuze.
-- Productfoto's: 1 van de 11 is schoon, de rest draagt risico op leveranciers- of
-  merkbeeld. Alleen op te lossen met eigen fotografie.
+- **Alles wat buiten deze repo ligt.** De thema-kant is af; wat rest zit in de
+  Shopify-admin en in het live Dawn-thema. De volledige lijst met volgorde staat in
+  `~/gmc-project/actielijst-admin.md`.
+- **Handles en SKU's** dragen verzonnen merknamen (`Caprize-`, `Loxen-`, `Vextor-`,
+  `Trekstr-`, `Veldro-`, `Kargen-`, `Verlaine-`, `Tierlova-`). Handle en SKU zijn één
+  beslissing, niet twee. Voorgestelde mapping inclusief redirects staat in de actielijst;
+  uitvoeren wijzigt live URL's en feed-links, dus dat gebeurt bewust en in één keer.
+- **Productfoto's**: 1 van de 11 is schoon, de rest draagt risico op leveranciers- of
+  merkbeeld. Het volledige plan — welke foto waar hoort en met welke prompt — staat in
+  `~/gmc-project/fotoplan-cavohill.md`.
+
+De banner-kwestie is weg: "BIGGEST PRE-SUMMER SALE / Up to 50% Off — Limited Stock" is op
+15-08 vervangen door "THE SUMMER EDIT" met de twee geverifieerde beloftes eronder. Er staat
+nu nergens meer een kortingsclaim zonder geconfigureerde korting.

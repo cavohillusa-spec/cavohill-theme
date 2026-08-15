@@ -36,8 +36,8 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
-            "link": ""
+            "text": "Free shipping on all US orders — 30-day returns",
+            "link": "/pages/shipping-policy"
           }
         }
       },
