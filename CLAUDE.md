@@ -103,9 +103,14 @@ niets invult, publiceert niets.
   `config/settings_data.json` als `gmc_*`. Eén bron; footer, About us en Contact renderen
   hem via `snippets/nap-block.liquid`.
 - **Auditscript**: `scripts/gmc-audit/` — vergelijkt voornemen (`store.yml`) met de live
-  Shopify-config. Vereist een admin-token in de shell.
+  Shopify-config. Vereist een admin-token in de shell. Het ingevulde voornemen voor deze
+  winkel staat bewust buiten de repo: `~/gmc-project/store-cavohill.yml`.
 - **GMC-handvat**: `~/gmc-project/GMC-handvat-cavohill.md` — de volledige checklist met
   status per punt.
+- **Actielijst admin**: `~/gmc-project/actielijst-admin.md` — alles wat níét in deze repo
+  kan, in volgorde van uitvoering.
+- **Fotoplan**: `~/gmc-project/fotoplan-cavohill.md` — welke foto op welke plek hoort,
+  met de prompt erbij.
 
 ## Belangrijk om te weten bij het oppakken
 
