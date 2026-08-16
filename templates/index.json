@@ -16,7 +16,7 @@
           "type": "heading",
           "settings": {
             "heading": "<strong>THE SUMMER EDIT</strong>",
-            "heading_size": "h1"
+            "heading_size": "h2"
           }
         },
         "text_he3P6a": {
@@ -45,10 +45,10 @@
       ],
       "settings": {
         "image": "shopify://shop_images/Homepage_banner.png",
-        "image_overlay_opacity": 20,
-        "image_height": "adapt",
+        "image_overlay_opacity": 40,
+        "image_height": "large",
         "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
+        "desktop_content_position": "top-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
         "color_scheme": "scheme-5",
