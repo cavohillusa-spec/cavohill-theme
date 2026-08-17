@@ -9,6 +9,8 @@
  */
 {
   "current": {
+    "logo": "shopify://shop_images/cavohill-logo.png",
+    "favicon": "shopify://shop_images/cavohill-favicon.png",
     "logo_width": 90,
     "type_header_font": "playfair_display_n4",
     "heading_scale": 115,
@@ -262,6 +264,8 @@
   },
   "presets": {
     "Dawn": {
+      "logo": "shopify://shop_images/cavohill-logo.png",
+      "favicon": "shopify://shop_images/cavohill-favicon.png",
       "logo_width": 90,
       "color_schemes": {
         "scheme-1": {
