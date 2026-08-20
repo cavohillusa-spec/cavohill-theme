@@ -97,6 +97,25 @@ niets invult, publiceert niets.
   commit + push, niet via de Admin API — een directe API-write werkt tegen die koppeling in.
   Shopify pusht zelf terug bij theme-editor-wijzigingen, dus altijd eerst `git fetch`.
 
+## Beeldscan op merktekens — per publicatieronde, niet vooruit
+
+Herzien op 20-08-2026. **Scan alleen de producten die in de eerstvolgende publicatieronde
+meegaan.** De 76 geïmporteerde producten worden níét in één keer doorgelicht terwijl ze nog
+weken op DRAFT staan.
+
+Merkbeeld op een productfoto is een **afkeuringsrisico op itemniveau** bij Google's eigen
+beeldherkenning: het raakt dát product, niet het account. Dat is een andere categorie dan
+wat hierboven onder Claims staat — verzonnen reviewcijfers, tegenstrijdige
+verzendbeloftes, korting zonder geconfigureerde korting — want dát zijn accountbrede
+risico's, en die behandelen we wél volledig en vooraf.
+
+Per ronde: bepaal de selectie → scan alléén die → fix of sla het product over → dan pas
+publiceren. De volledige werkwijze staat in `~/gmc-project/import-moralea.md` §1; wat er al
+bekeken is in `~/gmc-project/moralea-import/beeldscan-notes.md` (producten 1 t/m 23 van
+batch 2, negen bevindingen open, 53 producten bewust nog niet bekeken).
+
+Wie hier komt met het plan "eerst de hele beeldscan afmaken": dat is bewust losgelaten.
+
 ## Waar dingen staan
 
 - **NAP-gegevens**: Theme Settings > Company / GMC info, opgeslagen in
