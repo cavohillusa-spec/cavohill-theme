@@ -376,6 +376,104 @@ export function checkTriggerWords(s) {
     blockers.length ? 'Blocker-woorden herformuleren' : '');
 }
 
+
+// ------------------------------------------- taal en dubbele beleidsteksten ----
+
+/**
+ * Taal van de storefront tegen de doelmarkt.
+ *
+ * Let op waar je NIET naar moet kijken: `shopPolicies[].title` komt uit de Admin
+ * API in de taal van het adminaccount. Een Nederlandse eigenaar ziet daar
+ * "Privacybeleid" staan terwijl de storefront gewoon "Privacy policy" toont. Op
+ * 24-08-2026 is daar een half uur in gaan zitten en werd het bijna als bevinding
+ * gerapporteerd. De enige betrouwbare bron is `shopLocales`: welke taal is
+ * primair, en is die gepubliceerd.
+ */
+export function checkStorefrontLanguage(cfg, s) {
+  const locales = s.shopLocales ?? [];
+  const primair = locales.find((l) => l.primary);
+  const landen = cfg.commerce?.target_countries ?? [];
+  const verwacht = { US: 'en', GB: 'en', CA: 'en', AU: 'en', NL: 'nl', BE: 'nl', DE: 'de', FR: 'fr', PL: 'pl', ES: 'es', IT: 'it' };
+  const talen = [...new Set(landen.map((c) => verwacht[String(c).toUpperCase()]).filter(Boolean))];
+
+  if (!primair) {
+    add(85, 'Storefronttaal', 'Handmatig controleren', 'Geen primaire taal gevonden in `shopLocales`');
+    return;
+  }
+  const taal = String(primair.locale).split('-')[0];
+
+  if (!primair.published) {
+    add(85, 'Storefronttaal', 'Voldoet niet',
+      `Primaire taal \`${primair.locale}\` staat niet gepubliceerd`,
+      'Publiceren in Settings > Languages');
+  } else if (talen.length && !talen.includes(taal)) {
+    add(85, 'Storefronttaal past bij de doelmarkt', 'Voldoet niet',
+      `Primaire taal is \`${primair.locale}\`, doelmarkt ${landen.join(', ')} verwacht ${talen.join('/')}`,
+      'Taal omzetten in Settings > Languages');
+  } else {
+    add(85, 'Storefronttaal past bij de doelmarkt', 'Voldoet',
+      `Primair \`${primair.locale}\`, gepubliceerd` + (talen.length ? ` — past bij ${landen.join(', ')}` : ''));
+  }
+
+  const extra = locales.filter((l) => !l.primary && l.published);
+  if (extra.length) {
+    add(85, 'Extra gepubliceerde talen', 'Handmatig controleren',
+      extra.map((l) => l.locale).join(', '),
+      'Controleer of elke gepubliceerde taal ook echt vertaalde teksten heeft');
+  }
+}
+
+/**
+ * Dezelfde tekst op twee plekken: `/pages/<handle>` en `/policies/<type>`.
+ *
+ * De footer linkt doorgaans de pagina, de checkout linkt altijd de policy. Zolang
+ * ze gelijk zijn is dat onschuldig; bij de eerste tekstwijziging lopen ze uit
+ * elkaar en staan er twee versies van hetzelfde beleid op de winkel. Dat gebeurde
+ * bij Cavo Hill precies zo: de pagina kreeg het bestemmingsland erbij, de
+ * checkoutpolicy niet, omdat `shopPolicyUpdate` een scope vereist die de app niet
+ * had.
+ *
+ * Cosmetisch verschil (een extra introzin) is geen bevinding. Alleen zinnen die
+ * een *belofte* dragen — een getal, een bedrag, een termijn, gratis, retour —
+ * tellen mee.
+ */
+const PAAR = [
+  ['SHIPPING_POLICY', 'shipping-policy'],
+  ['REFUND_POLICY', 'refund-policy'],
+  ['TERMS_OF_SERVICE', 'terms-of-service'],
+];
+const DRAAGT_BELOFTE = /\d|free|gratis|refund|return|retour|ship|verzend|duty|duties|tax|btw|day|dag|week|guarantee/i;
+
+const zinnen = (html) =>
+  txt(html)
+    .split(/(?<=[.!?])\s+/)
+    .map((z) => z.replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
+
+export function checkPolicyPageDivergence(s) {
+  for (const [type, handle] of PAAR) {
+    const policy = s.shop.shopPolicies.find((p) => p.type === type);
+    const pagina = s.pages.nodes.find((p) => p.handle === handle);
+    if (!policy?.body || !pagina?.body) continue;
+
+    const a = new Set(zinnen(policy.body).map((z) => z.toLowerCase()));
+    const b = new Set(zinnen(pagina.body).map((z) => z.toLowerCase()));
+    const alleenPolicy = [...a].filter((z) => !b.has(z) && DRAAGT_BELOFTE.test(z));
+    const alleenPagina = [...b].filter((z) => !a.has(z) && DRAAGT_BELOFTE.test(z));
+
+    if (!alleenPolicy.length && !alleenPagina.length) {
+      add(92, `Beleid gelijk op pagina en checkout (${handle})`, 'Voldoet',
+        'Geen beloftedragende zin die maar op één van beide staat');
+      continue;
+    }
+    const voorbeeld = (lijst, waar) =>
+      lijst.slice(0, 2).map((z) => `alleen in ${waar}: "${z.slice(0, 120)}"`).join('; ');
+    add(92, `Beleid loopt uiteen op pagina en checkout (${handle})`, 'Voldoet niet',
+      [voorbeeld(alleenPolicy, 'checkout'), voorbeeld(alleenPagina, 'pagina')].filter(Boolean).join(' — '),
+      'Gelijktrekken. De checkoutkant vereist `write_legal_policies`; zonder die scope is het handwerk in de admin');
+  }
+}
+
 // -------------------------------------------------------------- rapport ----
 
 export function rapport(cfg, s) {
@@ -440,6 +538,8 @@ checkPolicies(state);
 checkShipping(cfg, state);
 checkTax(cfg, state);
 checkCatalog(state);
+checkStorefrontLanguage(cfg, state);
+checkPolicyPageDivergence(state);
 checkTriggerWords(state);
 
 console.log(rapport(cfg, state));

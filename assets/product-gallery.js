@@ -1,5 +1,5 @@
 /*
-  Harbor Hudson — stipjes onder de mobiele productgalerij.
+  Stipjes onder de mobiele productgalerij.
 
   Dawn's slider-component toont onder de galerij een teller ("1 / 5") met
   pijltjes. Op mobiel willen we stipjes. Die bouwen we hier op uit de slides

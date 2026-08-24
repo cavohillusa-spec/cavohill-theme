@@ -77,6 +77,15 @@ zwaartepunt bij winkelinstellingen lag.
 5. **Alleen visuele checks blijven over.** Pagespeed, malware, mobiel,
    beeldkwaliteit, test-checkout.
 
+### Producten importeren uit een andere winkel
+
+`docs/import-protocol.md` — de controle die elk geïmporteerd product doorloopt vóór
+het op ACTIVE gaat: beeldscan per publicatieronde, HTML-wipe in plaats van bewerken,
+edited angles, attributen en spelling naar de doelmarkt, claims tegen de eigen
+`store.yml`, en wat er moet verschillen als hetzelfde artikel ook op de bronwinkel
+staat. Uitgeschreven bij Cavo Hill nadat elf handmatig ingevoerde producten een week
+aan correcties hadden gekost.
+
 ### Vaste werkafspraken
 
 - **Claims horen niet in de basis.** Elke feitelijke belofte — gratis verzending,
@@ -95,28 +104,49 @@ zwaartepunt bij winkelinstellingen lag.
 
 ---
 
-## Archief — Harbor Hudson merkbrief (voorbeeld, niet actief hier)
-Deze store-specifieke brief stond eerder in dit bestand. Bewaard als voorbeeld/referentie voor het format van een store-`CLAUDE.md`; hoort thuis in Harbor Hudson's eigen repo, niet in deze gedeelde basis.
+## Naamgeving — waarom sommige namen wél en andere niet zijn omgezet
 
-> ### Harbor Hudson — Thema-brief
-> **Project:** Custom Shopify-thema voor Harbor Hudson, een fashion-webshop (Google dropshipping). Doelgroep: 50+. Stijl: clean en elegant, zoals Zara maar warmer en rustiger. Niet new-school, niet hyperig.
->
-> **Kleuren:**
-> - Warm bruin `#40260C` — knoppen, footer, accenten
-> - Creme `#FAF6F0` — rustige secties
-> - Wit `#FFFFFF` — hoofd-achtergrond
-> - Inkt `#1A1A1A` — tekst (hoog contrast)
-> - Gedempt `#6B6257` — secundaire tekst
-> - Announcement-balk `#F6EDCF`
-> - Sale-groen `#1E7A5A` — saleprijs
-> - Oud-prijs rood `#B23A2E` — doorgestreepte prijs
->
-> **Fonts:**
-> - Koppen: Playfair Display
-> - Body: Assistant
-> - Body-tekst 17px voor goede leesbaarheid (50+), ruime regelafstand
->
-> **Stijlprincipes:**
-> - Producttitel altijd zwart
-> - Veel witruimte, hoog contrast, gedempte kleuren
-> - Geen felle tinten, geen drukke effecten; rust en leesbaarheid voorop
+Deze basis droeg tot 24-08-2026 nog Harbor Hudson met zich mee: de bestandsnamen
+`harbor-hudson.css` en `harbor-hudson-gallery.js`, een `:root`-palet met hun warme
+bruin `#40260c` als accent, en hun volledige merkbrief in dit bestand. Dat ging in
+tegen de regel die drie alinea's hierboven staat — merkkeuzes horen in de store-repo.
+Weg nu, en bewust op dit moment: er is één fork (Cavo Hill), dus het kostte één
+conflictronde. Bij twee forks was het er twee geweest.
+
+**Wat is omgezet:**
+
+| Was | Is |
+|---|---|
+| `assets/harbor-hudson.css` | `assets/theme-brand.css` |
+| `assets/harbor-hudson-gallery.js` | `assets/product-gallery.js` |
+| `--hh-brown`, `--hh-cream`, `--hh-muted`, … | `--brand-accent`, `--brand-surface`, `--brand-muted`, … |
+| Accent `#40260c`, creme `#faf6f0`, gedempt `#6b6257` | `#1a1a1a`, `#f5f5f4`, `#6b6b6b` |
+
+De nieuwe kleurwaarden zijn **plaatshouders, geen ontwerp**: neutraal grijs/inkt, zo
+generiek dat je ziet dat er nog niets gekozen is. Elke store overschrijft ze in de eigen
+`theme-brand.css` en in Theme Settings. Sale-groen en oud-prijs-rood zijn wél blijven
+staan: dat zijn functionele kleuren, geen merkkeuze.
+
+**Wat bewust nog `hh-` heet:** de CSS-klassen (`hh-urgency`, `hh-sale-badge`, …), de
+sectie `sections/hh-footer.liquid` met `assets/hh-footer.css`, en de bloktypes
+`hh_rating`, `hh_usp`, `hh_sale_badge`, `hh_urgency`.
+
+Die zijn niet zomaar tekst maar **identifiers waar opgeslagen data aan hangt**. Een
+bloktype en een sectiebestandsnaam staan letterlijk in `templates/*.json` en in
+`sections/*-group.json` van élke store die op deze basis draait, en in de
+themasettings die Shopify zelf bijhoudt. Hernoemen betekent: basis én elke fork in
+dezelfde handeling om, en bij een gepubliceerd thema is dat een wijziging die je in de
+live winkel terugziet. Dat is een aparte, bewuste operatie — geen bijvangst van het
+opruimen van een merknaam.
+
+Voor een nieuwe fork maakt het niets uit: `hh` staat nergens meer voor, en de
+letters komen niet op de storefront terecht.
+
+## Een store-CLAUDE.md schrijven
+
+Het format staat niet meer als voorbeeld in dit bestand — de brief van Harbor Hudson
+hoort in Harbor Hudson's eigen repo. Kijk voor een ingevuld voorbeeld naar
+`cavohill-theme/CLAUDE.md`: merk (kleuren met rol en hex, fonts), hoe de winkel
+werkelijk werkt (fulfillment, verzendzone, levertijd), welke claims mogen en waarom,
+waar dingen staan, en wat er open staat. Zet er alleen in wat niet uit de code te
+lezen is.
