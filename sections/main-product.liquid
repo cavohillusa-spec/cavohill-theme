@@ -199,7 +199,7 @@
                   <div class="hh-sale-badge-wrap" {{ block.shopify_attributes }}>
                     <span
                       class="hh-sale-badge"
-                      style="--hh-badge-bg: {{ block.settings.background_color }}; --hh-badge-fg: {{ block.settings.text_color }};"
+                      style="--brand-badge-bg: {{ block.settings.background_color }}; --brand-badge-fg: {{ block.settings.text_color }};"
                     >
                       <span class="hh-sale-badge__icon" aria-hidden="true">
                         {%- if block.settings.icon_image != blank -%}
@@ -224,7 +224,7 @@
                   {%- if block.settings.text != blank -%}
                   <p
                     class="hh-urgency"
-                    style="--hh-dot-color: {{ block.settings.dot_color }}; --hh-urgency-color: {{ block.settings.text_color }};"
+                    style="--brand-dot-color: {{ block.settings.dot_color }}; --brand-urgency-color: {{ block.settings.text_color }};"
                     {{ block.shopify_attributes }}
                   >
                     <span class="hh-urgency__dot" aria-hidden="true"></span>
@@ -863,7 +863,7 @@
       {%- if product.media.size > 0 -%}
         <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
         <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
-        <script src="{{ 'harbor-hudson-gallery.js' | asset_url }}" defer="defer"></script>
+        <script src="{{ 'product-gallery.js' | asset_url }}" defer="defer"></script>
       {%- endif -%}
 
       {%- if first_3d_model -%}

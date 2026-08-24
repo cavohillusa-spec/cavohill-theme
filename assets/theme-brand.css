@@ -1,19 +1,18 @@
 /*
-  Harbor Hudson — merk-overrides bovenop Dawn.
+  Merk-overrides bovenop Dawn — per store in te vullen.
   Wordt na base.css geladen, zodat Dawn zelf onaangeraakt blijft.
   Mobiel-first: basisregels gelden voor mobiel, desktop volgt in min-width blokken.
 */
 
 :root {
-  /* Cavo Hill: diepe teal. Variabelenaam blijft --hh-brown zodat
-     toekomstige merges met THEMA-BANG niet op 16 regels conflicteren. */
-  --hh-accent: #1f4b47;
-  --hh-brown: var(--hh-accent);
-  --hh-cream: #faf6f0;
-  --hh-ink: #1a1a1a;
-  --hh-muted: #6b6257;
-  --hh-sale: #1e7a5a;
-  --hh-was: #b23a2e;
+  /* Cavo Hill. De rolnamen komen uit de basis; alleen de waarden zijn van
+     deze store. Zie CLAUDE.md voor waarom het accent teal is en niet bruin. */
+  --brand-accent: #1f4b47;
+  --brand-surface: #faf6f0;
+  --brand-ink: #1a1a1a;
+  --brand-muted: #6b6257;
+  --brand-sale: #1e7a5a;
+  --brand-was: #b23a2e;
 }
 
 /* --- Leesbaarheid 50+ ------------------------------------------------ */
@@ -40,7 +39,7 @@ p {
 .caption-large,
 .product__tax,
 .card__caption {
-  color: var(--hh-muted);
+  color: var(--brand-muted);
 }
 
 /* --- Koppen ---------------------------------------------------------- */
@@ -70,11 +69,11 @@ h3 {
 /* --- Prijzen --------------------------------------------------------- */
 /* Drie klassen diep, want component-price.css laadt later in de pagina. */
 .price--on-sale .price__sale .price-item--sale {
-  color: var(--hh-sale);
+  color: var(--brand-sale);
 }
 
 .price--on-sale .price__sale .price-item--regular {
-  color: var(--hh-was);
+  color: var(--brand-was);
   text-decoration: line-through;
 }
 
@@ -125,7 +124,7 @@ h3 {
 }
 
 .header__heading-link:hover .h2 {
-  color: var(--hh-brown);
+  color: var(--brand-accent);
 }
 
 @media screen and (min-width: 750px) {
@@ -143,7 +142,7 @@ h3 {
 }
 
 .header__menu-item:hover {
-  color: var(--hh-brown);
+  color: var(--brand-accent);
 }
 
 /* Iconen rechts: zelfde inkt, rustige hover in bruin zonder zoom-effect. */
@@ -154,7 +153,7 @@ h3 {
 
 .header__icon:hover,
 .header__icon.link:hover {
-  color: var(--hh-brown);
+  color: var(--brand-accent);
 }
 
 .header__icon:hover .icon {
@@ -230,7 +229,7 @@ h3 {
 .product__info-container .hh-rating__text {
   font-size: 1.5rem;
   line-height: 1.4;
-  color: var(--hh-muted);
+  color: var(--brand-muted);
 }
 
 .product__info-container .hh-rating__value {
@@ -301,14 +300,14 @@ h3 {
 
 /* Oude prijs: rood en doorgestreept, bewust kleiner dan de saleprijs. */
 .product__info-container .price--on-sale .price__sale .price-item--regular {
-  color: var(--hh-was);
+  color: var(--brand-was);
   text-decoration: line-through;
   font-size: 1.6rem;
 }
 
 /* Saleprijs: het grootste element van de regel, in sale-groen. */
 .product__info-container .price--on-sale .price__sale .price-item--sale {
-  color: var(--hh-sale);
+  color: var(--brand-sale);
   font-size: 2.2rem;
   font-weight: 600;
   line-height: 1.2;
@@ -344,7 +343,7 @@ h3 {
 .product__info-container .price .badge.price__badge-sale {
   background-color: transparent;
   border: 0;
-  color: var(--hh-sale);
+  color: var(--brand-sale);
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.05rem;
@@ -391,7 +390,7 @@ h3 {
   flex: 0 0 2.2rem;
   width: 2.2rem;
   height: 2.2rem;
-  color: var(--hh-brown);
+  color: var(--brand-accent);
 }
 
 .product__info-container .hh-usp__icon svg {
@@ -415,8 +414,8 @@ h3 {
   gap: 0.7rem;
   padding: 0.9rem 1.6rem;
   border-radius: 6px;
-  background-color: var(--hh-badge-bg, var(--hh-brown));
-  color: var(--hh-badge-fg, #fff);
+  background-color: var(--brand-badge-bg, var(--brand-accent));
+  color: var(--brand-badge-fg, #fff);
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.1rem;
@@ -451,7 +450,7 @@ h3 {
   margin: 0;
   font-size: 1.5rem;
   line-height: 1.5;
-  color: var(--hh-urgency-color, rgb(var(--color-foreground)));
+  color: var(--brand-urgency-color, rgb(var(--color-foreground)));
 }
 
 .product__info-container .hh-urgency__dot {
@@ -459,12 +458,12 @@ h3 {
   width: 0.9rem;
   height: 0.9rem;
   border-radius: 50%;
-  background-color: var(--hh-dot-color, var(--hh-was));
+  background-color: var(--brand-dot-color, var(--brand-was));
 }
 
 /* --- Image with text -------------------------------------------------- */
 /* Dawn's eigen sectie, dus alles blijft bewerkbaar in de editor. Hier alleen
-   de Harbor Hudson-opmaak. section-image-with-text.css laadt in de sectie en
+   de eigen opmaak. section-image-with-text.css laadt in de sectie en
    dus ná dit bestand — vandaar de extra klasse ervoor. */
 
 /* Alleen de kop is Playfair. */
@@ -546,7 +545,7 @@ h3 {
 
 .image-with-text .image-with-text__text ul li strong {
   font-weight: 700;
-  color: var(--hh-brown);
+  color: var(--brand-accent);
 }
 
 /* Dawn zet 2rem tussen elk onderdeel van de kolom en een royale binnenmarge.
@@ -571,7 +570,7 @@ h3 {
 
 /* --- Multicolumn: service-kolommen ------------------------------------ */
 /* Dawn's eigen Multicolumn-sectie, dus alles blijft bewerkbaar in de editor.
-   Hieronder alleen de Harbor Hudson-opmaak. section-multicolumn.css laadt in
+   Hieronder alleen de eigen opmaak. section-multicolumn.css laadt in
    de sectie zelf en dus ná dit bestand — vandaar de extra klasse. */
 
 /* Het ingebouwde icoon (als er geen eigen afbeelding is geüpload). */
@@ -579,7 +578,7 @@ h3 {
   display: flex;
   justify-content: center;
   margin-bottom: 1.4rem;
-  color: var(--hh-brown);
+  color: var(--brand-accent);
 }
 
 .multicolumn .multicolumn-card__icon svg {
@@ -604,7 +603,7 @@ h3 {
   font-family: var(--font-body-family);
   font-size: 1.6rem;
   line-height: 1.75;
-  color: var(--hh-muted);
+  color: var(--brand-muted);
 }
 
 .multicolumn .multicolumn-card__info .rte p {
@@ -673,7 +672,7 @@ h3 {
   flex: 0 0 auto;
   width: 1.2rem;
   height: 1.2rem;
-  color: var(--hh-brown);
+  color: var(--brand-accent);
   transition: transform var(--duration-short) ease;
 }
 
@@ -683,7 +682,7 @@ h3 {
   margin-bottom: 1.6rem;
   font-size: 1.6rem;
   line-height: 1.75;
-  color: var(--hh-muted);
+  color: var(--brand-muted);
 }
 
 .product__info-container .product__accordion .accordion__content > :last-child {
@@ -820,7 +819,7 @@ div.hh-bundle {
   display: block;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background-color: var(--hh-cream);
+  background-color: var(--brand-surface);
 }
 
 .product__info-container .product-form__input--photo .hh-photo-swatch__img {
@@ -843,18 +842,18 @@ div.hh-bundle {
   display: block;
   font-size: 1.1rem;
   line-height: 1.25;
-  color: var(--hh-muted);
+  color: var(--brand-muted);
 }
 
 /* Gekozen kleur: alleen de randkleur wisselt, de dikte blijft gelijk. */
 .product__info-container .product-form__input--photo input[type='radio']:checked + .hh-photo-swatch {
-  border-color: var(--hh-brown);
+  border-color: var(--brand-accent);
 }
 
 /* Toetsenbordbediening blijft zichtbaar: de radio is weggeklipt, dus de
    focusring moet op het label komen. */
 .product__info-container .product-form__input--photo input[type='radio']:focus-visible + .hh-photo-swatch {
-  outline: 0.2rem solid var(--hh-brown);
+  outline: 0.2rem solid var(--brand-accent);
   outline-offset: 0.2rem;
 }
 
@@ -909,14 +908,14 @@ div.hh-bundle {
 }
 
 .product__info-container .product-form__input--pill input[type='radio'] + label:hover {
-  border-color: var(--hh-brown);
+  border-color: var(--brand-accent);
 }
 
 /* Gekozen maat: bruin gevuld met creme tekst. */
 .product__info-container .product-form__input--pill input[type='radio']:checked + label {
-  background-color: var(--hh-brown);
-  border-color: var(--hh-brown);
-  color: var(--hh-cream);
+  background-color: var(--brand-accent);
+  border-color: var(--brand-accent);
+  color: var(--brand-surface);
 }
 
 /* --- Labels boven de kiezers ------------------------------------------ */
@@ -927,7 +926,7 @@ div.hh-bundle {
   font-size: 1.3rem;
   letter-spacing: 0.12rem;
   line-height: 1.4;
-  color: var(--hh-muted);
+  color: var(--brand-muted);
 }
 
 /* --- Geen horizontaal geschuif op mobiel ------------------------------ */
@@ -991,7 +990,7 @@ div.hh-bundle {
 /* Actieve thumbnail: rustig bruin kadertje aan de binnenkant, zodat het niet
    over de buurthumbnail heen valt. */
 .product--thumbnail .thumbnail[aria-current] {
-  box-shadow: inset 0 0 0 0.2rem var(--hh-brown);
+  box-shadow: inset 0 0 0 0.2rem var(--brand-accent);
 }
 
 .product--thumbnail .thumbnail:hover {
@@ -1041,7 +1040,7 @@ div.hh-bundle {
   }
 
   .product__media-wrapper .hh-dots__dot--active::before {
-    background-color: var(--hh-brown);
+    background-color: var(--brand-accent);
     transform: scale(1.25);
   }
 

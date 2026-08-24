@@ -36,10 +36,14 @@ niet de teal.
 
 **Waar de kleuren staan**: `config/settings_data.json` (acht accentvelden in
 `current.color_schemes` én dezelfde acht in `presets.Dawn`, zodat een reset het bruin niet
-terughaalt) en `assets/harbor-hudson.css`. Die CSS heet nog naar de vorige store en de
-variabele heet nog `--hh-brown` terwijl er teal in zit — bewust, want hernoemen laat elke
-toekomstige merge met upstream op zestien regels conflicteren. `--hh-brown` verwijst naar
-`--hh-accent`.
+terughaalt) en `assets/theme-brand.css`, in het `:root`-blok bovenaan.
+
+Dat bestand heette tot 24-08-2026 `harbor-hudson.css`, met een variabele `--hh-brown`
+waar teal in zat. Dat was bewust: hernoemen zou elke merge met upstream op zestien
+regels laten conflicteren. Dat argument is omgekeerd toen de basis zelf werd
+opgeschoond — daar heet het nu `theme-brand.css` met `--brand-accent`, dus mee bewegen
+is nu juist de manier om die conflicten te vermijden. De rolnamen komen van de basis,
+de waarden zijn van deze store.
 
 ## Hoe deze winkel werkelijk werkt
 

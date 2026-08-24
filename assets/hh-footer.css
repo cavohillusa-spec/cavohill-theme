@@ -1,5 +1,5 @@
 /*
-  Harbor Hudson — eigen footer.
+  Eigen footer.
   Mobiel-first: kolommen zijn inklapbare accordions, vanaf 750px drie kolommen.
 
   Over de accordion: de <details> bevat ALLEEN de titel (<summary>), het paneel
@@ -11,7 +11,7 @@
 .hh-footer {
   /* Creme tekst. Alles hieronder rekent met deze variabele, net als Dawn. */
   --color-foreground: 250, 246, 240;
-  --hh-footer-line: rgba(var(--color-foreground), 0.22);
+  --brand-footer-line: rgba(var(--color-foreground), 0.22);
 }
 
 /* --- Raster ---------------------------------------------------------- */
@@ -22,7 +22,7 @@
 
 /* --- Kolomtitels ----------------------------------------------------- */
 .hh-footer__toggle {
-  border-top: 1px solid var(--hh-footer-line);
+  border-top: 1px solid var(--brand-footer-line);
 }
 
 .hh-footer__title {
@@ -141,7 +141,7 @@
 
 /* --- Onderbalk ------------------------------------------------------- */
 .hh-footer__bottom {
-  border-top: 1px solid var(--hh-footer-line);
+  border-top: 1px solid var(--brand-footer-line);
   margin-top: 1.6rem;
   padding-top: 2.4rem;
   display: flex;

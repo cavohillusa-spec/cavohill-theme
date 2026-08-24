@@ -52,6 +52,7 @@ export async function fetchStoreState() {
       primaryDomain { host sslEnabled }
       shopPolicies { type title body }
     }
+    shopLocales { locale name primary published }
     onlineStore { passwordProtection { enabled } }
   }`);
 

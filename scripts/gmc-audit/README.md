@@ -54,6 +54,29 @@ checklist.
 Zonder guard zou het script daar een grotendeels groen rapport produceren, en
 dat is gevaarlijker dan geen rapport.
 
+## Twee checks die uit de praktijk komen
+
+**Storefronttaal (punt 85).** Vergelijkt de primaire taal uit `shopLocales` met de
+taal die bij `commerce.target_countries` hoort, en controleert of die taal
+gepubliceerd is.
+
+Kijk hierbij níét naar `shopPolicies[].title`. De Admin API geeft die titels terug in
+de taal van het **adminaccount**: een Nederlandse eigenaar ziet "Privacybeleid" en
+`?locale=nl` in de URL, terwijl de storefront gewoon "Privacy policy" toont. Op
+24-08-2026 is dat bijna als bevinding gerapporteerd voor een winkel waar niets aan de
+hand was. `shopLocales` is de enige betrouwbare bron.
+
+**Beleid op twee plekken (punt 92).** De footer linkt meestal `/pages/<handle>`, de
+checkout linkt altijd `/policies/<type>`. Zolang die gelijk zijn is dat onschuldig;
+bij de eerste tekstwijziging lopen ze uit elkaar. Precies dat gebeurde bij Cavo Hill:
+de pagina kreeg het bestemmingsland erbij, de checkoutversie niet, omdat
+`shopPolicyUpdate` de scope `write_legal_policies` vereist die de app niet had.
+
+De check vergelijkt shipping, refund en terms zin voor zin, maar rapporteert alleen
+zinnen die een **belofte** dragen — een getal, bedrag, termijn, "free", "return".
+Een extra introzin op de pagina is dus geen bevinding; "free shipping on all orders"
+tegenover "free shipping on all orders within the United States" wel.
+
 ## Triggerwoorden
 
 `trigger-words.mjs` bevat de lijst uit handvat-punt 26, gesplitst in `blocker`

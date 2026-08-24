@@ -12,8 +12,8 @@
 
   # schema.org/PostalAddress kent geen "addressLine2". Een suite- of
   # unitnummer hoort in streetAddress zelf, anders laat Google het vallen
-  # en wijkt de structured data af van het zichtbare NAP-blok — precies
-  # de inconsistentie die punt 76 verbiedt.
+  # en wijkt de structured data af van het zichtbare NAP-blok — precies de
+  # inconsistentie die NAP-consistentie moet voorkomen.
   assign street_address = address_line1
   if settings.gmc_address_line2 != blank
     assign street_address = street_address | append: ', ' | append: settings.gmc_address_line2
@@ -27,9 +27,9 @@
       "@type": "Organization",
       {%- comment -%}
         "name" is bewust gelijk aan het NAP-blok (de juridische naam), niet aan
-        shop.name. De merknaam komt er als alternateName naast, zodat Google
-        Cavo Hill en Novelle House LLC aan elkaar knoopt — dezelfde koppeling
-        die de DBA-regel zichtbaar maakt.
+        shop.name. De merknaam komt er als alternateName naast, zodat Google de
+        twee aan elkaar knoopt — dezelfde koppeling die de DBA-regel zichtbaar
+        maakt voor een menselijke lezer.
       {%- endcomment -%}
       "name": {{ settings.gmc_company_name | json }},
       "legalName": {{ settings.gmc_company_name | json }},
