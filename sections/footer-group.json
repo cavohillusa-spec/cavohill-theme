@@ -51,7 +51,7 @@
           "type": "policy_link",
           "settings": {
             "label": "Billing Terms & Conditions",
-            "url": "/pages/cookie-policy"
+            "url": "/pages/billing-terms"
           }
         },
         "policy-5": {

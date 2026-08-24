@@ -133,22 +133,37 @@ Wie hier komt met het plan "eerst de hele beeldscan afmaken": dat is bewust losg
 
 ## Belangrijk om te weten bij het oppakken
 
-Dit thema is op 14-08-2026 nog **niet gepubliceerd**. Live draait een ander thema dat
-"Dawn" heet maar dat niet is. Alles in deze repo — NAP, gecorrigeerde verzendteksten,
-herstelde homepage-links, teal — wordt pas zichtbaar na publicatie.
+Bijgewerkt 24-08-2026, gemeten tegen de live winkel — niet overgenomen uit een gesprek.
 
-Openstaand op het moment van schrijven (bijgewerkt 15-08-2026):
+**Het thema is gepubliceerd.** `cavohill-theme/main` is sinds 16-08 het enige thema op de
+winkel en draait op MAIN. Het oude "Dawn"-thema met de verzonnen reviews-slider is
+daarmee weg. Wie hier nog leest dat het thema niet gepubliceerd is: dat was tot 15-08 waar.
 
-- **Alles wat buiten deze repo ligt.** De thema-kant is af; wat rest zit in de
-  Shopify-admin en in het live Dawn-thema. De volledige lijst met volgorde staat in
-  `~/gmc-project/actielijst-admin.md`.
-- **Handles en SKU's** dragen verzonnen merknamen (`Caprize-`, `Loxen-`, `Vextor-`,
-  `Trekstr-`, `Veldro-`, `Kargen-`, `Verlaine-`, `Tierlova-`). Handle en SKU zijn één
-  beslissing, niet twee. Voorgestelde mapping inclusief redirects staat in de actielijst;
-  uitvoeren wijzigt live URL's en feed-links, dus dat gebeurt bewust en in één keer.
-- **Productfoto's**: 1 van de 11 is schoon, de rest draagt risico op leveranciers- of
-  merkbeeld. Het volledige plan — welke foto waar hoort en met welke prompt — staat in
-  `~/gmc-project/fotoplan-cavohill.md`.
+Ook afgerond sinds die notitie: de vijf verzonnen merknaam-handles en alle acht
+SKU-prefixen zijn omgezet, de veterschoenen staan op US-maten, alle 97 media dragen
+alt-tekst, en de vier policies bestaan in Settings > Policies.
+
+Openstaand op 24-08:
+
+- **Twee checkoutpolicies wachten op Mees.** `shopPolicyUpdate` vereist de scope
+  `write_legal_policies`, en die zit in geen van beide apps op deze winkel. De
+  kant-en-klare teksten staan in `~/gmc-project/checkout-policies-plakken.md`: de
+  Shipping policy (mist nog het bestemmingsland) en de Terms (adresnotatie). Zolang dat
+  niet gebeurd is, staan er twee versies van dezelfde tekst op de winkel — de pagina
+  klopt, de checkoutversie niet.
+- **Store details.** Adresregel 2 (`Ste R`) en het telefoonveld zijn nog leeg op
+  shopniveau, terwijl het NAP-blok ze wél toont. Niet via de API te zetten.
+- **`gmc_registration_number` is leeg** — het Wyoming filing-nummer van Novelle House
+  LLC. Het enige NAP-veld dat nog niets rendert.
+- **De douaneclaim** ("You will not be charged customs duties or import fees") staat nog
+  in Terms artikel 7 en in de FAQ. Bewust onaangeroerd tot Mees beslist: het is de enige
+  belofte op de site die over het handelen van een derde partij gaat.
+- **Drie galerijen dragen nog een merkteken** — Nike-swoosh op de cargobroek,
+  merkletters op de hiellip van de sneakers, geweven label plus logobadge op de joggers.
+  De hoofdafbeelding is schoon; deze drie zitten in `additional_image_link`. Verwijderen
+  is onomkeerbaar en ligt daarom bij Mees.
+- **86 producten staan op DRAFT.** Publiceren gaat per ronde, met de beeldscan vlak
+  ervoor — zie de paragraaf hierboven.
 
 De banner-kwestie is weg: "BIGGEST PRE-SUMMER SALE / Up to 50% Off — Limited Stock" is op
 15-08 vervangen door "THE SUMMER EDIT" met de twee geverifieerde beloftes eronder. Er staat
