@@ -1,54 +1,151 @@
-# Vragenlijst per store — kopieer naar een eigen bestand BUITEN deze repo
-# (of naar de store-repo) en vul in. Niets heeft een voorgevulde waarde:
-# leeg blijven is altijd beter dan een aangenomen standaard.
+# ═══════════════════════════════════════════════════════════════════════════
+#  VRAGENLIJST PER STORE
+# ═══════════════════════════════════════════════════════════════════════════
 #
-# Dit bestand is het "voornemen". Het auditscript vergelijkt het met de
-# werkelijke Shopify-config. Wijken ze af, dan is dat een Blocker.
+# Kopieer naar een eigen bestand (bv. in de store-repo) en vul in vóór er iets
+# gebouwd wordt. Dit bestand is het VOORNEMEN; het auditscript vergelijkt het
+# met de werkelijke Shopify-config. Wijken ze af, dan is dat een Blocker.
 #
-# NB: dit is de minimale versie die het script nodig heeft. De volledige
-# vragenlijst (met per-claim bevestiging) volgt.
+# TWEE REGELS
+#
+#   1. Niets heeft een voorgevulde waarde. Leeg blijven is altijd beter dan een
+#      aangenomen standaard — een verkeerde aanname wordt een belofte op de
+#      site en daarmee een afkeuringsreden.
+#
+#   2. Het claims-blok onderaan is geen formaliteit. Op 13-08-2026 stond
+#      "gratis verzending" bevestigd, op drie pagina's beloofd, en rekende de
+#      checkout tóch € 19,95. Wat je hier op `true` zet, wordt gecontroleerd.
+#
+# Onbekend? Laat leeg. Het script meldt dan "niet opgegeven" in plaats van
+# stilletijd van iets uit te gaan.
+# ═══════════════════════════════════════════════════════════════════════════
 
+
+# ── 1. Store ───────────────────────────────────────────────────────────────
 store:
   name:
-  # apparel = kleding/schoenen/accessoires. Andere categorieën zijn NIET
-  # gedekt: supplements, health, medical, financial en adult vallen onder
-  # Google's restricted-products-beleid en hebben een eigen checklist nodig.
-  # Het script weigert te draaien bij een niet-ondersteunde categorie.
+  domain:
+
+  # apparel = kleding, schoenen, accessoires.
+  #
+  # Het script WEIGERT te draaien bij een andere categorie. Supplements,
+  # health, medical, financial en adult vallen onder Google's
+  # restricted-products-beleid: een ander regime met eigen eisen rond
+  # gezondheidsclaims, ingrediënten en certificering. Die punten zitten niet in
+  # deze checklist, dus een groen rapport zou daar misleidend zijn.
   category:
 
+
+# ── 2. Identiteit (NAP) ────────────────────────────────────────────────────
+# Deze gegevens moeten op de site, in Merchant Center en in de
+# bedrijfsregistratie IDENTIEK zijn. Niet "ongeveer gelijk" — letterlijk.
 identity:
-  # Exacte juridische naam zoals geregistreerd, inclusief rechtsvorm.
+  # Exacte juridische naam inclusief rechtsvorm, bv. "Novelle House LLC".
   legal_name:
+
   # Merknaam zoals klanten die kennen. Mag afwijken van legal_name.
   brand_name:
+
+  # Verplicht zodra brand_name en legal_name verschillen: één zin die de
+  # relatie expliciet maakt, bv. "<merk> is a brand operated by <entiteit>".
+  # Zonder die zin ziet een reviewer twee losse namen zonder verband.
+  dba_line:
+
   # Domein-e-mail. Gmail/Hotmail/Outlook/Yahoo is een harde afkeuringsreden.
   email:
-  # Eén notatie, overal identiek doorvoeren.
+
+  # Eén notatie, overal identiek. Kies nu of je spaties gebruikt of niet —
+  # het script vergelijkt op cijfers, maar punt 34 vraagt om één schrijfwijze.
+  # Het nummer moet uit het DOELLAND komen en bereikbaar zijn: Merchant Center
+  # belt hiernaartoe voor verificatie.
   phone:
+
   address:
     line1:
-    line2:
+    line2:          # suite/unit — vul in als die bestaat, óók in de admin
     city:
     region:
     zip:
     country:
 
+  # Let op: een registered-agent-adres of virtueel kantoor is een bekende
+  # afkeuringsreden. Vul hieronder in of dit adres een echte vestiging is.
+  # Bij `false` blijft dit een geaccepteerd risico dat als eerste
+  # heroverwogen wordt bij een afkeuring.
+  address_is_physical_premises:
+
+  registration_label:     # bv. KVK, VAT, EIN — afhankelijk van vestigingsland
+  registration_number:
+
+  # Openingstijden en reactietermijn. Vul alleen in wat je waarmaakt: dit
+  # wordt een toezegging. Leeg = niet tonen.
+  business_hours:
+  reply_time:
+
+
+# ── 3. Handel ──────────────────────────────────────────────────────────────
 commerce:
-  # Landcodes waar je bewust naartoe verkoopt, bv:
+  # Landcodes waar je bewust naartoe verkoopt. Het script vergelijkt dit met
+  # shop.shipsToCountries; verzendt de winkel naar méér landen, dan is dat een
+  # Blocker — want dan gelden je teksten niet voor die klanten.
   #   - US
   target_countries:
-  # Wordt er sales tax geheven? Bij false is punt 78 N.v.t.
+
+  currency:
+
+  # Wordt er sales tax geheven? Bij `false` is punt 78 N.v.t.: prijs op de
+  # site, in de feed en in de checkout zijn dan sowieso gelijk.
   charges_sales_tax:
+
   shipping:
-    # free_all        = altijd gratis, ongeacht land
-    # free_in_target  = gratis binnen de doelmarkt
-    # rate_per_zone   = tarief per zone; de site mag dan nergens
-    #                   "free shipping" beloven
+    # free_all       = altijd gratis, ongeacht land
+    # free_in_target = gratis binnen de doelmarkt, daarbuiten niet
+    # rate_per_zone  = tarief per zone; de site mag dan NERGENS "free
+    #                  shipping" beloven
+    #
+    # Geen standaardwaarde. Kies bewust — dit is de claim die op 13-08 misging.
     cost_model:
-    carrier:
-    processing_days:
-    transit_days:
+
+    carrier:                    # bv. USPS
+    ships_from_country:         # land van verzending; bepaalt of er douane speelt
+    processing_days:            # bv. "1-3 business days"
+    transit_days:               # bv. "7-12 business days"
+    cutoff_time:                # bv. "5:00 pm (US time)"
+
   returns:
-    window_days:
-    who_pays_return_shipping:
-    refund_processing_days:
+    window_days:                # vanaf ONTVANGST, niet vanaf bestelling
+    who_pays_return_shipping:   # customer | merchant
+    refund_processing_days:     # binnen hoeveel dagen is het geld terug
+    return_address_public:      # true = adres staat in de policy, false = op aanvraag
+
+
+# ── 4. Claims ──────────────────────────────────────────────────────────────
+# Per belofte die het thema kán doen: is die voor deze store WAAR?
+#
+# Zet je iets op `false`, dan controleert het script of die belofte tóch
+# ergens in een paginatekst staat — en meldt dat als Blocker. Zo kan een
+# claim niet blijven staan omdat niemand eraan dacht.
+#
+# Bij twijfel: `false`. Een weggelaten belofte kost een conversie, een
+# onwaargemaakte belofte kost je Merchant Center-account.
+claims:
+  free_shipping:              # gratis verzending binnen de doelmarkt
+  free_shipping_worldwide:    # gratis verzending naar élk land
+  tracking_provided:          # elke bestelling krijgt een trackinglink
+  money_back_guarantee:       # let op: "guarantee" is een triggerwoord (punt 26)
+  thirty_day_returns:         # retour binnen 30 dagen na ontvangst
+  support_24_7:               # daadwerkelijk 24/7 bereikbaar
+  same_day_dispatch:          # zelfde dag verzonden
+  own_product_photography:    # eigen foto's, niet van de leverancier
+  real_customer_reviews:      # reviews komen uit een echte reviews-app
+
+
+# ── 5. Verkoopprijzen ──────────────────────────────────────────────────────
+pricing:
+  # Compare-at-prijzen en doorgestreepte prijzen moeten UIT tot goedkeuring
+  # (stap 8 en punt 90). Daarna alleen met echte prijshistorie, korting 5-90%.
+  compare_at_prices_active:
+
+  # Prijzen in feed, op de landingspagina en in de checkout moeten gelijk zijn.
+  # Gebruik je een feed-app die prijzen aanpast? Noteer welke.
+  feed_app:

@@ -99,13 +99,11 @@
                   </p>
                 {%- when 'hh_rating' -%}
                   {%- comment -%}
-                    Leeg aantal beoordelingen = niets tonen. Zelfde regel als bij
-                    hh_usp: een beoordelingscijfer is een feitelijke claim en die
-                    staat standaard leeg. Zonder deze guard toont een vers
-                    toegevoegd blok meteen een verzonnen cijfer — precies waar
-                    Google's editorial policy op afkeurt.
+                    Cijfer 0 = niets tonen. De basis levert geen beoordeling mee:
+                    een voorgevuld sterrenaantal zonder echte reviews is
+                    verzonnen social proof.
                   {%- endcomment -%}
-                  {%- if block.settings.rating_count != blank -%}
+                  {%- if block.settings.rating_value > 0 -%}
                   {%- liquid
                     # Statische beoordeling: alle waarden komen uit de editor.
                     # De sterren tekenen we met Dawn's rating-star, die een
@@ -193,8 +191,9 @@
                   {%- endif -%}
                 {%- when 'hh_sale_badge' -%}
                   {%- comment -%}
-                    Leeg tekstveld = niets tonen. Een sale-badge zonder lopende
-                    korting is een kortingsclaim die de checkout niet waarmaakt.
+                    Leeg = niets tonen. Zelfde reden als bij hh_usp: de basis
+                    doet geen kortingsclaim. Zonder deze guard rendert een leeg
+                    tekstveld nog steeds een badge met alleen een icoontje.
                   {%- endcomment -%}
                   {%- if block.settings.text != blank -%}
                   <div class="hh-sale-badge-wrap" {{ block.shopify_attributes }}>
@@ -219,8 +218,8 @@
                   {%- endif -%}
                 {%- when 'hh_urgency' -%}
                   {%- comment -%}
-                    Leeg tekstveld = niets tonen. Urgentie zonder echte
-                    voorraadkoppeling is ongefundeerd — zie de triggerwoordlijst.
+                    Leeg = niets tonen. Zonder guard blijft anders het gekleurde
+                    bolletje zichtbaar zonder tekst ernaast.
                   {%- endcomment -%}
                   {%- if block.settings.text != blank -%}
                   <p
@@ -937,7 +936,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "Een vaste beoordelingsregel die je zelf instelt. Niet gekoppeld aan een reviews-app. Leeg aantal = het hele blok wordt niet getoond — vul alleen in wat je met echte reviews kunt onderbouwen."
+          "content": "Een vaste beoordelingsregel die je zelf instelt. Niet gekoppeld aan een reviews-app."
         },
         {
           "type": "range",
@@ -947,7 +946,8 @@
           "step": 0.1,
           "unit": "★",
           "default": 0,
-          "label": "Cijfer"
+          "label": "Cijfer",
+          "info": "0 = dit blok wordt niet getoond. Vul alleen een cijfer in dat uit een echte reviews-app komt."
         },
         {
           "type": "text",
@@ -958,9 +958,7 @@
         {
           "type": "text",
           "id": "rating_count",
-          "default": "",
-          "label": "Aantal beoordelingen",
-          "info": "Leeg = dit blok wordt niet getoond."
+          "label": "Aantal beoordelingen"
         },
         {
           "type": "color",
@@ -1015,9 +1013,8 @@
         {
           "type": "text",
           "id": "text",
-          "default": "",
           "label": "Tekst",
-          "info": "Leeg = dit blok wordt niet getoond. Vul alleen in als er een échte, geconfigureerde korting loopt."
+          "info": "Leeg = dit blok wordt niet getoond. Vul alleen in als er een echte, geconfigureerde korting met een echte einddatum achter zit."
         },
         {
           "type": "image_picker",
@@ -1046,9 +1043,8 @@
         {
           "type": "inline_richtext",
           "id": "text",
-          "default": "",
           "label": "Tekst",
-          "info": "Leeg = dit blok wordt niet getoond. Urgentie mag alleen als de voorraad echt gekoppeld is."
+          "info": "Leeg = dit blok wordt niet getoond. Vul alleen in als de tekst een verifieerbaar feit beschrijft, bijvoorbeeld een echte voorraadlimiet."
         },
         {
           "type": "color",
