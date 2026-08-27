@@ -161,12 +161,12 @@ tien oorspronkelijke producten, niet op de huidige catalogus.)
 
 Openstaand op 27-08:
 
-- **Twee checkoutpolicies wachten op Mees.** `shopPolicyUpdate` vereist de scope
-  `write_legal_policies`, en die zit in geen van beide apps op deze winkel. De
-  kant-en-klare teksten staan in `~/gmc-project/checkout-policies-plakken.md`: de
-  Shipping policy (mist nog het bestemmingsland) en de Terms (adresnotatie). Zolang dat
-  niet gebeurd is, staan er twee versies van dezelfde tekst op de winkel — de pagina
-  klopt, de checkoutversie niet.
+- **Geen enkel product staat op het kanaal Google & YouTube.** Gemeten op 27-08: Online
+  Store 81, Google & YouTube 0, Shop 0, POS 0. Of dat een probleem is hangt ervan af of
+  de feed via dat kanaal loopt of via de Simprosys-app die ook geïnstalleerd staat —
+  uitgezocht is dat nog niet. Ik heb er bewust niets op gepubliceerd: dat duwt 81
+  producten de Merchant Center-feed in, waaronder de 53 die nooit visueel zijn bekeken,
+  en dat is een beslissing van Mees.
 - **Store details.** Adresregel 2 (`Ste R`) en het telefoonveld zijn nog leeg op
   shopniveau, terwijl het NAP-blok ze wél toont. Niet via de API te zetten.
 - **`gmc_registration_number` is leeg** — het Wyoming filing-nummer van Novelle House
@@ -174,12 +174,36 @@ Openstaand op 27-08:
 - **De douaneclaim** ("You will not be charged customs duties or import fees") staat nog
   in Terms artikel 7 en in de FAQ. Bewust onaangeroerd tot Mees beslist: het is de enige
   belofte op de site die over het handelen van een derde partij gaat.
-- **Drie redirects ontbreken.** De drie verwijderde producten (zie hieronder) hebben geen
-  redirect; `urlRedirectCreate` vereist `write_online_store_navigation` en die scope zit
-  niet in de app. Met de hand in Settings > Navigation > URL redirects, de exacte paden
-  staan in `~/gmc-project/verwijderde-producten-merkteken.md`.
 - **De beeldscan van producten 24 t/m 77 staat open** — die 53 zijn op 27-08 gepubliceerd
   zonder visuele controle, zie de paragraaf hierboven.
+
+**De app heeft nu zestien scopes.** Op 27-08 uitgebreid van zes naar zestien. Daarmee is
+de hele "dat kan niet via de API"-categorie uit oudere notities vervallen: policies,
+redirects, publicaties, pagina's, thema's en markten zijn nu wél te lezen en te schrijven.
+Wat er in zit: `read/write` op `products`, `files`, `inventory`, `content`,
+`legal_policies`, `online_store_navigation`, `publications`, plus `read_themes` en
+`read_markets`. Alleen `read_shipping` ontbreekt nog — daardoor is de claim "free
+shipping" nog steeds niet tegen de werkelijke verzendzone te controleren.
+
+Afgerond op 27-08 dankzij die scopes:
+
+- **Drie checkoutpolicies weggeschreven**, niet twee: Shipping policy, Terms of service
+  én Contact information. Die laatste had een e-mailadres in een `<a>` zonder `href` en
+  een `<svg><use>` naar een pad dat hier niet bestaat — nul werkende contactopties in de
+  checkout. Nu `mailto:` en `tel:`, allebei live geverifieerd. De drie bodies zijn
+  byte-identiek aan `~/gmc-project/checkout-policies-plakken.md`; de vorige versies staan
+  in `checkout-policies-backup-27-08-2026.json`.
+- **Het adres staat overal gelijk** — `30 N Gould St, Ste R` op de Terms-pagina, de
+  checkout-Terms, About us, Contact en in de footer. Punt 76 is daarmee rond aan de
+  sitekant. Op shopniveau staat nog steeds alleen `30 N Gould St`, want daar bestaat geen
+  mutatie voor.
+- **Vier redirects**, niet drie. De drie verwijderde producten wijzen naar
+  `/collections/all`. De vierde was een ketting die ik zelf had gemaakt:
+  `vextor-casual-panelled-low-top-mens-trainers` wees naar de sneakers, en die wezen
+  daarna door. Nu platgeslagen naar één hop.
+
+Let op bij `shopPolicyUpdate`: `ShopPolicyInput` neemt **`type`**, niet `id` — een `id`
+meegeven levert "Field is not defined on ShopPolicyInput" op.
 
 Afgerond op 27-08-2026:
 
