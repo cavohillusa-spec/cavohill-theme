@@ -177,11 +177,17 @@ Openstaand op 27-08:
   cosmetisch punt. Het **telefoonveld** op shopniveau is óók nog leeg terwijl de site het
   nummer toont; beide staan in Settings > Store details en geen van beide is via de API
   te zetten.
-- **"Shipping is free on all orders"** staat zo in Terms artikel 7, zonder het
-  bestemmingsland, terwijl de Shipping policy sinds 27-08 "within the United States"
-  zegt. Niet onjuist — de winkel verzendt alleen naar de VS — maar de zin klopt niet meer
-  als hij los wordt geciteerd, en dat was juist de reden om hem in de Shipping policy aan
-  te passen. Nog niet gewijzigd; het is een claimwijziging en die liggen bij Mees.
+- **De terugbetalingstermijn staat op 30 dagen.** Elle Charleston doet het in 10
+  werkdagen. Dat is geen onjuiste claim en geen GMC-afkeuringsgrond, maar het is de
+  meest klantonvriendelijke regel die we hebben en het enige punt waar we het bij een
+  directe vergelijking afleggen. De terugbetaling loopt via Shopify Payments naar de
+  oorspronkelijke betaalmethode en duurt in de praktijk enkele werkdagen — de 30 dagen is
+  een marge die we onszelf geven, geen gemeten doorlooptijd. Verkorten kost niets; het is
+  een claimwijziging, dus die ligt bij Mees. Zie
+  `~/gmc-project/retourbeleid-vergelijking-elle-charleston.md`.
+- **De annuleertermijn van 4 uur staat in de Shipping policy en Terms, niet in de refund
+  policy** — terwijl een klant die wil annuleren daar als eerste kijkt. Geen tegenspraak,
+  wel een vindbaarheidskwestie.
 - **De beeldscan van producten 24 t/m 77 staat open** — die 53 zijn op 27-08 gepubliceerd
   zonder visuele controle, zie de paragraaf hierboven.
 
@@ -221,6 +227,9 @@ Afgerond op 27-08 dankzij die scopes:
   **gerenderde** versie overgenomen, niet de ruwe. Eén bewuste afwijking: het adres is
   met de hand op `Ste R` gezet, want de auto-beheerde versie haalt het uit het lege
   shopveld.
+- **"Shipping is free on all orders" heeft het bestemmingsland gekregen** in Terms
+  artikel 7, pagina én checkout: nu "within the United States", gelijk aan de Shipping
+  policy. De zin klopt daarmee ook los geciteerd.
 - **Vier redirects**, niet drie. De drie verwijderde producten wijzen naar
   `/collections/all`. De vierde was een ketting die ik zelf had gemaakt:
   `vextor-casual-panelled-low-top-mens-trainers` wees naar de sneakers, en die wezen
