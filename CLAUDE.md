@@ -203,3 +203,25 @@ naast de werkelijkheid.
 De banner-kwestie is weg: "BIGGEST PRE-SUMMER SALE / Up to 50% Off — Limited Stock" is op
 15-08 vervangen door "THE SUMMER EDIT" met de twee geverifieerde beloftes eronder. Er staat
 nu nergens meer een kortingsclaim zonder geconfigureerde korting.
+
+## Kiwi Variant Selector
+
+De app `kiwi-variant-selector` verbergt de eigen variant picker van het thema (beide
+fieldsets krijgen `display: none` via JS) en rendert zijn eigen kleurswatches en
+maatknoppen. De picker in `snippets/product-variant-picker.liquid` en de bijbehorende CSS
+onder "Kleur als fotoswatches" en "Maat als rechthoekige knoppen" staan er dus nog wel,
+maar zijn op de productpagina niet zichtbaar. Verwijder ze niet zonder eerst de app uit te
+zetten.
+
+Kiwi kwam binnen met Shopify-defaults: zwart `#121212` als gekozen staat en radius 999px
+op de maten — precies de ronde capsules die dit thema bewust had weggehaald. Het blok
+"Kiwi Variant Selector op het merk" onderaan `assets/theme-brand.css` trekt dat recht.
+Dat blok heeft overal `!important` nodig omdat Kiwi zijn kleuren als inline `style` zet.
+
+**Dat is een vangnet, geen eindstation.** De waarden horen in het Kiwi-dashboard; ze staan
+klaar in `~/gmc-project/kiwi-variant-selector-waarden.md`. Zijn ze daar gezet, dan kan het
+CSS-blok weg.
+
+Let op bij rem-waarden in dit thema: `theme.liquid` zet de root op
+`calc(var(--font-body-scale) * 62.5%)` en de body-scale staat op 115, dus **1rem ≈ 11,5px,
+niet 10px**. De comments bij de maatknoppen noemen 44px terwijl 4.4rem hier ~50px is.

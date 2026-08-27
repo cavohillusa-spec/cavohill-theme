@@ -1162,3 +1162,60 @@ div.hh-bundle {
      een echte pixel ruimte, ook bovenaan. Weg ermee. */
   border: 0 !important;
 }
+
+/* --- Kiwi Variant Selector op het merk -------------------------------- */
+/* De app kiwi-variant-selector verbergt de picker van het thema hierboven
+   (beide fieldsets krijgen display:none via JS) en zet er zijn eigen voor in
+   de plaats. Dat werkt, maar hij komt met Shopify-defaults binnen: zwart
+   #121212 als gekozen staat en border-radius 999px op de maten — precies de
+   ronde capsules die we bij "Maat als rechthoekige knoppen" hierboven
+   bewust hebben weggehaald.
+
+   Alles hieronder trekt de app naar diezelfde keuze: 6px hoeken, teal
+   gevuld, creme tekst, accent bij hover. De kleuren komen uit de
+   merkvariabelen bovenaan dit bestand, niet uit losse hexcodes.
+
+   Waarom !important: Kiwi zet zijn variabelen als inline style op
+   .vs-variant, en een stylesheet verliest het van inline tenzij we het
+   forceren. Dit hoort eigenlijk in het Kiwi-dashboard thuis; zolang dat niet
+   gebeurd is, vangt dit blok het af. Zie CLAUDE.md. */
+
+.vs-variant {
+  --vs-color-selected: var(--brand-accent) !important;
+  --vs-color-hover: var(--brand-accent) !important;
+  --vs-color-default: rgba(26, 26, 26, 0.18) !important;
+  --vs-border-radius: 6px !important;
+  --vs-list-text-color: var(--brand-ink) !important;
+  --vs-dropdown-text-color: var(--brand-ink) !important;
+  --vs-price-color: var(--brand-muted) !important;
+  /* 36px was Kiwi's default. De maatknoppen van het thema hierboven staan op
+     4.4rem, en die eenheid nemen we letterlijk over zodat beide precies even
+     groot zijn. Let op: 1rem is hier geen 10px — theme.liquid zet de root op
+     calc(var(--font-body-scale) * 62.5%) en de body-scale staat op 115, dus
+     4.4rem is ~50px. Raakt alleen de maatknoppen; de kleurswatches krijgen
+     hun afmeting inline van Kiwi mee. */
+  --vs-swatch-size: 4.4rem !important;
+}
+
+/* Gekozen maat: teal gevuld met creme tekst, net als de knoppen van het
+   thema. Kiwi zet color: #fff hardgecodeerd in zijn eigen stylesheet. */
+.vs-size-pill--selected {
+  color: var(--brand-surface) !important;
+}
+
+.vs-size-pill {
+  min-height: 4.4rem;
+}
+
+/* De kleurswatch krijgt rand, hoeken én ring inline mee, dus de variabele
+   alleen is hier niet genoeg. Volgorde telt: --selected staat na .vs-swatch,
+   bij gelijke specificiteit wint de laatste. */
+.vs-swatch {
+  border-color: rgba(26, 26, 26, 0.18) !important;
+  border-radius: 6px !important;
+}
+
+.vs-swatch--selected {
+  border-color: var(--brand-accent) !important;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--brand-accent) !important;
+}
