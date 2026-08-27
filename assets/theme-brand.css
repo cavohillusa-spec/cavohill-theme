@@ -1240,6 +1240,18 @@ div.hh-bundle {
   margin: 0;
 }
 
+/* Tweede helft van hetzelfde probleem: met list-style-position: inside valt een
+   doorlopende regel terug tot onder de bullet in plaats van uit te lijnen onder
+   de tekst. Op 'outside' hangt de bullet in de padding en lijnt de tweede regel
+   netjes onder de eerste. Geïsoleerd getest tegen echte markup uit zowel een
+   policy als een productbeschrijving: beide worden er beter van, de
+   productlijsten winnen zelfs wat breedte. */
+.rte ul,
+.rte ol {
+  list-style-position: outside;
+  padding-left: 2.2rem;
+}
+
 .rte li > p:first-child {
   display: inline;
 }
