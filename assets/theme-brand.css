@@ -1219,3 +1219,27 @@ div.hh-bundle {
   border-color: var(--brand-accent) !important;
   box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--brand-accent) !important;
 }
+
+/* --- Lijsten in beleidsteksten ---------------------------------------- */
+/* Dawn zet .rte ul/ol op list-style-position: inside, waardoor de bullet
+   binnen het tekstblok van het lijstitem staat. Dat gaat goed zolang het
+   item losse tekst bevat, maar de policy-editor van Shopify wikkelt elke
+   regel in een <p>. Een <p> is een blokelement, dus die begint ná de bullet
+   op een nieuwe regel — met als resultaat een kale bullet met de tekst
+   eronder, plus de paragraafmarge als gat ertussen.
+
+   Gemeten op 27-08: dit raakt elf lijstitems in de Refund policy, Contact
+   information en Shipping policy, plus dezelfde tekst op de pagina's. Geen
+   enkele <li> in de winkel bevat meer dan één <p>, en de 819 lijstitems in
+   productbeschrijvingen hebben er géén — die blijven dus onaangeraakt.
+
+   :first-child inline zetten laat de tekst naast de bullet lopen; een
+   eventuele tweede <p> in de toekomst valt netjes eronder zonder gat. */
+
+.rte li > p {
+  margin: 0;
+}
+
+.rte li > p:first-child {
+  display: inline;
+}
