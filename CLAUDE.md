@@ -161,20 +161,6 @@ tien oorspronkelijke producten, niet op de huidige catalogus.)
 
 Openstaand op 27-08:
 
-- **Twee producten dragen nog het woord "orthopedic"** — in de titel, de handle én de
-  beschrijving: `womens-cushioned-orthopedic-flat-slip-on-shoes` en
-  `womens-cushioned-orthopedic-loafers`. Ze komen uit batch 1 en zijn nooit door de
-  medische-termen-opschoning gegaan die batch 2 wél kreeg (zie de reden "MEDISCH" in
-  `moralea-import/titels77.json`, waar bijvoorbeeld "Men's Orthopedic Sandals" werd
-  "Men's Adjustable Strap Sandals"). Gemeten op 27-08 en het enige echte tekstrisico dat
-  de eindcontrole opleverde. Hernoemen raakt de handle, dus er hoort een redirect bij.
-- **`gmc_registration_number` is leeg** — het Wyoming filing-nummer van Novelle House
-  LLC. Het enige NAP-veld dat nog niets rendert.
-- **De collectie `frontpage` is leeg** (0 producten) en staat wél in de sitemap, dus
-  Google crawlt hem. De homepage gebruikt hem niet — die draait op `women` en `men` — maar
-  een lege categoriepagina is precies punt 91, waarvoor op 24-08 vijf collecties zijn
-  verwijderd met een redirect. `frontpage` is een Shopify-standaardcollectie, dus even
-  bevestigen voordat hij weggaat. `sets` en `sets-1` hebben elk één product: mager, niet leeg.
 - **Adresregel 2 is nu de laatste adresafwijking, en het is geen tekstprobleem.** De
   auto-beheerde checkout-privacypolicy rendert het adres uit het shopveld en toont daarom
   `30 N Gould St, Sheridan WY 82801` zonder `Ste R`, terwijl elke andere plek op de site
@@ -228,6 +214,30 @@ Afgerond op 27-08 dankzij die scopes:
   **gerenderde** versie overgenomen, niet de ruwe. Eén bewuste afwijking: het adres is
   met de hand op `Ste R` gezet, want de auto-beheerde versie haalt het uit het lege
   shopveld.
+- **De twee "orthopedic"-producten zijn hernoemd**, met redirect. Ze kwamen uit batch 1
+  en waren nooit door de medische-termen-opschoning van batch 2 gegaan.
+  `womens-cushioned-orthopedic-flat-slip-on-shoes` heet nu
+  `womens-cushioned-flat-slip-on-shoes` ("Women's Cushioned Flat Slip-On Shoes") en
+  `womens-cushioned-orthopedic-loafers` heet `womens-cushioned-penny-loafers`
+  ("Women's Cushioned Penny Loafers"). Ook "reducing pressure" en "light orthopedic wear"
+  zijn uit de teksten. Backup: `~/gmc-project/backup-orthopedic-hernoemen-27-08-2026.json`.
+
+  **Let op: hernoemen raakt vier plekken, niet één.** Titel en handle zijn het makkelijke
+  deel; de term stond óók in de **alt-teksten** van alle veertien beelden en in de
+  **bestandsnamen** op de CDN. Die laatste twee komen niet boven in een scan die alleen
+  titel, beschrijving en tags leest — de eerste controle miste ze daardoor. Bestandsnamen
+  zijn te wijzigen met `fileUpdate` (`filename` in `FileUpdateInput`), alt-tekst in
+  dezelfde mutatie.
+
+  Bijwerking om te kennen: na een bestandsnaamwijziging geeft de **oude** URL meteen 404,
+  terwijl gecachete productpagina's er nog naar verwijzen. Dat gaf hier ongeveer twintig
+  seconden gebroken beelden. Onschadelijk bij twee producten, maar doe dit niet in bulk
+  op een druk moment.
+- **De lege collectie `frontpage` is verwijderd**, met redirect naar `/collections/all`.
+  Handmatige collectie, nul producten, en het thema verwees er nergens naar — de homepage
+  draait op `women` en `men`. Stond wél in de sitemap, dus Google crawlde een lege
+  categoriepagina. Zelfde behandeling als de vijf collecties van 24-08, punt 91. Backup:
+  `~/gmc-project/backup-frontpage-collectie-27-08-2026.json`.
 - **De feed loopt via Simprosys, niet via het kanaal Google & YouTube.** Bevestigd door
   Mees op 27-08. Dat dat kanaal op nul producten staat is dus geen probleem en er hoeft
   niets op gepubliceerd te worden.
@@ -245,10 +255,13 @@ Afgerond op 27-08 dankzij die scopes:
 - **"Shipping is free on all orders" heeft het bestemmingsland gekregen** in Terms
   artikel 7, pagina én checkout: nu "within the United States", gelijk aan de Shipping
   policy. De zin klopt daarmee ook los geciteerd.
-- **Vier redirects**, niet drie. De drie verwijderde producten wijzen naar
-  `/collections/all`. De vierde was een ketting die ik zelf had gemaakt:
-  `vextor-casual-panelled-low-top-mens-trainers` wees naar de sneakers, en die wezen
-  daarna door. Nu platgeslagen naar één hop.
+- **Zeven redirects erbij op 27-08**, waarmee de winkel er achttien heeft. De drie
+  verwijderde producten en de lege `frontpage` wijzen naar `/collections/all`; de twee
+  hernoemde producten wijzen naar hun nieuwe handle. De zevende was een ketting die de
+  verwijdering zelf had gemaakt: `vextor-casual-panelled-low-top-mens-trainers` wees naar
+  de sneakers, en die wezen daarna door. Platgeslagen naar één hop. Let op dat
+  `productUpdate` met een nieuwe handle **geen** redirect aanmaakt — die moet je er zelf
+  met `urlRedirectCreate` bij zetten.
 
 Let op bij `shopPolicyUpdate`: `ShopPolicyInput` neemt **`type`**, niet `id` — een `id`
 meegeven levert "Field is not defined on ShopPolicyInput" op.
