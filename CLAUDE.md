@@ -177,14 +177,6 @@ Openstaand op 27-08:
   cosmetisch punt. Het **telefoonveld** op shopniveau is óók nog leeg terwijl de site het
   nummer toont; beide staan in Settings > Store details en geen van beide is via de API
   te zetten.
-- **De terugbetalingstermijn staat op 30 dagen.** Elle Charleston doet het in 10
-  werkdagen. Dat is geen onjuiste claim en geen GMC-afkeuringsgrond, maar het is de
-  meest klantonvriendelijke regel die we hebben en het enige punt waar we het bij een
-  directe vergelijking afleggen. De terugbetaling loopt via Shopify Payments naar de
-  oorspronkelijke betaalmethode en duurt in de praktijk enkele werkdagen — de 30 dagen is
-  een marge die we onszelf geven, geen gemeten doorlooptijd. Verkorten kost niets; het is
-  een claimwijziging, dus die ligt bij Mees. Zie
-  `~/gmc-project/retourbeleid-vergelijking-elle-charleston.md`.
 - **De annuleertermijn van 4 uur staat in de Shipping policy en Terms, niet in de refund
   policy** — terwijl een klant die wil annuleren daar als eerste kijkt. Geen tegenspraak,
   wel een vindbaarheidskwestie.
@@ -227,6 +219,13 @@ Afgerond op 27-08 dankzij die scopes:
   **gerenderde** versie overgenomen, niet de ruwe. Eén bewuste afwijking: het adres is
   met de hand op `Ste R` gezet, want de auto-beheerde versie haalt het uit het lege
   shopveld.
+- **De terugbetalingstermijn is van 30 dagen naar 7 werkdagen gegaan**, pagina én
+  checkout. Startpunt is bewust de goedkeuring **op locatie**, niet de verzenddatum van
+  de klant: de retour gaat naar de leverancier en die transporttijd is niet te
+  garanderen. Daarmee staan we op dit punt beter dan Elle Charleston (10 werkdagen). Let
+  op dat "approved" nu twee betekenissen heeft in dezelfde tekst — de goedkeuring van het
+  retourverzoek (waarna de klant binnen 5 werkdagen moet versturen) en de goedkeuring op
+  locatie. Niet tegenstrijdig, wel een woord om in de gaten te houden bij een herschrijving.
 - **"Shipping is free on all orders" heeft het bestemmingsland gekregen** in Terms
   artikel 7, pagina én checkout: nu "within the United States", gelijk aan de Shipping
   policy. De zin klopt daarmee ook los geciteerd.
