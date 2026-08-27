@@ -167,13 +167,21 @@ Openstaand op 27-08:
   uitgezocht is dat nog niet. Ik heb er bewust niets op gepubliceerd: dat duwt 81
   producten de Merchant Center-feed in, waaronder de 53 die nooit visueel zijn bekeken,
   en dat is een beslissing van Mees.
-- **Store details.** Adresregel 2 (`Ste R`) en het telefoonveld zijn nog leeg op
-  shopniveau, terwijl het NAP-blok ze wél toont. Niet via de API te zetten.
 - **`gmc_registration_number` is leeg** — het Wyoming filing-nummer van Novelle House
   LLC. Het enige NAP-veld dat nog niets rendert.
-- **De douaneclaim** ("You will not be charged customs duties or import fees") staat nog
-  in Terms artikel 7 en in de FAQ. Bewust onaangeroerd tot Mees beslist: het is de enige
-  belofte op de site die over het handelen van een derde partij gaat.
+- **Adresregel 2 is nu de laatste adresafwijking, en het is geen tekstprobleem.** De
+  auto-beheerde checkout-privacypolicy rendert het adres uit het shopveld en toont daarom
+  `30 N Gould St, Sheridan WY 82801` zonder `Ste R`, terwijl elke andere plek op de site
+  het wél toont. Niet met tekst te repareren; vul `Ste R` in Settings > Store details en
+  het klopt vanzelf. Dat maakt dat admin-klusje een echte blocker in plaats van een
+  cosmetisch punt. Het **telefoonveld** op shopniveau is óók nog leeg terwijl de site het
+  nummer toont; beide staan in Settings > Store details en geen van beide is via de API
+  te zetten.
+- **"Shipping is free on all orders"** staat zo in Terms artikel 7, zonder het
+  bestemmingsland, terwijl de Shipping policy sinds 27-08 "within the United States"
+  zegt. Niet onjuist — de winkel verzendt alleen naar de VS — maar de zin klopt niet meer
+  als hij los wordt geciteerd, en dat was juist de reden om hem in de Shipping policy aan
+  te passen. Nog niet gewijzigd; het is een claimwijziging en die liggen bij Mees.
 - **De beeldscan van producten 24 t/m 77 staat open** — die 53 zijn op 27-08 gepubliceerd
   zonder visuele controle, zie de paragraaf hierboven.
 
@@ -197,6 +205,22 @@ Afgerond op 27-08 dankzij die scopes:
   checkout-Terms, About us, Contact en in de footer. Punt 76 is daarmee rond aan de
   sitekant. Op shopniveau staat nog steeds alleen `30 N Gould St`, want daar bestaat geen
   mutatie voor.
+- **De douaneclaim is geschrapt.** "You will not be charged customs duties or import
+  fees on your order." is weg uit Terms artikel 7 (pagina én checkout) en uit de FAQ.
+  Aanleiding: Elle Charleston, een vergelijkbare US-only winkel, belooft dit nergens —
+  waar zij douane noemen is het een voorbehoud in de refund policy, en alleen bij
+  retouren. Bij een winkel die uitsluitend binnen de VS verzendt roept de zin een vraag
+  op die er anders niet is, en beantwoordt hem met een garantie die niemand kan
+  afdwingen. Zie `~/gmc-project/douaneclaim-vergelijking-elle-charleston.md`; de vorige
+  tekst staat in `backup-terms-faq-voor-douaneschrapping-27-08-2026.json`.
+- **De privacypagina spiegelt nu de checkoutversie.** Beide staan op 16 augustus. De
+  checkoutversie staat op **automatisch beheer** — daarom liep hij vooruit op de pagina
+  van 9 februari, en daarom weigert `shopPolicyUpdate` hem: *"Automatic management for
+  Privacy Policy must be turned off"*. Die schakelaar zit niet in de API. De body bevat
+  Liquid (`{{ shop_name }}`, `{{ last_updated }}`), dus voor de pagina is de
+  **gerenderde** versie overgenomen, niet de ruwe. Eén bewuste afwijking: het adres is
+  met de hand op `Ste R` gezet, want de auto-beheerde versie haalt het uit het lege
+  shopveld.
 - **Vier redirects**, niet drie. De drie verwijderde producten wijzen naar
   `/collections/all`. De vierde was een ketting die ik zelf had gemaakt:
   `vextor-casual-panelled-low-top-mens-trainers` wees naar de sneakers, en die wezen
