@@ -161,14 +161,20 @@ tien oorspronkelijke producten, niet op de huidige catalogus.)
 
 Openstaand op 27-08:
 
-- **Geen enkel product staat op het kanaal Google & YouTube.** Gemeten op 27-08: Online
-  Store 81, Google & YouTube 0, Shop 0, POS 0. Of dat een probleem is hangt ervan af of
-  de feed via dat kanaal loopt of via de Simprosys-app die ook geïnstalleerd staat —
-  uitgezocht is dat nog niet. Ik heb er bewust niets op gepubliceerd: dat duwt 81
-  producten de Merchant Center-feed in, waaronder de 53 die nooit visueel zijn bekeken,
-  en dat is een beslissing van Mees.
+- **Twee producten dragen nog het woord "orthopedic"** — in de titel, de handle én de
+  beschrijving: `womens-cushioned-orthopedic-flat-slip-on-shoes` en
+  `womens-cushioned-orthopedic-loafers`. Ze komen uit batch 1 en zijn nooit door de
+  medische-termen-opschoning gegaan die batch 2 wél kreeg (zie de reden "MEDISCH" in
+  `moralea-import/titels77.json`, waar bijvoorbeeld "Men's Orthopedic Sandals" werd
+  "Men's Adjustable Strap Sandals"). Gemeten op 27-08 en het enige echte tekstrisico dat
+  de eindcontrole opleverde. Hernoemen raakt de handle, dus er hoort een redirect bij.
 - **`gmc_registration_number` is leeg** — het Wyoming filing-nummer van Novelle House
   LLC. Het enige NAP-veld dat nog niets rendert.
+- **De collectie `frontpage` is leeg** (0 producten) en staat wél in de sitemap, dus
+  Google crawlt hem. De homepage gebruikt hem niet — die draait op `women` en `men` — maar
+  een lege categoriepagina is precies punt 91, waarvoor op 24-08 vijf collecties zijn
+  verwijderd met een redirect. `frontpage` is een Shopify-standaardcollectie, dus even
+  bevestigen voordat hij weggaat. `sets` en `sets-1` hebben elk één product: mager, niet leeg.
 - **Adresregel 2 is nu de laatste adresafwijking, en het is geen tekstprobleem.** De
   auto-beheerde checkout-privacypolicy rendert het adres uit het shopveld en toont daarom
   `30 N Gould St, Sheridan WY 82801` zonder `Ste R`, terwijl elke andere plek op de site
@@ -176,7 +182,10 @@ Openstaand op 27-08:
   het klopt vanzelf. Dat maakt dat admin-klusje een echte blocker in plaats van een
   cosmetisch punt. Het **telefoonveld** op shopniveau is óók nog leeg terwijl de site het
   nummer toont; beide staan in Settings > Store details en geen van beide is via de API
-  te zetten.
+  te zetten. **Mees meldt op 27-08 dat het veld voor adresregel 2 daar niet bestaat.**
+  Werk daar dan omheen door de volledige straat in regel 1 te zetten —
+  `30 N Gould St Ste R` — dan rendert de auto-beheerde privacypolicy hem ook goed en is
+  de laatste adresafwijking weg.
 - **De annuleertermijn van 4 uur staat in de Shipping policy en Terms, niet in de refund
   policy** — terwijl een klant die wil annuleren daar als eerste kijkt. Geen tegenspraak,
   wel een vindbaarheidskwestie.
@@ -219,6 +228,13 @@ Afgerond op 27-08 dankzij die scopes:
   **gerenderde** versie overgenomen, niet de ruwe. Eén bewuste afwijking: het adres is
   met de hand op `Ste R` gezet, want de auto-beheerde versie haalt het uit het lege
   shopveld.
+- **De feed loopt via Simprosys, niet via het kanaal Google & YouTube.** Bevestigd door
+  Mees op 27-08. Dat dat kanaal op nul producten staat is dus geen probleem en er hoeft
+  niets op gepubliceerd te worden.
+- **Het meldtermijn voor schade is van 30 naar 7 dagen gegaan**, pagina én checkout: "If
+  your order arrives damaged or faulty… contact us within 7 days of delivery". De
+  retourtermijn zelf blijft 30 dagen — dat zijn twee verschillende klokken en alleen de
+  eerste is verkort.
 - **De terugbetalingstermijn is van 30 dagen naar 7 werkdagen gegaan**, pagina én
   checkout. Startpunt is bewust de goedkeuring **op locatie**, niet de verzenddatum van
   de klant: de retour gaat naar de leverancier en die transporttijd is niet te
