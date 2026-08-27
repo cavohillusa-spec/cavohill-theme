@@ -116,9 +116,19 @@ risico's, en die behandelen we wél volledig en vooraf.
 Per ronde: bepaal de selectie → scan alléén die → fix of sla het product over → dan pas
 publiceren. De volledige werkwijze staat in `~/gmc-project/import-moralea.md` §1; wat er al
 bekeken is in `~/gmc-project/moralea-import/beeldscan-notes.md` (producten 1 t/m 23 van
-batch 2, negen bevindingen open, 53 producten bewust nog niet bekeken).
+batch 2).
 
 Wie hier komt met het plan "eerst de hele beeldscan afmaken": dat is bewust losgelaten.
+
+**Op 27-08-2026 is van dit protocol afgeweken.** Mees koos ervoor de 53 nooit-bekeken
+producten mee te publiceren; alleen de 13 met een openstaande bevinding zijn
+tegengehouden. De beeldscan van 24 t/m 77 staat dus nog open, nu achteraf in plaats van
+vooraf. Zie `~/gmc-project/publicatieronde-27-08-2026.md`.
+
+**Aanname die niet klopte:** de notitie hieronder ging ervan uit dat het merkteken alleen
+in de extra beelden zat en het hoofdbeeld schoon was. Bij beide onderzochte producten zat
+het merkteken óók in het hoofdbeeld, want het zit op het kledingstuk zelf. Leid nooit uit
+"het hoofdbeeld is schoon" af dat de rest te repareren is — kijk elk beeld apart na.
 
 ## Waar dingen staan
 
@@ -137,17 +147,19 @@ Wie hier komt met het plan "eerst de hele beeldscan afmaken": dat is bewust losg
 
 ## Belangrijk om te weten bij het oppakken
 
-Bijgewerkt 24-08-2026, gemeten tegen de live winkel — niet overgenomen uit een gesprek.
+Bijgewerkt 27-08-2026, gemeten tegen de live winkel — niet overgenomen uit een gesprek.
 
 **Het thema is gepubliceerd.** `cavohill-theme/main` is sinds 16-08 het enige thema op de
 winkel en draait op MAIN. Het oude "Dawn"-thema met de verzonnen reviews-slider is
 daarmee weg. Wie hier nog leest dat het thema niet gepubliceerd is: dat was tot 15-08 waar.
 
 Ook afgerond sinds die notitie: de vijf verzonnen merknaam-handles en alle acht
-SKU-prefixen zijn omgezet, de veterschoenen staan op US-maten, alle 97 media dragen
-alt-tekst, en de vier policies bestaan in Settings > Policies.
+SKU-prefixen zijn omgezet, de veterschoenen staan op US-maten, en de vier policies bestaan
+in Settings > Policies. **Alt-tekst is compleet**: op 27-08 nagemeten over de hele
+catalogus — 544 media, nul zonder alt-tekst. (Het getal 97 in oudere notities sloeg op de
+tien oorspronkelijke producten, niet op de huidige catalogus.)
 
-Openstaand op 24-08:
+Openstaand op 27-08:
 
 - **Twee checkoutpolicies wachten op Mees.** `shopPolicyUpdate` vereist de scope
   `write_legal_policies`, en die zit in geen van beide apps op deze winkel. De
@@ -162,12 +174,31 @@ Openstaand op 24-08:
 - **De douaneclaim** ("You will not be charged customs duties or import fees") staat nog
   in Terms artikel 7 en in de FAQ. Bewust onaangeroerd tot Mees beslist: het is de enige
   belofte op de site die over het handelen van een derde partij gaat.
-- **Drie galerijen dragen nog een merkteken** — Nike-swoosh op de cargobroek,
-  merkletters op de hiellip van de sneakers, geweven label plus logobadge op de joggers.
-  De hoofdafbeelding is schoon; deze drie zitten in `additional_image_link`. Verwijderen
-  is onomkeerbaar en ligt daarom bij Mees.
-- **86 producten staan op DRAFT.** Publiceren gaat per ronde, met de beeldscan vlak
-  ervoor — zie de paragraaf hierboven.
+- **Drie redirects ontbreken.** De drie verwijderde producten (zie hieronder) hebben geen
+  redirect; `urlRedirectCreate` vereist `write_online_store_navigation` en die scope zit
+  niet in de app. Met de hand in Settings > Navigation > URL redirects, de exacte paden
+  staan in `~/gmc-project/verwijderde-producten-merkteken.md`.
+- **De beeldscan van producten 24 t/m 77 staat open** — die 53 zijn op 27-08 gepubliceerd
+  zonder visuele controle, zie de paragraaf hierboven.
+
+Afgerond op 27-08-2026:
+
+- **De drie galerijen met een merkteken zijn opgelost door verwijdering.** De cargobroek
+  (Nike-swoosh) ging op 26-08, de sneakers (merkletters op de hiellip, plus een
+  Duits-legertrainer-silhouet dat niet te retoucheren is) en de joggers (geweven label +
+  logobadge) op 27-08. Alle drie met volledige backup van product en beelden in
+  `~/gmc-project/`; de verantwoording staat in `verwijderde-producten-merkteken.md`.
+- **73 producten gepubliceerd.** De catalogus staat nu op **94 producten: 81 actief, 13
+  draft**, en de storefront toont er 81 — admin en storefront zijn gelijk. De 13 die
+  DRAFT blijven zijn precies de producten met een openstaande beeldscanbevinding; ze
+  staan met reden opgesomd in `~/gmc-project/publicatieronde-27-08-2026.md`.
+
+**Publiceren kost twee velden, niet één.** `productUpdate(status: ACTIVE)` alleen laat de
+storefront 404 geven: het product zit dan nog niet in het Online Store-kanaal en
+`publishedAt` is `null`. `publishablePublish` kan hier niet — de app mist
+`read/write_publications`. Wat wel werkt is `productUpdate(input: {id, publishedAt})`.
+Meet altijd de storefront zelf na; de `productsCount` in de admin stond hier 73 producten
+naast de werkelijkheid.
 
 De banner-kwestie is weg: "BIGGEST PRE-SUMMER SALE / Up to 50% Off — Limited Stock" is op
 15-08 vervangen door "THE SUMMER EDIT" met de twee geverifieerde beloftes eronder. Er staat
