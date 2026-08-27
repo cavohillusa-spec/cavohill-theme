@@ -238,6 +238,27 @@ Afgerond op 27-08 dankzij die scopes:
   draait op `women` en `men`. Stond wél in de sitemap, dus Google crawlde een lege
   categoriepagina. Zelfde behandeling als de vijf collecties van 24-08, punt 91. Backup:
   `~/gmc-project/backup-frontpage-collectie-27-08-2026.json`.
+- **Omruilen staat nu in het beleid.** Aanleiding: het GMC-formulier declareert "Yes, I
+  accept exchanges", terwijl de refund policy omruilen wél noemde in de intro maar nooit
+  definieerde. Dat verschil tussen declaratie en gepubliceerd beleid is precies waar een
+  reviewer op valt. De nieuwe sectie beschrijft omruilen bewust als **retour + nieuwe
+  bestelling**: bij verzending rechtstreeks uit Ningbo is een echte omruiling twee
+  rondreizen en dus vijf tot acht weken, wat we niet kunnen waarmaken. Retour + opnieuw
+  bestellen is eerlijker én sneller voor de klant. Voor schade verandert niets — daar
+  staat al gratis vervanging zonder terugsturen.
+- **Vier tekstdefecten opgeruimd die de eindcontrole niet zag**, omdat ze niet over
+  woorden gingen maar over opmaak:
+  - `<li><p>` in de policy-editor van Shopify brak elke opsomming (bullet los, tekst
+    eronder). Opgelost in `theme-brand.css`, zie het blok "Lijsten in beleidsteksten".
+  - De Payment policy én Billing Terms noemden nog **30 dagen** terugbetaling nadat de
+    refund policy op 7 werkdagen ging. Zelf veroorzaakt en zelf gevonden; beide
+    gelijkgetrokken.
+  - **Emoji** (📧 en 📞) in de Refund policy, Terms en FAQ — de enige op de hele site, en
+    in headless rendering vallen ze weg als een gat. Overal vervangen door echte
+    `mailto:`- en `tel:`-links.
+  - In de FAQ stonden "Return & Exchange Policy" en "Contact page" **vet in plaats van
+    als link**, en de eerste verwees naar een beleidsnaam die niet bestaat. Nu allebei
+    werkende links.
 - **De feed loopt via Simprosys, niet via het kanaal Google & YouTube.** Bevestigd door
   Mees op 27-08. Dat dat kanaal op nul producten staat is dus geen probleem en er hoeft
   niets op gepubliceerd te worden.
