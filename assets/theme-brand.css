@@ -1255,3 +1255,37 @@ div.hh-bundle {
 .rte li > p:first-child {
   display: inline;
 }
+
+/* --- USP-lijst in productbeschrijvingen -------------------------------- */
+
+/* Dertien van de vijftig producten dragen <ul class="product-usps"> in hun
+   beschrijving. Vier daarvan brengen hun eigen <style>-blok mee en tonen dus
+   vinkjes; de andere negen verwijzen naar een klasse die nergens bestond en
+   vielen terug op gewone bullets. Twee soorten opsommingen binnen dezelfde
+   productgrid, zonder dat iemand dat zo bedoeld heeft.
+
+   De regels staan nu één keer in het thema. Daarmee rendert alle dertien
+   hetzelfde en zijn de inline <style>-blokken in de beschrijvingen overbodig —
+   die kunnen apart uit de producttekst, want CSS in een beschrijving lekt mee
+   in de platte tekst die de feed uitleest. */
+
+.rte ul.product-usps {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.2rem 0;
+}
+
+.rte ul.product-usps li {
+  position: relative;
+  padding-left: 2.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.rte ul.product-usps li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--brand-accent, #1f4b47);
+  font-weight: 700;
+}

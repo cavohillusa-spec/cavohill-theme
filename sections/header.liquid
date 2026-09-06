@@ -426,28 +426,15 @@
   customElements.define('sticky-header', StickyHeader);
 {% endjavascript %}
 
-<script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "Organization",
-    "name": {{ shop.name | json }},
-    {% if settings.logo %}
-      "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
-    {% endif %}
-    "sameAs": [
-      {{ settings.social_twitter_link | json }},
-      {{ settings.social_facebook_link | json }},
-      {{ settings.social_pinterest_link | json }},
-      {{ settings.social_instagram_link | json }},
-      {{ settings.social_tiktok_link | json }},
-      {{ settings.social_tumblr_link | json }},
-      {{ settings.social_snapchat_link | json }},
-      {{ settings.social_youtube_link | json }},
-      {{ settings.social_vimeo_link | json }}
-    ],
-    "url": {{ request.origin | append: page.url | json }}
-  }
-</script>
+{%- comment -%}
+  Dawn zet hier standaard een tweede Organization-blok neer, met shop.name in
+  plaats van de juridische naam en een "sameAs" die negen lege strings bevat
+  zolang er geen social links zijn ingevuld. Twee Organization-entiteiten op
+  een pagina laten Google kiezen welke de uitgever is, en dat is precies de
+  twijfel die we hier niet willen. Het blok is verwijderd; snippets/
+  organization-schema.liquid is de enige bron, gevoed door dezelfde
+  settings.gmc_* als het zichtbare NAP-blok.
+{%- endcomment -%}
 
 {%- if request.page_type == 'index' -%}
   {% assign potential_action_target = request.origin | append: routes.search_url | append: '?q={search_term_string}' %}

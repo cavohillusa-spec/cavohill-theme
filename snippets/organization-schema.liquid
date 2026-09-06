@@ -37,6 +37,14 @@
       "alternateName": {{ shop.name | json }},
       {%- endif -%}
       "url": {{ request.origin | json }},
+      {%- comment -%}
+        Het logo kwam uit het Dawn-blok in header.liquid dat hier is opgegaan.
+        Alleen renderen als er echt een logo staat; een lege waarde is slechter
+        dan geen veld.
+      {%- endcomment -%}
+      {%- if settings.logo != blank -%}
+      "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
+      {%- endif -%}
       {%- if settings.gmc_phone != blank -%}
       "telephone": {{ settings.gmc_phone | json }},
       {%- endif -%}
