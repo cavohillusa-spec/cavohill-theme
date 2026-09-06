@@ -120,10 +120,17 @@ batch 2).
 
 Wie hier komt met het plan "eerst de hele beeldscan afmaken": dat is bewust losgelaten.
 
-**Op 27-08-2026 is van dit protocol afgeweken.** Mees koos ervoor de 53 nooit-bekeken
-producten mee te publiceren; alleen de 13 met een openstaande bevinding zijn
-tegengehouden. De beeldscan van 24 t/m 77 staat dus nog open, nu achteraf in plaats van
-vooraf. Zie `~/gmc-project/publicatieronde-27-08-2026.md`.
+**Op 27-08-2026 is van dit protocol afgeweken** — de 53 nooit-bekeken producten gingen
+mee live, alleen de 13 met een openstaande bevinding zijn tegengehouden. Die achterstand
+is op 06-09-2026 ingelopen voor de producten die kandidaat waren voor de selectie van 50,
+en dat leverde **zeven nieuwe merktekenvondsten** op: "SPORT" op een hielkraag, een
+logobadge op een tong, "FASHION" in een gesp, een geweven label "COOL CHOICE" op een vest,
+snaffle-bit-beslag op damesloafers, een embleem op een hielkap, en een geborduurd logo op
+een jurk. Alle zeven staan nu op DRAFT. Zie `~/gmc-project/publicatieronde-06-09-2026.md`.
+
+Wat dat weerlegt: de aanname dat de bevindingen zich tot schoenen beperken. Een vest en
+een jurk droegen ze ook. De producten die nooit kandidaat waren (nu DRAFT) zijn nog steeds
+niet bekeken.
 
 **Aanname die niet klopte:** de notitie hieronder ging ervan uit dat het merkteken alleen
 in de extra beelden zat en het hoofdbeeld schoon was. Bij beide onderzochte producten zat
@@ -147,7 +154,20 @@ het merkteken óók in het hoofdbeeld, want het zit op het kledingstuk zelf. Lei
 
 ## Belangrijk om te weten bij het oppakken
 
-Bijgewerkt 27-08-2026, gemeten tegen de live winkel — niet overgenomen uit een gesprek.
+Bijgewerkt 06-09-2026, gemeten tegen de live winkel — niet overgenomen uit een gesprek.
+
+**De winkel staat op 50 actieve producten.** Op 06-09 teruggebracht van 81; de 31 die
+eraf gingen staan op DRAFT, niet verwijderd. De catalogus telt 94 producten: 50 actief,
+44 draft, en de storefront toont er 50. Alle 50 hebben `custom.gender`,
+`custom.age_group` en `mm-google-shopping.google_product_category`, alt-tekst op elk
+beeld, een SKU op elke variant en nergens een `compareAtPrice`. Grond en verantwoording
+per uitgesloten product: `~/gmc-project/publicatieronde-06-09-2026.md`.
+
+**Alle veertien collecties staan op `MANUAL` met een handmatig gezette volgorde.** Ze
+stonden op `BEST_SELLING`, wat op een winkel zonder bestellingen geen ordening is maar
+een willekeurige volgorde. Let op: een smart collection accepteert hier gewoon
+`collectionUpdate(sortOrder: MANUAL)` gevolgd door `collectionReorderProducts` — dat is
+een async job, wacht op `job { done }` en meet daarna de storefront na.
 
 **Het thema is gepubliceerd.** `cavohill-theme/main` is sinds 16-08 het enige thema op de
 winkel en draait op MAIN. Het oude "Dawn"-thema met de verzonnen reviews-slider is
@@ -161,22 +181,52 @@ tien oorspronkelijke producten, niet op de huidige catalogus.)
 
 Openstaand op 27-08:
 
-- **Adresregel 2 is nu de laatste adresafwijking, en het is geen tekstprobleem.** De
-  auto-beheerde checkout-privacypolicy rendert het adres uit het shopveld en toont daarom
-  `30 N Gould St, Sheridan WY 82801` zonder `Ste R`, terwijl elke andere plek op de site
-  het wél toont. Niet met tekst te repareren; vul `Ste R` in Settings > Store details en
-  het klopt vanzelf. Dat maakt dat admin-klusje een echte blocker in plaats van een
-  cosmetisch punt. Het **telefoonveld** op shopniveau is óók nog leeg terwijl de site het
-  nummer toont; beide staan in Settings > Store details en geen van beide is via de API
-  te zetten. **Mees meldt op 27-08 dat het veld voor adresregel 2 daar niet bestaat.**
-  Werk daar dan omheen door de volledige straat in regel 1 te zetten —
-  `30 N Gould St Ste R` — dan rendert de auto-beheerde privacypolicy hem ook goed en is
-  de laatste adresafwijking weg.
+- **De adresafwijking is weg.** Het shopveld staat op `30 N Gould St Ste R` en het
+  telefoonveld op `(917) 718-9438`; de omweg via regel 1 heeft gewerkt. De auto-beheerde
+  checkout-privacypolicy rendert het adres nu volledig, gelijk aan de rest van de site.
+  Op 06-09 nagemeten op zowel `/policies/privacy-policy` als `/pages/privacy-policy`.
+  Eén schoonheidsfoutje blijft: het shopveld kent geen komma, dus de checkout toont
+  `30 N Gould St Ste R` en het NAP-blok `30 N Gould St, Ste R`.
 - **De annuleertermijn van 4 uur staat in de Shipping policy en Terms, niet in de refund
   policy** — terwijl een klant die wil annuleren daar als eerste kijkt. Geen tegenspraak,
   wel een vindbaarheidskwestie.
-- **De beeldscan van producten 24 t/m 77 staat open** — die 53 zijn op 27-08 gepubliceerd
-  zonder visuele controle, zie de paragraaf hierboven.
+- **De beeldscan is af voor wat live staat, niet voor de rest.** De 50 actieve producten
+  zijn op 06-09 beeld voor beeld nagelopen. De 44 op DRAFT zijn dat deels niet.
+
+Nieuw op 06-09, allemaal gemeten en geen van alle opgelost:
+
+- **Kiwi Sizing heeft nul maattabellen.** De app laadt wel op elke productpagina, maar
+  `app.kiwisizing.com/api/getSizingChart` geeft `"sizings": []` voor elk product dat is
+  geprobeerd. De vier tabellen uit `~/gmc-project/kiwi-size-charts-plakken.md` zijn nooit
+  geplakt. Er staat dus nergens een "Size Chart"-knop; de enige maatinformatie is de
+  `<table>` in de productbeschrijving, en **zes van de 50 hebben die niet**:
+  `mens-classic-low-cut-lace-up-shoes`, `mens-lightweight-cargo-hiking-shorts`,
+  `womens-collared-long-line-midi-dress`, `womens-oversized-open-front-long-coat`,
+  `womens-knee-length-casual-shorts`, `womens-heeled-ankle-boots`.
+- **De Billing Terms beloven meerdere valuta's.** "Purchases can be made in currencies
+  supported by Shopify" met een alinea over wisselkoersen, terwijl
+  `enabledPresentmentCurrencies` precies `["USD"]` is en er één markt bestaat (USA). Dat
+  spreekt de Payment policy en de FAQ tegen, die allebei zeggen dat alles in USD gaat.
+  Diezelfde pagina noemt ook "Stripe Identity" als mogelijke verificatiedienst; dat is
+  niet nagegaan.
+- **De About us gaat alleen over vrouwen** ("Designed for women who appreciate timeless
+  style") terwijl er een volledige herenafdeling is. De Contact-pagina zegt wél "for men
+  and women".
+- **De twee privacyversies verschillen alleen in datum.** Tekstueel 100% identiek, maar
+  `/pages/privacy-policy` staat op 16 augustus en de auto-beheerde
+  `/policies/privacy-policy` op 27 augustus. De footer linkt naar de eerste.
+- **Restjes opmaak in vier productbeschrijvingen**: een `<img>` naar een eigen CDN-beeld
+  (`womens-off-shoulder-tiered-maxi-dress`, `womens-collared-long-line-midi-dress`,
+  `womens-knee-length-casual-shorts`, `womens-heeled-ankle-boots`) en in drie daarvan ook
+  nog een inline `<style>`-blok. Die CSS lekt mee in de platte tekst die de feed uitleest.
+  De klasse `.product-usps` staat sinds 06-09 in `theme-brand.css`, dus de inline blokken
+  zijn overbodig geworden.
+- **Drie producten voeren `XXL` in plaats van `2XL`**:
+  `mens-lightweight-cargo-hiking-shorts`, `womens-off-shoulder-tiered-maxi-dress`,
+  `womens-relaxed-boho-print-maxi-dress`. Gelijktrekken wijzigt de varianttitels.
+- **Geen barcodes.** Nul van de varianten heeft een GTIN. Voor een merkloos product met
+  merk "Cavo Hill" wil GMC dan `identifier_exists: false` in de feed; dat moet in
+  Simprosys staan, niet hier.
 
 **De app heeft nu zestien scopes.** Op 27-08 uitgebreid van zes naar zestien. Daarmee is
 de hele "dat kan niet via de API"-categorie uit oudere notities vervallen: policies,
