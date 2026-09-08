@@ -154,14 +154,27 @@ het merkteken óók in het hoofdbeeld, want het zit op het kledingstuk zelf. Lei
 
 ## Belangrijk om te weten bij het oppakken
 
-Bijgewerkt 06-09-2026, gemeten tegen de live winkel — niet overgenomen uit een gesprek.
+Bijgewerkt 08-09-2026, gemeten tegen de live winkel — niet overgenomen uit een gesprek.
 
 **De winkel staat op 50 actieve producten.** Op 06-09 teruggebracht van 81; de 31 die
-eraf gingen staan op DRAFT, niet verwijderd. De catalogus telt 94 producten: 50 actief,
-44 draft, en de storefront toont er 50. Alle 50 hebben `custom.gender`,
-`custom.age_group` en `mm-google-shopping.google_product_category`, alt-tekst op elk
-beeld, een SKU op elke variant en nergens een `compareAtPrice`. Grond en verantwoording
+eraf gingen staan op DRAFT, niet verwijderd. De catalogus telt sinds 08-09 **93**
+producten: 50 actief, 43 draft, en de storefront toont er 50. Ze hebben alt-tekst op elk
+beeld, een SKU op elke variant en nergens een `compareAtPrice`; `custom.gender` en
+`custom.age_group` staan overal, maar zie de waarschuwing hieronder over
+`google_product_category`. Grond en verantwoording
 per uitgesloten product: `~/gmc-project/publicatieronde-06-09-2026.md`.
+
+**Er wordt óók in de admin gewerkt — meet vóór je iets aanneemt.** Tijdens de ronde van
+08-09 veranderde de catalogus onder handen: `womens-longline-quilted-puffer-jacket` (die
+ACTIVE stond) is verwijderd en `womens-longline-hooded-winter-coat` is van DRAFT naar
+ACTIVE gegaan. Twee dingen die daaruit openstaan:
+
+- Voor de verwijderde puffer jacket is **geen redirect** aangemaakt. Elk eerder verwijderd
+  product kreeg er een naar `/collections/all`; deze handle geeft nu 404 terwijl hij in de
+  sitemap heeft gestaan.
+- De nieuw gepubliceerde winterjas mist `mm-google-shopping.google_product_category`. De
+  drie andere actieve jassen staan allemaal op `5598`. Daarmee is de zin "alle 50 hebben
+  die drie metafields" sinds 08-09 niet meer waar.
 
 **Alle veertien collecties staan op `MANUAL` met een handmatig gezette volgorde.** Ze
 stonden op `BEST_SELLING`, wat op een winkel zonder bestellingen geen ordening is maar
@@ -193,37 +206,61 @@ Openstaand op 27-08:
 - **De beeldscan is af voor wat live staat, niet voor de rest.** De 50 actieve producten
   zijn op 06-09 beeld voor beeld nagelopen. De 44 op DRAFT zijn dat deels niet.
 
-Nieuw op 06-09, allemaal gemeten en geen van alle opgelost:
+Afgehandeld op 08-09-2026 (backup van alles wat aangeraakt is:
+`~/gmc-project/backup-ronde-08-09-2026.json`):
+
+- **De valutategenspraak is weg.** Payment policy en Billing Terms dragen nu dezelfde
+  sectie "Supported Currencies": alles in USD, geen checkout in een andere valuta, en de
+  koers van een buitenlandse bank is die van de bánk. De alinea "Purchases can be made in
+  currencies supported by Shopify" met het wisselkoersverhaal is geschrapt. De FAQ zei al
+  het goede en is niet aangeraakt. **Let op: er bestaat geen checkout-Payment policy** —
+  Shopify kent dat policytype niet, de Payment policy is uitsluitend
+  `/pages/payment-policy`. Wie zoekt naar "de checkoutversie" van dit stuk zoekt naar iets
+  dat niet bestaat.
+- **De `<img>`- en `<style>`-restjes zijn weg**, uit zes producten en niet uit vier. Naast
+  de vier met een `<img>` droegen `mens-classic-low-cut-lace-up-shoes` (actief) en
+  `mens-relaxed-fit-cargo-shorts` (draft) een weesblok `.size-table`-CSS zónder `<img>`;
+  die vielen buiten de oude telling omdat daar op `<img>` was gezocht. Vier van de vijf
+  `<style>`-blokken stylden een klasse die in hun eigen body niet voorkwam. Bij
+  `womens-off-shoulder-tiered-maxi-dress` bestond de `<div class="size-table">` wél, en
+  die is uitgepakt tot een kale `<table>` — precies zoals de andere 43 tabellen, die hun
+  opmaak van `.rte table` in `base.css` krijgen. Er is dus geen `.size-table`-CSS naar het
+  thema verhuisd; die klasse werd nog maar door één product gebruikt.
+- **`XXL` is overal `2XL`.** Achttien varianten over drie producten, via
+  `productOptionUpdate` op de optiewaarde. **De SKU's zijn bewust ongemoeid gelaten** —
+  Simprosys leest de SKU als MPN, en achttien MPN's omgooien vlak voor een GMC-indiening
+  is precies de identifier-churn die je niet wilt. In de SKU-string staat dus nog `XXL`
+  (`MaxiDress-Black/XXL-Ld6jTqMa`); dat is intern en komt nergens klantzichtbaar terug.
+  In `womens-relaxed-boho-print-maxi-dress` stond `XXL` ook in de beschrijving, in de
+  regel "Size range" én als tabelrij — allebei meegenomen.
+- **Er is nog één privacypolicy in omloop.** `/policies/privacy-policy` (auto-beheerd) is
+  canoniek; het footer-menu POLICY wijst er nu heen als `SHOP_POLICY`-item.
+  `/pages/privacy-policy` is verwijderd met een 301 naar de policy — de winkel heeft
+  daarmee negentien redirects. De twee versies waren **niet** 100% identiek zoals eerder
+  genoteerd: gerenderd verschilden ze op precies twee punten, de datum (27 vs 16 augustus)
+  en de contactregel (`+1 917-718-9438` / `30 N Gould St Ste R` tegen `+1 917 718 9438` /
+  `30 N Gould St, Ste R`). Inhoudelijk nul verschil. Dat de body van de checkoutversie via
+  de API zo veel langer oogt komt doordat je daar de **ruwe Liquid** terugkrijgt, inclusief
+  `{% if selling_to_europe %}`-blokken die hier nooit renderen — vergelijk dus altijd de
+  gerenderde storefront, niet de policy-body.
+
+Nieuw op 06-09, nog open:
 
 - **Kiwi Sizing heeft nul maattabellen.** De app laadt wel op elke productpagina, maar
   `app.kiwisizing.com/api/getSizingChart` geeft `"sizings": []` voor elk product dat is
   geprobeerd. De vier tabellen uit `~/gmc-project/kiwi-size-charts-plakken.md` zijn nooit
-  geplakt. Er staat dus nergens een "Size Chart"-knop; de enige maatinformatie is de
-  `<table>` in de productbeschrijving, en **zes van de 50 hebben die niet**:
+  geplakt. Die tabellen zijn op 08-09 teruggebracht tot **XS t/m 4XL** voor beide
+  kledingcharts; 2XS, 5XL en 6XL zijn eruit omdat de winkel die maten niet voert. Er staat
+  dus nergens een "Size Chart"-knop; de enige maatinformatie is de `<table>` in de
+  productbeschrijving, en **zes van de 50 hebben die niet**:
   `mens-classic-low-cut-lace-up-shoes`, `mens-lightweight-cargo-hiking-shorts`,
   `womens-collared-long-line-midi-dress`, `womens-oversized-open-front-long-coat`,
   `womens-knee-length-casual-shorts`, `womens-heeled-ankle-boots`.
-- **De Billing Terms beloven meerdere valuta's.** "Purchases can be made in currencies
-  supported by Shopify" met een alinea over wisselkoersen, terwijl
-  `enabledPresentmentCurrencies` precies `["USD"]` is en er één markt bestaat (USA). Dat
-  spreekt de Payment policy en de FAQ tegen, die allebei zeggen dat alles in USD gaat.
-  Diezelfde pagina noemt ook "Stripe Identity" als mogelijke verificatiedienst; dat is
-  niet nagegaan.
+- **"Stripe Identity" staat nog in de Billing Terms** als mogelijke verificatiedienst bij
+  transacties met een hoger bedrag. Of die dienst werkelijk aanstaat is nooit nagegaan.
 - **De About us gaat alleen over vrouwen** ("Designed for women who appreciate timeless
   style") terwijl er een volledige herenafdeling is. De Contact-pagina zegt wél "for men
   and women".
-- **De twee privacyversies verschillen alleen in datum.** Tekstueel 100% identiek, maar
-  `/pages/privacy-policy` staat op 16 augustus en de auto-beheerde
-  `/policies/privacy-policy` op 27 augustus. De footer linkt naar de eerste.
-- **Restjes opmaak in vier productbeschrijvingen**: een `<img>` naar een eigen CDN-beeld
-  (`womens-off-shoulder-tiered-maxi-dress`, `womens-collared-long-line-midi-dress`,
-  `womens-knee-length-casual-shorts`, `womens-heeled-ankle-boots`) en in drie daarvan ook
-  nog een inline `<style>`-blok. Die CSS lekt mee in de platte tekst die de feed uitleest.
-  De klasse `.product-usps` staat sinds 06-09 in `theme-brand.css`, dus de inline blokken
-  zijn overbodig geworden.
-- **Drie producten voeren `XXL` in plaats van `2XL`**:
-  `mens-lightweight-cargo-hiking-shorts`, `womens-off-shoulder-tiered-maxi-dress`,
-  `womens-relaxed-boho-print-maxi-dress`. Gelijktrekken wijzigt de varianttitels.
 - **Geen barcodes.** Nul van de varianten heeft een GTIN. Voor een merkloos product met
   merk "Cavo Hill" wil GMC dan `identifier_exists: false` in de feed; dat moet in
   Simprosys staan, niet hier.
