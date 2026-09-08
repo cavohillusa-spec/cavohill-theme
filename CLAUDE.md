@@ -234,7 +234,11 @@ Afgehandeld op 08-09-2026 (backup van alles wat aangeraakt is:
   In `womens-relaxed-boho-print-maxi-dress` stond `XXL` ook in de beschrijving, in de
   regel "Size range" én als tabelrij — allebei meegenomen.
 - **Er is nog één privacypolicy in omloop.** `/policies/privacy-policy` (auto-beheerd) is
-  canoniek; het footer-menu POLICY wijst er nu heen als `SHOP_POLICY`-item.
+  canoniek en de footer wijst er nu heen. **Let op waar die footerlinks vandaan komen:**
+  niet uit het navigatiemenu `hoofd` (titel POLICY), maar uit de `policy_link`-blokken in
+  `sections/footer-group.json`. Het menu aanpassen verandert niets aan wat een klant ziet;
+  dat menu staat nu voor de zekerheid ook goed, maar de regel die telt is de `url` in dat
+  themabestand — en die gaat dus via commit + push, niet via de API.
   `/pages/privacy-policy` is verwijderd met een 301 naar de policy — de winkel heeft
   daarmee negentien redirects. De twee versies waren **niet** 100% identiek zoals eerder
   genoteerd: gerenderd verschilden ze op precies twee punten, de datum (27 vs 16 augustus)
