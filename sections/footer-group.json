@@ -37,7 +37,7 @@
           "type": "policy_link",
           "settings": {
             "label": "Privacy Policy",
-            "url": "/pages/privacy-policy"
+            "url": "/policies/privacy-policy"
           }
         },
         "policy-3": {
