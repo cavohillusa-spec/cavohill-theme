@@ -167,14 +167,14 @@ per uitgesloten product: `~/gmc-project/publicatieronde-06-09-2026.md`.
 **Er wordt óók in de admin gewerkt — meet vóór je iets aanneemt.** Tijdens de ronde van
 08-09 veranderde de catalogus onder handen: `womens-longline-quilted-puffer-jacket` (die
 ACTIVE stond) is verwijderd en `womens-longline-hooded-winter-coat` is van DRAFT naar
-ACTIVE gegaan. Twee dingen die daaruit openstaan:
+ACTIVE gegaan. De twee restjes daarvan zijn op 11-09 dichtgezet:
 
-- Voor de verwijderde puffer jacket is **geen redirect** aangemaakt. Elk eerder verwijderd
-  product kreeg er een naar `/collections/all`; deze handle geeft nu 404 terwijl hij in de
-  sitemap heeft gestaan.
-- De nieuw gepubliceerde winterjas mist `mm-google-shopping.google_product_category`. De
-  drie andere actieve jassen staan allemaal op `5598`. Daarmee is de zin "alle 50 hebben
-  die drie metafields" sinds 08-09 niet meer waar.
+- De verwijderde puffer jacket heeft nu een 301 naar `/collections/all`, gelijk aan elk
+  eerder verwijderd product. De winkel telt daarmee **twintig** redirects.
+- De winterjas staat nu ook op `google_product_category` `5598`, gelijk aan de drie
+  andere jassen. "Alle 50 hebben die drie metafields" is daarmee weer waar — op 11-09
+  nagemeten: nul actieve producten zonder `google_product_category`, `custom.gender` of
+  `custom.age_group`.
 
 **Alle veertien collecties staan op `MANUAL` met een handmatig gezette volgorde.** Ze
 stonden op `BEST_SELLING`, wat op een winkel zonder bestellingen geen ordening is maar
