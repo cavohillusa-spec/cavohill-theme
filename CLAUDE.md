@@ -279,16 +279,21 @@ Daarmee hoeft Simprosys geen uitzonderingsregel voor deze twee; de mapping
 
 Nieuw op 06-09, nog open:
 
-- **Kiwi Sizing heeft nul maattabellen.** De app laadt wel op elke productpagina, maar
-  `app.kiwisizing.com/api/getSizingChart` geeft `"sizings": []` voor elk product dat is
-  geprobeerd. De vier tabellen uit `~/gmc-project/kiwi-size-charts-plakken.md` zijn nooit
-  geplakt. Die tabellen zijn op 08-09 teruggebracht tot **XS t/m 4XL** voor beide
-  kledingcharts; 2XS, 5XL en 6XL zijn eruit omdat de winkel die maten niet voert. Er staat
-  dus nergens een "Size Chart"-knop; de enige maatinformatie is de `<table>` in de
-  productbeschrijving, en **zes van de 50 hebben die niet**:
-  `mens-classic-low-cut-lace-up-shoes`, `mens-lightweight-cargo-hiking-shorts`,
-  `womens-collared-long-line-midi-dress`, `womens-oversized-open-front-long-coat`,
-  `womens-knee-length-casual-shorts`, `womens-heeled-ankle-boots`.
+- **Kiwi Sizing werkt sinds 11-09.** Mees heeft de charts per collectie in Kiwi gezet
+  (dames XS–4XL, heren, schoenen op US-maat + voetlengte), maar de knop verscheen niet.
+  Oorzaak: Kiwi kent geen `injectionSelector` en herkent het thema niet (`theme_store_id`
+  is `null`), en het app-blok in `templates/product.json` stuurde
+  `fallbackToBlockPosition: false` mee. Geen selector, geen herkend thema, geen fallback =
+  geen knop. Fix: `"fallbackToBlockPosition": true` in de `settings` van het blok
+  `kiwi_size_chart` — dat is de toggle "Custom size chart placement" in de editor. **De
+  sleutel is camelCase**; Shopify stript bij het ophalen uit GitHub elke sleutel die het
+  blokschema niet kent, dus een verkeerde sleutel verdwijnt stil. Vergelijk na een push
+  altijd het themabestand via `themes { files }` met wat er in git staat.
+  Nagemeten in headless Chromium, mobiel en desktop: knop tussen kleurswatches en
+  maatknoppen (Kiwi Variant Selector heeft er een placeholder voor), modal met de juiste
+  tabel per collectie, ook op de zes producten zonder `<table>` in de beschrijving.
+  De handmatige tabellen in `~/gmc-project/kiwi-size-charts-plakken.md` zijn daarmee
+  achterhaald als plakwerk; ze blijven de bron van de waarden.
 - **"Stripe Identity" staat nog in de Billing Terms** als mogelijke verificatiedienst bij
   transacties met een hoger bedrag. Of die dienst werkelijk aanstaat is nooit nagegaan.
 - **De About us gaat alleen over vrouwen** ("Designed for women who appreciate timeless
