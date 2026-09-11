@@ -263,10 +263,17 @@ Moralea-import en telde daardoor minder varianten.
 in de VS zijn `color` en `size` verplichte feedattributen en twee producten misten er één:
 `womens-knee-high-boots` had alleen `Size` (nu `Color: Brown`, bevestigd op de foto en in
 de beschrijving) en `womens-oversized-open-front-long-coat` had alleen `Color` (nu
-`Size: One Size` — één variant per kleur, nergens een maat genoemd). Gezet via
-`productOptionsCreate` met `variantStrategy: LEAVE_AS_IS`; **SKU's ongemoeid**, dus de
-MPN's zijn niet veranderd. Alleen de varianttitels zijn nu `Brown / 5.5` en
-`Beige / One Size`. Backup: `~/gmc-project/backup-opties-jas-laarzen-11-09-2026.json`.
+`Size: One Size`, later diezelfde dag op verzoek van Mees uitgebreid naar **S t/m 3XL**).
+Gezet via `productOptionsCreate` met `variantStrategy: LEAVE_AS_IS`; bij de laarzen zijn
+de **SKU's ongemoeid**, dus die MPN's zijn niet veranderd. De jas staat nu op **36
+varianten** (6 kleuren × S, M, L, XL, 2XL, 3XL): "One Size" is hernoemd naar `S` zodat de
+zes bestaande variant-ID's bleven, hun SKU's kregen `/S` erin met dezelfde suffix
+(`LongCoat-Beige/S-KjhAdjTe`), en de 30 nieuwe volgen dezelfde conventie met `2XL`, niet
+`XXL`. Alles 88,95, `CONTINUE`, geen compare-at. Dat kon zonder identifier-zorg omdat er
+nog nooit een feed is gesynct. Let op: de jas is een van de zes zonder maattabel in de
+beschrijving — met zes maten hoort die er nu wel bij. Backups:
+`~/gmc-project/backup-opties-jas-laarzen-11-09-2026.json` en
+`backup-jas-voor-S-3XL-11-09-2026.json`.
 Daarmee hoeft Simprosys geen uitzonderingsregel voor deze twee; de mapping
 `color` → optie `Color`, `size` → optie `Size` dekt de hele catalogus.
 
