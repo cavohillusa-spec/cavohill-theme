@@ -283,8 +283,13 @@ Daarmee hoeft Simprosys geen uitzonderingsregel voor deze twee; de mapping
   6–10 kalenderdagen. Dat breekt de regel "noem geen vervoerder" én spreekt de
   gepubliceerde 7–15 werkdagen tegen, precies op de pagina die een reviewer bij punt
   53/54 opent. Zit in Settings → Shipping and delivery → rate voor de VS; hernoemen naar
-  `Free shipping`, bezorgschatting uit. Eerdere checkout-metingen zagen dit niet omdat op
-  het woord "Free shipping" werd gematcht, niet op de volledige naam.
+  `Free shipping`. **Besluit Mees 11-09: de bezorgschatting blijft**, in de checkout én
+  in GMC — dan moet hij overal uit dezelfde twee getallen bestaan: verwerking **1–3
+  werkdagen** (Shopify: Shipping → Processing time) + transit **6–12 werkdagen**
+  (custom transit time op de rate). Samen 7–15, gelijk aan Terms, Shipping Policy en
+  productpagina. In GMC dezelfde split: handling 1–3, transit 6–12, $0, alleen US.
+  Eerdere checkout-metingen zagen de USPS-naam niet omdat op het woord "Free shipping"
+  werd gematcht, niet op de volledige naam.
 - **Shopify Payments ís actief** (PCI-iframe van Shopify, Apple/Google/Shop Pay, geen
   testmodus) en **PayPal staat al in de checkout** als tweede methode. Dat is Shopify's
   automatische PayPal Express-gateway op het winkel-e-mailadres van dat moment —
