@@ -259,6 +259,17 @@ punt 34: echte prijshistorie, korting 5–90%), anders is het alsnog een korting
 onderbouwing. Meet dit opnieuw na elke import — de vorige meting was van vóór de laatste
 Moralea-import en telde daardoor minder varianten.
 
+**Alle 50 actieve producten hebben `Color` én `Size` als optie — sinds 11-09.** Voor apparel
+in de VS zijn `color` en `size` verplichte feedattributen en twee producten misten er één:
+`womens-knee-high-boots` had alleen `Size` (nu `Color: Brown`, bevestigd op de foto en in
+de beschrijving) en `womens-oversized-open-front-long-coat` had alleen `Color` (nu
+`Size: One Size` — één variant per kleur, nergens een maat genoemd). Gezet via
+`productOptionsCreate` met `variantStrategy: LEAVE_AS_IS`; **SKU's ongemoeid**, dus de
+MPN's zijn niet veranderd. Alleen de varianttitels zijn nu `Brown / 5.5` en
+`Beige / One Size`. Backup: `~/gmc-project/backup-opties-jas-laarzen-11-09-2026.json`.
+Daarmee hoeft Simprosys geen uitzonderingsregel voor deze twee; de mapping
+`color` → optie `Color`, `size` → optie `Size` dekt de hele catalogus.
+
 Nieuw op 06-09, nog open:
 
 - **Kiwi Sizing heeft nul maattabellen.** De app laadt wel op elke productpagina, maar
