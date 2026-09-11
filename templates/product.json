@@ -58,8 +58,7 @@
         "kiwi_size_chart": {
           "type": "shopify://apps/kiwi-size-chart-recommender/blocks/kiwiSizing/b7369922-bf15-44ce-a121-a22a8fcbc4b0",
           "settings": {
-            "fallback_to_block_position": true,
-            "fallbackToBlockPosition": true
+            "fallback_to_block_position": true
           }
         },
         "quantity_selector": {
