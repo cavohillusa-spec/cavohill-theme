@@ -277,6 +277,24 @@ beschrijving — met zes maten hoort die er nu wel bij. Backups:
 Daarmee hoeft Simprosys geen uitzonderingsregel voor deze twee; de mapping
 `color` → optie `Color`, `size` → optie `Size` dekt de hele catalogus.
 
+**Gevonden 11-09 in de live checkout, nog open — ligt bij Mees (geen API-scope):**
+
+- **De verzendmethode heet "Free shipping (USPS)"** en toont een bezorgschatting van
+  6–10 kalenderdagen. Dat breekt de regel "noem geen vervoerder" én spreekt de
+  gepubliceerde 7–15 werkdagen tegen, precies op de pagina die een reviewer bij punt
+  53/54 opent. Zit in Settings → Shipping and delivery → rate voor de VS; hernoemen naar
+  `Free shipping`, bezorgschatting uit. Eerdere checkout-metingen zagen dit niet omdat op
+  het woord "Free shipping" werd gematcht, niet op de volledige naam.
+- **Shopify Payments ís actief** (PCI-iframe van Shopify, Apple/Google/Shop Pay, geen
+  testmodus) en **PayPal staat al in de checkout** als tweede methode. Dat is Shopify's
+  automatische PayPal Express-gateway op het winkel-e-mailadres van dat moment —
+  vermoedelijk `cavohillusa@gmail.com`. Of daar een echt account achter zit is via de
+  API niet te zien. Stappen, testprotocol en de tekstgevolgen staan in
+  `~/gmc-project/paypal-koppelen.md`.
+- **Payment policy en Billing Terms missen PayPal en Diners Club**, die de checkout en
+  de footer-iconen wél tonen (punt 50). Tekstvoorstel staat in datzelfde document;
+  klantzichtbaar, dus wacht op akkoord.
+
 Nieuw op 06-09, nog open:
 
 - **Kiwi Sizing werkt sinds 11-09.** Mees heeft de charts per collectie in Kiwi gezet
