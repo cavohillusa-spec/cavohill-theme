@@ -248,6 +248,17 @@ Afgehandeld op 08-09-2026 (backup van alles wat aangeraakt is:
   `{% if selling_to_europe %}`-blokken die hier nooit renderen — vergelijk dus altijd de
   gerenderde storefront, niet de policy-body.
 
+**Nul `compareAtPrice`, catalogusbreed — hard nagemeten op 11-09-2026.** Aanleiding: Mees
+overweegt "Enable Sale Price" in Simprosys aan te zetten voor een toekomstige sale. Gemeten
+via `productVariants` (los van de per-product limiet van 100, dus geen variant gemist):
+93 producten, 50 actief en 43 draft, **2.590 varianten**, nul met een `compareAtPrice` > 0
+en nul met een lege-maar-gezette waarde (`""` of `0.00`) — alles staat op `null`. Die
+schakelaar heeft daarmee op dit moment geen effect op de feed. Komt de sale er, dan pas
+een compare-at zetten nadat de reguliere prijs een tijd heeft gestaan (stappenplan fase 6,
+punt 34: echte prijshistorie, korting 5–90%), anders is het alsnog een kortingsclaim zonder
+onderbouwing. Meet dit opnieuw na elke import — de vorige meting was van vóór de laatste
+Moralea-import en telde daardoor minder varianten.
+
 Nieuw op 06-09, nog open:
 
 - **Kiwi Sizing heeft nul maattabellen.** De app laadt wel op elke productpagina, maar
