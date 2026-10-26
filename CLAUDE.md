@@ -328,13 +328,17 @@ de fieldset zou het de flexopmaak van de variantkiezer overnemen. CSS staat in
 `assets/theme-brand.css` onder "Maattabel", gedrag in `assets/size-chart.js`, het label
 in `locales/en.default.json` als `products.product.size_chart`.
 
-Opmaak in de merkkleuren sinds 26-10: kopband in het accent met creme tekst, paneelkop in
-creme met de titel in Playfair en de groepsnaam eronder, rijen om en om wit/creme. Twee
-dingen die daarbij geen smaakkwestie waren en dus niet terug moeten: de scroller heeft
-**geen zijpadding** (position: sticky plakt aan de contentrand, dus in die padding bleef
-de wegschuivende kolom zichtbaar náást de vastgezette maatkolom — de ruimte zit nu in de
-buitenste cellen), en de `note` staat **binnen** de scroller (als los blok eronder kneep
-hij op een telefoon de schoentabel plat tot drie zichtbare rijen).
+Opmaak sinds 26-10 (tweede versie, naar een voorbeeld van Mees): witte kop met de
+productnaam gecentreerd in Playfair in het accent, sluitknop absoluut rechts; kopband in
+creme met accentkleurige hoofdletters en een accentlijn eronder; maatkolom vet in het
+accent; witte rijen met dunne scheidingslijnen, cellen gecentreerd; de `note` gecentreerd
+in gedempt grijs zonder kader. De groepsnaam staat niet meer zichtbaar in de kop, alleen
+nog als `aria-label` op de tabel. Twee dingen die geen smaakkwestie zijn en dus niet terug
+moeten: de scroller heeft **geen zijpadding** maar springt in met **margin**
+(position: sticky plakt aan de contentrand, dus in padding bleef de wegschuivende kolom
+zichtbaar náást de vastgezette maatkolom; met margin knipt de scroller zelf af), en de
+`note` staat **binnen** de scroller (als los blok eronder kneep hij op een telefoon de
+schoentabel plat tot drie zichtbare rijen).
 
 Het appblok `kiwi_size_chart` is uit `templates/product.json` gehaald. **Let op: de
 app-embed `kiwi-variant-selector` in `config/settings_data.json` blijft** — dat is een

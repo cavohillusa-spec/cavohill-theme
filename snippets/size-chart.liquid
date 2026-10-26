@@ -58,12 +58,7 @@
       >
         <div class="size-chart__panel">
           <header class="size-chart__header">
-            <div>
-              <h2 id="{{ dialog_id }}-title" class="size-chart__title">{{ product.title }}</h2>
-              {%- if chart_title != blank -%}
-                <p class="size-chart__group">{{ chart_title | escape }}</p>
-              {%- endif -%}
-            </div>
+            <h2 id="{{ dialog_id }}-title" class="size-chart__title">{{ product.title }}</h2>
             <button
               type="button"
               class="size-chart__close"

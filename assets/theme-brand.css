@@ -1403,15 +1403,15 @@ body.size-chart-open {
   background-color: rgba(26, 26, 26, 0.18);
 }
 
-/* --- Kop: creme, zoals de rustige secties elders op de site ----------- */
+/* --- Kop: wit, productnaam gecentreerd in het accent ------------------ */
+/* De sluitknop staat absoluut rechts, zodat de titel echt in het midden van
+   het paneel staat en niet in het midden van de ruimte links van de knop. */
 .size-chart__header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1.2rem;
-  padding: 1.4rem 1.8rem 1.6rem;
-  background-color: var(--brand-surface);
+  position: relative;
+  padding: 1.4rem 5.6rem 1.6rem;
+  background-color: #fff;
   border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+  text-align: center;
 }
 
 .size-chart__title {
@@ -1419,31 +1419,21 @@ body.size-chart-open {
   /* Playfair, gelijk aan de koppen op de rest van de site. */
   font-family: var(--font-heading-family);
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: var(--font-heading-weight);
   line-height: 1.25;
   letter-spacing: 0;
-  color: var(--brand-ink);
-}
-
-/* De naam van de tabelgroep uit het metaobject. Geen nieuwe tekst, wel een
-   antwoord op "van welke tabel kijk ik hier eigenlijk naar". */
-.size-chart__group {
-  margin: 0.5rem 0 0;
-  font-size: 1.2rem;
-  line-height: 1.4;
-  letter-spacing: 0.12rem;
-  text-transform: uppercase;
-  color: var(--brand-muted);
+  color: var(--brand-accent);
 }
 
 .size-chart__close {
-  flex: 0 0 auto;
+  position: absolute;
+  top: 50%;
+  right: 0.8rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 4.4rem;
   height: 4.4rem;
-  margin: -0.6rem -1rem 0 0;
   padding: 0;
   border: 0;
   border-radius: 999px;
@@ -1452,11 +1442,12 @@ body.size-chart-open {
   font-size: 2.4rem;
   line-height: 1;
   cursor: pointer;
+  transform: translateY(-50%);
   transition: background-color var(--duration-short) ease, color var(--duration-short) ease;
 }
 
 .size-chart__close:hover {
-  background-color: #fff;
+  background-color: var(--brand-surface);
   color: var(--brand-ink);
 }
 
@@ -1465,18 +1456,19 @@ body.size-chart-open {
 .size-chart__scroll {
   flex: 1 1 auto;
   min-height: 0;
-  /* Geen zijpadding: position: sticky plakt aan de contentrand van de
-     scroller, dus in die padding bleef de wegschuivende kolom zichtbaar
-     náást de vastgezette maatkolom. De ruimte zit nu in de buitenste
-     cellen. */
-  padding: 1.8rem 0;
+  /* Inspringen met margin, niet met padding: position: sticky plakt aan de
+     contentrand van de scroller, dus in zijpadding bleef de wegschuivende
+     kolom zichtbaar náást de vastgezette maatkolom. Met margin is de rand
+     van de scroller zelf de rand van de tabel, en knipt hij daar af. */
+  margin: 0 1.4rem;
+  padding: 1.6rem 0;
   overflow: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
 }
 
-/* separate in plaats van collapse: alleen zo tekenen de ronde hoeken op de
-   teal kopband, en blijft position: sticky op de cellen betrouwbaar. */
+/* separate in plaats van collapse: zo blijft position: sticky op de cellen
+   betrouwbaar. */
 .size-chart__table {
   width: 100%;
   border-collapse: separate;
@@ -1486,54 +1478,36 @@ body.size-chart-open {
 
 .size-chart__table th,
 .size-chart__table td {
-  padding: 1.1rem 1.4rem;
-  text-align: left;
+  padding: 1.1rem 1.2rem;
+  text-align: center;
   /* Zonder nowrap breken de kolomkoppen op 375px af in plaats van te
      schuiven; met nowrap blijft de tabel leesbaar en schuift hij. */
   white-space: nowrap;
+  background-color: #fff;
 }
 
-/* Kopband in het accent, creme tekst erop. Sticky, zodat de kolomnamen
+/* Kopband in creme met accentlijn eronder. Sticky, zodat de kolomnamen
    blijven staan bij de schoentabellen van vijftien rijen. */
 .size-chart__table thead th {
   position: sticky;
   top: 0;
   z-index: 2;
-  background-color: var(--brand-accent);
-  color: var(--brand-surface);
-  font-size: 1.25rem;
+  background-color: var(--brand-surface);
+  border-bottom: 2px solid var(--brand-accent);
+  color: var(--brand-accent);
+  font-size: 1.15rem;
   font-weight: 600;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
 }
 
-/* De kopband loopt van rand tot rand, want de scroller heeft geen
-   zijpadding meer. */
-.size-chart__table th:first-child,
-.size-chart__table td:first-child {
-  padding-left: 1.8rem;
-}
-
-.size-chart__table th:last-child,
-.size-chart__table td:last-child {
-  padding-right: 1.8rem;
-}
-
-/* Om en om creme: op een tabel van vijftien rijen scheelt dat echt bij het
-   volgen van een regel. Past bij de leesbaarheidsregel bovenaan dit bestand. */
-.size-chart__table tbody tr:nth-child(even) th,
-.size-chart__table tbody tr:nth-child(even) td {
-  background-color: var(--brand-surface);
-}
-
-.size-chart__table tbody tr:nth-child(odd) th,
-.size-chart__table tbody tr:nth-child(odd) td {
-  background-color: #fff;
+.size-chart__table tbody td {
+  color: var(--brand-ink);
 }
 
 .size-chart__table tbody th,
 .size-chart__table tbody td {
-  border-bottom: 1px solid rgba(26, 26, 26, 0.07);
+  border-bottom: 1px solid rgba(26, 26, 26, 0.08);
 }
 
 /* De maatkolom blijft staan als de tabel zijwaarts schuift — anders weet je
@@ -1543,38 +1517,25 @@ body.size-chart-open {
   position: sticky;
   left: 0;
   z-index: 1;
-  border-right: 1px solid rgba(26, 26, 26, 0.07);
-  font-weight: 600;
-  color: var(--brand-ink);
+  font-weight: 700;
+  color: var(--brand-accent);
 }
 
 .size-chart__table thead th:first-child {
   position: sticky;
   left: 0;
   z-index: 3;
-  /* Scheidingslijn in de kopband. Zonder deze lijn loopt de staart van de
-     weggeschoven kolomkop tegen het woord SIZE aan en lees je "SIZE (IN)". */
-  border-right: 1px solid rgba(250, 246, 240, 0.28);
-}
-
-.size-chart__table tbody tr:last-child th,
-.size-chart__table tbody tr:last-child td {
-  border-bottom: 0;
 }
 
 /* --- Tekst onder de tabel --------------------------------------------- */
 /* Komt uit het veld note van het metaobject. Staat dat leeg, dan rendert de
    snippet dit blok niet. */
 .size-chart__note {
-  flex: 0 0 auto;
-  margin: 1.8rem 1.8rem 0;
-  padding: 1.2rem 1.4rem;
-  border-left: 3px solid var(--brand-accent);
-  border-radius: 0 6px 6px 0;
-  background-color: var(--brand-surface);
+  margin: 2rem 0 0;
   color: var(--brand-muted);
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   line-height: 1.7;
+  text-align: center;
 }
 
 @media screen and (min-width: 750px) {
@@ -1584,7 +1545,7 @@ body.size-chart-open {
   }
 
   .size-chart__panel {
-    max-width: 54rem;
+    max-width: 66rem;
     border-radius: 10px;
     box-shadow: 0 10px 40px rgba(26, 26, 26, 0.24);
   }
@@ -1594,28 +1555,24 @@ body.size-chart-open {
   }
 
   .size-chart__header {
-    padding: 2rem 2.2rem 1.8rem;
+    padding: 2rem 6rem 1.8rem;
   }
 
   .size-chart__title {
     font-size: 2.3rem;
   }
 
+  .size-chart__close {
+    right: 1.2rem;
+  }
+
   .size-chart__scroll {
-    padding: 2.2rem 0;
+    margin: 0 1.8rem;
+    padding: 1.8rem 0 2rem;
   }
 
-  .size-chart__table th:first-child,
-  .size-chart__table td:first-child {
-    padding-left: 2.2rem;
-  }
-
-  .size-chart__table th:last-child,
-  .size-chart__table td:last-child {
-    padding-right: 2.2rem;
-  }
-
-  .size-chart__note {
-    margin: 2.2rem 2.2rem 0;
+  .size-chart__table th,
+  .size-chart__table td {
+    padding: 1.2rem 1.6rem;
   }
 }
