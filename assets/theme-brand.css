@@ -1305,6 +1305,17 @@ div.hh-bundle {
   gap: 1.2rem;
 }
 
+/* Zolang kiwi-variant-selector de picker van het thema verbergt, hangt
+   size-chart.js de knop in het maatlabel van die app. Zelfde rij, knop rechts
+   — gelijk aan de legend hierboven. Zie het blok "Kiwi Variant Selector op het
+   merk" onderaan: valt die app weg, dan werkt de legend-regel weer. */
+.vs-option__label:has(.size-chart) {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
 .size-chart__trigger {
   position: relative;
   padding: 0;

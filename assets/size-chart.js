@@ -16,9 +16,13 @@ if (!customElements.get('size-chart-modal')) {
     class SizeChartModal extends HTMLElement {
       connectedCallback() {
         this.trigger = this.querySelector('[data-size-chart-open]');
-        if (!this.trigger || this.triggerBound) return;
-        this.triggerBound = true;
-        this.trigger.addEventListener('click', this.open.bind(this));
+        if (!this.trigger) return;
+        if (!this.triggerBound) {
+          this.triggerBound = true;
+          this.trigger.addEventListener('click', this.open.bind(this));
+        }
+        this.place();
+        if (!this.placed) this.watch();
       }
 
       disconnectedCallback() {
@@ -26,6 +30,56 @@ if (!customElements.get('size-chart-modal')) {
         // opruimen blijft het verhuisde dialoog in <body> achter en komt er
         // bij de volgende klik een tweede bij.
         this.destroy();
+      }
+
+      /*
+       * De app kiwi-variant-selector verbergt de fieldsets van het thema met
+       * een inline display:none en rendert zijn eigen kleurswatches en
+       * maatknoppen. De knop staat dan in een legend die niemand ziet.
+       *
+       * Die app laat wel een eigen slot staan voor een maattabelknop. Via dat
+       * slot vinden we het blok van de maatoptie en zetten we de knop naast
+       * het label dat de bezoeker wél ziet.
+       *
+       * Staat die app er niet, dan gebeurt hier niets en blijft de knop in de
+       * legend van het thema — precies waar hij dan hoort, want die legend is
+       * zonder de app gewoon zichtbaar.
+       */
+      place() {
+        if (this.placed) return;
+        const slot = document.querySelector('.vs-variant-kiwi-sizing-placeholder');
+        if (!slot) return;
+        const block = slot.closest('.vs-variant') || slot.parentElement;
+        const target = (block && block.querySelector('.vs-option__label')) || slot;
+        if (target === this.parentElement) {
+          this.placed = true;
+          return;
+        }
+        this.placed = true;
+        target.appendChild(this);
+      }
+
+      watch() {
+        if (this.observer) return;
+        this.observer = new MutationObserver(() => {
+          this.place();
+          if (this.placed) this.unwatch();
+        });
+        this.observer.observe(document.body, { childList: true, subtree: true });
+        // De app rendert kort na het laden. Is er na acht seconden geen slot,
+        // dan is de app er niet en valt er niets te verplaatsen.
+        this.watchTimer = setTimeout(() => this.unwatch(), 8000);
+      }
+
+      unwatch() {
+        if (this.observer) {
+          this.observer.disconnect();
+          this.observer = null;
+        }
+        if (this.watchTimer) {
+          clearTimeout(this.watchTimer);
+          this.watchTimer = null;
+        }
       }
 
       open() {
@@ -39,6 +93,7 @@ if (!customElements.get('size-chart-modal')) {
       }
 
       destroy() {
+        this.unwatch();
         if (!this.dialog) return;
         this.dialog.remove();
         this.dialog = null;
