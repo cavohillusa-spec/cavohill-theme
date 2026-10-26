@@ -300,23 +300,39 @@ Daarmee hoeft Simprosys geen uitzonderingsregel voor deze twee; de mapping
   de footer-iconen wél tonen (punt 50). Tekstvoorstel staat in datzelfde document;
   klantzichtbaar, dus wacht op akkoord.
 
+**De maattabel komt uit het metaobject `size_chart`, niet meer uit Kiwi** — sinds
+26-10-2026. Vier entries (`womens-clothing`, `mens-clothing`, `womens-shoes`,
+`mens-shoes`) met de velden `title`, `table` (json, eerste rij is de kop) en `note`. Het
+product-metafield `custom.size_chart` wijst er per product naar. Beide staan op
+`PUBLIC_READ`; zonder dat leest het thema ze niet en blijft de knop stil weg. 49 van de
+50 actieve producten hebben een tabel — `womens-2-piece-wide-leg-loungewear-set` niet, en
+dat product toont dus geen knop. Dat is de guard in `snippets/size-chart.liquid`, geen
+instelling elders. `note` is overal nog leeg: klantzichtbare tekst, wacht op akkoord.
+
+Rendering: `snippets/size-chart.liquid`, aangeroepen uit
+`snippets/product-variant-picker.liquid` in het label van de Size-optie. Er is **één**
+`render`-aanroep, opgevangen in `size_chart` en gezet in het label van het actieve
+kiezertype, zodat de knoppen- en de dropdownmodus dezelfde knop krijgen zonder hem twee
+keer op de pagina te zetten. Het dialoog reist in een `<template>` mee en verhuist bij de
+eerste klik naar `<body>`: in een `<legend>` mag alleen phrasing content staan, en binnen
+de fieldset zou het de flexopmaak van de variantkiezer overnemen. CSS staat in
+`assets/theme-brand.css` onder "Maattabel", gedrag in `assets/size-chart.js`, het label
+in `locales/en.default.json` als `products.product.size_chart`.
+
+Het appblok `kiwi_size_chart` is uit `templates/product.json` gehaald. **Let op: de
+app-embed `kiwi-variant-selector` in `config/settings_data.json` blijft** — dat is een
+andere app, zie "Kiwi Variant Selector" onderaan. Alleen *Kiwi Size Chart & Recommender*
+gaat eruit, en daarmee ook het CSS-blok voor Kiwi's eigen maatknoppen niet.
+
+De waarden blijven staan in `~/gmc-project/kiwi-size-charts-plakken.md`; dat is nog de
+bron van de getallen, de Kiwi-instructies erin zijn achterhaald.
+
+Les uit de Kiwi-periode die blijft gelden: Shopify stript bij het ophalen uit GitHub elke
+sleutel die een blokschema niet kent, dus een verkeerde sleutel verdwijnt stil. Vergelijk
+na een push altijd het themabestand via `themes { files }` met wat er in git staat.
+
 Nieuw op 06-09, nog open:
 
-- **Kiwi Sizing werkt sinds 11-09.** Mees heeft de charts per collectie in Kiwi gezet
-  (dames XS–4XL, heren, schoenen op US-maat + voetlengte), maar de knop verscheen niet.
-  Oorzaak: Kiwi kent geen `injectionSelector` en herkent het thema niet (`theme_store_id`
-  is `null`), en het app-blok in `templates/product.json` stuurde
-  `fallbackToBlockPosition: false` mee. Geen selector, geen herkend thema, geen fallback =
-  geen knop. Fix: `"fallbackToBlockPosition": true` in de `settings` van het blok
-  `kiwi_size_chart` — dat is de toggle "Custom size chart placement" in de editor. **De
-  sleutel is camelCase**; Shopify stript bij het ophalen uit GitHub elke sleutel die het
-  blokschema niet kent, dus een verkeerde sleutel verdwijnt stil. Vergelijk na een push
-  altijd het themabestand via `themes { files }` met wat er in git staat.
-  Nagemeten in headless Chromium, mobiel en desktop: knop tussen kleurswatches en
-  maatknoppen (Kiwi Variant Selector heeft er een placeholder voor), modal met de juiste
-  tabel per collectie, ook op de zes producten zonder `<table>` in de beschrijving.
-  De handmatige tabellen in `~/gmc-project/kiwi-size-charts-plakken.md` zijn daarmee
-  achterhaald als plakwerk; ze blijven de bron van de waarden.
 - **"Stripe Identity" staat nog in de Billing Terms** als mogelijke verificatiedienst bij
   transacties met een hoger bedrag. Of die dienst werkelijk aanstaat is nooit nagegaan.
 - **De About us gaat alleen over vrouwen** ("Designed for women who appreciate timeless
