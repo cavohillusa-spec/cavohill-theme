@@ -1398,7 +1398,7 @@ body.size-chart-open {
   flex: 0 0 auto;
   width: 4rem;
   height: 0.4rem;
-  margin: 0.9rem auto 0;
+  margin: 0.6rem auto 0;
   border-radius: 999px;
   background-color: rgba(26, 26, 26, 0.18);
 }
@@ -1408,7 +1408,7 @@ body.size-chart-open {
    het paneel staat en niet in het midden van de ruimte links van de knop. */
 .size-chart__header {
   position: relative;
-  padding: 1.4rem 5.6rem 1.6rem;
+  padding: 0.9rem 5rem 1rem;
   background-color: #fff;
   border-bottom: 1px solid rgba(26, 26, 26, 0.08);
   text-align: center;
@@ -1418,7 +1418,7 @@ body.size-chart-open {
   margin: 0;
   /* Playfair, gelijk aan de koppen op de rest van de site. */
   font-family: var(--font-heading-family);
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: var(--font-heading-weight);
   line-height: 1.25;
   letter-spacing: 0;
@@ -1460,8 +1460,8 @@ body.size-chart-open {
      contentrand van de scroller, dus in zijpadding bleef de wegschuivende
      kolom zichtbaar náást de vastgezette maatkolom. Met margin is de rand
      van de scroller zelf de rand van de tabel, en knipt hij daar af. */
-  margin: 0 1.4rem;
-  padding: 1.6rem 0;
+  margin: 0 1.2rem;
+  padding: 1rem 0 1.2rem;
   overflow: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
@@ -1473,12 +1473,15 @@ body.size-chart-open {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 1.45rem;
+  font-size: 1.3rem;
+  line-height: 1.3;
 }
 
 .size-chart__table th,
 .size-chart__table td {
-  padding: 1.1rem 1.2rem;
+  /* Krap gehouden: de schoentabellen tellen vijftien rijen en moeten op een
+     telefoon in één keer te overzien zijn, zonder te scrollen. */
+  padding: 0.45rem 0.9rem;
   text-align: center;
   /* Zonder nowrap breken de kolomkoppen op 375px af in plaats van te
      schuiven; met nowrap blijft de tabel leesbaar en schuift hij. */
@@ -1495,9 +1498,9 @@ body.size-chart-open {
   background-color: var(--brand-surface);
   border-bottom: 2px solid var(--brand-accent);
   color: var(--brand-accent);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.08rem;
   text-transform: uppercase;
 }
 
@@ -1531,10 +1534,10 @@ body.size-chart-open {
 /* Komt uit het veld note van het metaobject. Staat dat leeg, dan rendert de
    snippet dit blok niet. */
 .size-chart__note {
-  margin: 2rem 0 0;
+  margin: 1.2rem 0 0;
   color: var(--brand-muted);
-  font-size: 1.3rem;
-  line-height: 1.7;
+  font-size: 1.2rem;
+  line-height: 1.5;
   text-align: center;
 }
 
@@ -1545,7 +1548,7 @@ body.size-chart-open {
   }
 
   .size-chart__panel {
-    max-width: 66rem;
+    max-width: 60rem;
     border-radius: 10px;
     box-shadow: 0 10px 40px rgba(26, 26, 26, 0.24);
   }
@@ -1555,11 +1558,11 @@ body.size-chart-open {
   }
 
   .size-chart__header {
-    padding: 2rem 6rem 1.8rem;
+    padding: 1.3rem 5.6rem 1.2rem;
   }
 
   .size-chart__title {
-    font-size: 2.3rem;
+    font-size: 1.9rem;
   }
 
   .size-chart__close {
@@ -1567,12 +1570,12 @@ body.size-chart-open {
   }
 
   .size-chart__scroll {
-    margin: 0 1.8rem;
-    padding: 1.8rem 0 2rem;
+    margin: 0 1.6rem;
+    padding: 1.2rem 0 1.4rem;
   }
 
   .size-chart__table th,
   .size-chart__table td {
-    padding: 1.2rem 1.6rem;
+    padding: 0.7rem 1.2rem;
   }
 }

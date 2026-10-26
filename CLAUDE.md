@@ -332,7 +332,9 @@ Opmaak sinds 26-10 (tweede versie, naar een voorbeeld van Mees): witte kop met d
 productnaam gecentreerd in Playfair in het accent, sluitknop absoluut rechts; kopband in
 creme met accentkleurige hoofdletters en een accentlijn eronder; maatkolom vet in het
 accent; witte rijen met dunne scheidingslijnen, cellen gecentreerd; de `note` gecentreerd
-in gedempt grijs zonder kader. De groepsnaam staat niet meer zichtbaar in de kop, alleen
+in gedempt grijs zonder kader. Bewust compact: een schoentabel van vijftien rijen past op
+een telefoon van 375×667 in één keer in beeld, dus niet zomaar de celpadding of
+lettergrootte terugzetten. De groepsnaam staat niet meer zichtbaar in de kop, alleen
 nog als `aria-label` op de tabel. Twee dingen die geen smaakkwestie zijn en dus niet terug
 moeten: de scroller heeft **geen zijpadding** maar springt in met **margin**
 (position: sticky plakt aan de contentrand, dus in padding bleef de wegschuivende kolom
