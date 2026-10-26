@@ -324,6 +324,26 @@ app-embed `kiwi-variant-selector` in `config/settings_data.json` blijft** — da
 andere app, zie "Kiwi Variant Selector" onderaan. Alleen *Kiwi Size Chart & Recommender*
 gaat eruit, en daarmee ook het CSS-blok voor Kiwi's eigen maatknoppen niet.
 
+**Waar de knop werkelijk hangt, en waarom dat niet de legend is.** De knop staat in de
+`<legend>` van de maatfieldset, maar `kiwi-variant-selector` zet een inline
+`display: none` op beide fieldsets van de thema-picker. De knop zat daarmee wél in de
+HTML en was 0x0 — op de live storefront gemeten, niet beredeneerd. `size-chart.js` zoekt
+daarom het slot dat die app voor een maattabelknop laat staan
+(`.vs-variant-kiwi-sizing-placeholder`), pakt via dat slot het blok van de maatoptie en
+hangt de knop naast `.vs-option__label` — het maatlabel dat de bezoeker wél ziet. Een
+MutationObserver vangt op dat de app later rendert en stopt na acht seconden.
+Verdwijnt die app, dan gebeurt er niets en blijft de knop in de legend staan; zonder de
+app is die legend gewoon zichtbaar. Beide situaties geven dus een zichtbare knop. Wie
+hier de placement "opruimt" omdat die naar een app-klasse verwijst: zet eerst
+`kiwi-variant-selector` uit en kijk of de legend terug is.
+
+**Gebruik Dawn's `.overflow-hidden` niet als scroll-lock voor een eigen modal.** Die
+klasse is gedeeld: Dawn's `DetailsModal.close()` haalt hem er via `closeSearchModal`
+onvoorwaardelijk af. Onze modal opende, de focus verschoof, Dawn sloot zijn zoekmodal en
+nam de lock mee — waarna de pagina achter de sheet meescrolde. Nu `body.size-chart-open`
+met een eigen regel in `theme-brand.css`. Gevonden met een trace op
+`DOMTokenList.prototype.remove` op de live pagina.
+
 De waarden blijven staan in `~/gmc-project/kiwi-size-charts-plakken.md`; dat is nog de
 bron van de getallen, de Kiwi-instructies erin zijn achterhaald.
 
