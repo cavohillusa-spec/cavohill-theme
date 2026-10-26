@@ -29,7 +29,14 @@ if (!customElements.get('size-chart-modal')) {
         // Dawn rendert de productinfo opnieuw bij een variantwissel. Zonder
         // opruimen blijft het verhuisde dialoog in <body> achter en komt er
         // bij de volgende klik een tweede bij.
-        this.destroy();
+        //
+        // Maar verplaatsen (zie place) is óók een disconnect. Daarom pas
+        // opruimen als we een tick later nog steeds buiten het document
+        // staan; anders zou een verplaatsing een openstaand dialoog sluiten
+        // en de scroll-lock van de pagina halen.
+        setTimeout(() => {
+          if (!this.isConnected) this.destroy();
+        }, 0);
       }
 
       /*
