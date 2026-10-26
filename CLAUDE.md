@@ -307,7 +307,16 @@ product-metafield `custom.size_chart` wijst er per product naar. Beide staan op
 `PUBLIC_READ`; zonder dat leest het thema ze niet en blijft de knop stil weg. 49 van de
 50 actieve producten hebben een tabel — `womens-2-piece-wide-leg-loungewear-set` niet, en
 dat product toont dus geen knop. Dat is de guard in `snippets/size-chart.liquid`, geen
-instelling elders. `note` is overal nog leeg: klantzichtbare tekst, wacht op akkoord.
+instelling elders.
+
+`note` is op 26-10-2026 gevuld, na akkoord van Mees op de tekst. Twee varianten: de
+kledingtabellen zeggen dat de getallen **lichaamsmaten** zijn ("describe the body, not
+the garment"), de schoenentabellen leggen uit hoe je je voet meet. Beide sluiten af met
+het maatadvies "between two sizes, take the larger one" en de contactregel. Dat
+maatadvies is **de enige regel die op een aanname rust** en niet op een gemeten feit —
+bewust zo besloten, zie ook de claims-tabel. Dat de kledingmaten lichaamsmaten zijn is
+een antwoord van Mees, geen meting: verandert dat, dan moet die zin mee. Vorige staat
+(alle vier `null`): `~/gmc-project/backup-size-chart-metaobject-26-10-2026.json`.
 
 Rendering: `snippets/size-chart.liquid`, aangeroepen uit
 `snippets/product-variant-picker.liquid` in het label van de Size-optie. Er is **één**
@@ -318,6 +327,14 @@ eerste klik naar `<body>`: in een `<legend>` mag alleen phrasing content staan, 
 de fieldset zou het de flexopmaak van de variantkiezer overnemen. CSS staat in
 `assets/theme-brand.css` onder "Maattabel", gedrag in `assets/size-chart.js`, het label
 in `locales/en.default.json` als `products.product.size_chart`.
+
+Opmaak in de merkkleuren sinds 26-10: kopband in het accent met creme tekst, paneelkop in
+creme met de titel in Playfair en de groepsnaam eronder, rijen om en om wit/creme. Twee
+dingen die daarbij geen smaakkwestie waren en dus niet terug moeten: de scroller heeft
+**geen zijpadding** (position: sticky plakt aan de contentrand, dus in die padding bleef
+de wegschuivende kolom zichtbaar náást de vastgezette maatkolom — de ruimte zit nu in de
+buitenste cellen), en de `note` staat **binnen** de scroller (als los blok eronder kneep
+hij op een telefoon de schoentabel plat tot drie zichtbare rijen).
 
 Het appblok `kiwi_size_chart` is uit `templates/product.json` gehaald. **Let op: de
 app-embed `kiwi-variant-selector` in `config/settings_data.json` blijft** — dat is een
