@@ -58,7 +58,12 @@
       >
         <div class="size-chart__panel">
           <header class="size-chart__header">
-            <h2 id="{{ dialog_id }}-title" class="size-chart__title">{{ product.title }}</h2>
+            <div>
+              <h2 id="{{ dialog_id }}-title" class="size-chart__title">{{ product.title }}</h2>
+              {%- if chart_title != blank -%}
+                <p class="size-chart__group">{{ chart_title | escape }}</p>
+              {%- endif -%}
+            </div>
             <button
               type="button"
               class="size-chart__close"
@@ -96,10 +101,15 @@
                 {%- endfor -%}
               </tbody>
             </table>
+            {%- comment -%}
+              De note staat binnen de scroller, niet ernaast. Als los blok
+              onderin het paneel duwt hij op een telefoon de tabel plat tot
+              drie zichtbare rijen; zo schuift hij gewoon mee onder de tabel.
+            {%- endcomment -%}
+            {%- if chart_note != blank -%}
+              <p class="size-chart__note">{{ chart_note | escape | newline_to_br }}</p>
+            {%- endif -%}
           </div>
-          {%- if chart_note != blank -%}
-            <p class="size-chart__note">{{ chart_note | escape | newline_to_br }}</p>
-          {%- endif -%}
         </div>
       </dialog>
     </template>
