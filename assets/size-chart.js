@@ -96,7 +96,13 @@ if (!customElements.get('size-chart-modal')) {
         // De pagina niet laten meescrollen achter de sheet. Dit hoort hier en
         // niet in een eigen klikhandler: die zou bij de eerste klik nog niet
         // gebonden zijn.
-        document.body.classList.add('overflow-hidden');
+        //
+        // Eigen klasse, bewust niet Dawn's .overflow-hidden: dat is een
+        // gedeelde lock die Dawn's DetailsModal bij het sluiten
+        // onvoorwaardelijk weghaalt. Onze modal opent, de focus verschuift,
+        // Dawn sluit zijn zoekmodal en nam die lock mee — op de live pagina
+        // gemeten.
+        document.body.classList.add('size-chart-open');
       }
 
       destroy() {
@@ -104,7 +110,7 @@ if (!customElements.get('size-chart-modal')) {
         if (!this.dialog) return;
         this.dialog.remove();
         this.dialog = null;
-        document.body.classList.remove('overflow-hidden');
+        document.body.classList.remove('size-chart-open');
       }
 
       build() {
@@ -136,7 +142,7 @@ if (!customElements.get('size-chart-modal')) {
 
         // close vuurt bij alle drie de manieren van sluiten, Esc inbegrepen.
         dialog.addEventListener('close', () => {
-          document.body.classList.remove('overflow-hidden');
+          document.body.classList.remove('size-chart-open');
           if (this.trigger) this.trigger.focus();
         });
       }

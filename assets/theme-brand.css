@@ -1343,6 +1343,13 @@ div.hh-bundle {
   color: var(--brand-ink);
 }
 
+/* Scroll-lock onder de modal. Eigen klasse en niet Dawn's .overflow-hidden:
+   die is gedeeld, en Dawn's DetailsModal haalt hem bij het sluiten van de
+   zoekmodal onvoorwaardelijk weg — ook als deze modal nog open staat. */
+body.size-chart-open {
+  overflow: hidden;
+}
+
 /* Het dialoog vult het venster en is zelf doorzichtig; het paneel erbinnen is
    wat je ziet. Daarmee is elke klik naast het paneel een klik op het dialoog,
    en dat is precies wat size-chart.js laat sluiten. */
