@@ -1289,3 +1289,184 @@ div.hh-bundle {
   color: var(--brand-accent, #1f4b47);
   font-weight: 700;
 }
+
+/* --- Maattabel -------------------------------------------------------- */
+/* Vervangt de knop van de Kiwi-app. De knop zelf staat in de <legend> van de
+   maatfieldset, dus op dezelfde regel als het woord Size. Die legend is daar
+   al een volle rij (zie "Maat als rechthoekige knoppen"), zodat de knop
+   rechts kan uitlijnen zonder de maatknoppen eronder te verschuiven.
+
+   :has() scheidt de maatlegend van de kleurlegend zonder een extra klasse in
+   de picker; valt het weg, dan staat de knop gewoon achter het woord Size. */
+.product__info-container .form__label:has(.size-chart) {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.size-chart__trigger {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--brand-accent);
+  font-family: inherit;
+  font-size: 1.3rem;
+  letter-spacing: 0.08rem;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  cursor: pointer;
+}
+
+/* Het tikdoel oprekken zonder de regelhoogte van het label te veranderen.
+   Let op: 1rem is hier ~11,5px, dus dit is ruim 44px hoog. */
+.size-chart__trigger::after {
+  content: '';
+  position: absolute;
+  inset: -1.2rem -0.8rem;
+}
+
+.size-chart__trigger:hover {
+  color: var(--brand-ink);
+}
+
+/* Het dialoog vult het venster en is zelf doorzichtig; het paneel erbinnen is
+   wat je ziet. Daarmee is elke klik naast het paneel een klik op het dialoog,
+   en dat is precies wat size-chart.js laat sluiten. */
+.size-chart__dialog {
+  position: fixed;
+  inset: 0;
+  width: auto;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* Alleen bij [open], anders overschrijven we de display: none van de browser
+   en staat het dialoog er altijd. Mobiel-first: sheet onderin. */
+.size-chart__dialog[open] {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.size-chart__dialog::backdrop {
+  background-color: rgba(26, 26, 26, 0.5);
+}
+
+.size-chart__panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 85vh;
+  background-color: #fff;
+  color: var(--brand-ink);
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -4px 24px rgba(26, 26, 26, 0.18);
+  overflow: hidden;
+}
+
+.size-chart__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 1.6rem 1.6rem 1.2rem;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+}
+
+.size-chart__title {
+  margin: 0;
+  font-size: 1.8rem;
+  line-height: 1.3;
+}
+
+.size-chart__close {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  margin: -1rem -1rem 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--brand-ink);
+  font-size: 2.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* De tabel schuift hierbinnen, niet in de pagina. overscroll-behavior houdt
+   dat schuiven ook op mobiel binnen het paneel. */
+.size-chart__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 1.6rem;
+  overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.size-chart__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.4rem;
+}
+
+.size-chart__table th,
+.size-chart__table td {
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+  text-align: left;
+  /* Zonder nowrap breken de kolomkoppen op 375px af in plaats van te
+     schuiven; met nowrap blijft de tabel leesbaar en schuift hij. */
+  white-space: nowrap;
+}
+
+.size-chart__table thead th {
+  position: sticky;
+  top: 0;
+  background-color: var(--brand-surface);
+  font-size: 1.3rem;
+  letter-spacing: 0.06rem;
+}
+
+.size-chart__table tbody th {
+  font-weight: 600;
+}
+
+.size-chart__table tbody tr:last-child th,
+.size-chart__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.size-chart__note {
+  margin: 0;
+  padding: 1.2rem 1.6rem 1.6rem;
+  border-top: 1px solid rgba(26, 26, 26, 0.1);
+  color: var(--brand-muted);
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+@media screen and (min-width: 750px) {
+  /* Desktop: gewoon gecentreerd, geen sheet. */
+  .size-chart__dialog[open] {
+    align-items: center;
+  }
+
+  .size-chart__panel {
+    max-width: 56rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(26, 26, 26, 0.22);
+  }
+}

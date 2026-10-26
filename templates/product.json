@@ -55,12 +55,6 @@
             "swatch_shape": "circle"
           }
         },
-        "kiwi_size_chart": {
-          "type": "shopify://apps/kiwi-size-chart-recommender/blocks/kiwiSizing/b7369922-bf15-44ce-a121-a22a8fcbc4b0",
-          "settings": {
-            "fallbackToBlockPosition": true
-          }
-        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -115,7 +109,6 @@
         "usp_returns",
         "usp_processing",
         "variant_picker",
-        "kiwi_size_chart",
         "quantity_selector",
         "buy_buttons",
         "description",

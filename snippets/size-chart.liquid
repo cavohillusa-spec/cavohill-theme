@@ -1,0 +1,108 @@
+{% comment %}
+  Renders the size chart: a trigger beside the Size label and the modal that
+  belongs to it.
+
+  Reads the metaobject that product.metafields.custom.size_chart points at:
+    title  single line text  - the group, for example "Women's clothing"
+    table  json              - array of rows, the first row is the header
+    note   multi line text   - optional, rendered under the table
+
+  No metaobject, or a table without rows, renders nothing at all. That is how
+  a product without a chart ends up without a button: this guard, not a
+  setting somewhere else.
+
+  Accepts:
+  - product: {Object} product object.
+
+  Usage:
+  {% render 'size-chart', product: product %}
+{% endcomment %}
+{%- liquid
+  assign chart = product.metafields.custom.size_chart.value
+
+  # Een metaobjectveld komt in Liquid als metafield-drop terug en .value geeft
+  # dan de waarde. Komt het veld al als tekst of array binnen, dan is .value
+  # nil en houdt default het veld zelf vast. Zo leest dit bestand beide vormen.
+  assign table_field = chart.table
+  assign rows = table_field.value | default: table_field
+
+  assign title_field = chart.title
+  assign chart_title = title_field.value | default: title_field
+
+  assign note_field = chart.note
+  assign chart_note = note_field.value | default: note_field
+-%}
+{%- if rows.size > 0 -%}
+  {%- assign dialog_id = 'SizeChart-' | append: section.id -%}
+  <size-chart-modal class="size-chart">
+    <button
+      type="button"
+      class="size-chart__trigger"
+      aria-haspopup="dialog"
+      data-size-chart-open
+    >
+      {{ 'products.product.size_chart' | t }}
+    </button>
+    {%- comment -%}
+      De knop staat in de <legend> van de maatfieldset en daar mag alleen
+      phrasing content staan. Een <dialog> hoort daar dus niet; <template> en
+      <script> mogen er wel. Het dialoog reist daarom in de template mee en
+      verhuist bij de eerste klik naar <body> — ook omdat het binnen de
+      fieldset de flexopmaak van de variantkiezer zou overnemen.
+    {%- endcomment -%}
+    <template>
+      <dialog
+        id="{{ dialog_id }}"
+        class="size-chart__dialog"
+        aria-labelledby="{{ dialog_id }}-title"
+      >
+        <div class="size-chart__panel">
+          <header class="size-chart__header">
+            <h2 id="{{ dialog_id }}-title" class="size-chart__title">{{ product.title }}</h2>
+            <button
+              type="button"
+              class="size-chart__close"
+              aria-label="{{ 'accessibility.close' | t }}"
+              data-size-chart-close
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </header>
+          <div class="size-chart__scroll">
+            <table
+              class="size-chart__table"
+              {% if chart_title != blank %}
+                aria-label="{{ chart_title | escape }}"
+              {% endif %}
+            >
+              <thead>
+                <tr>
+                  {%- for cell in rows.first -%}
+                    <th scope="col">{{ cell | escape }}</th>
+                  {%- endfor -%}
+                </tr>
+              </thead>
+              <tbody>
+                {%- for row in rows offset: 1 -%}
+                  <tr>
+                    {%- for cell in row -%}
+                      {%- if forloop.first -%}
+                        <th scope="row">{{ cell | escape }}</th>
+                      {%- else -%}
+                        <td>{{ cell | escape }}</td>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          </div>
+          {%- if chart_note != blank -%}
+            <p class="size-chart__note">{{ chart_note | escape | newline_to_br }}</p>
+          {%- endif -%}
+        </div>
+      </dialog>
+    </template>
+  </size-chart-modal>
+  <script src="{{ 'size-chart.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

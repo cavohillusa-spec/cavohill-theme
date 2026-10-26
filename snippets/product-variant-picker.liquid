@@ -54,6 +54,18 @@
           endif
         endif
       -%}
+      {%- comment -%}
+        De maattabel hoort naast het label van de Size-optie. Hij wordt hier
+        één keer gerenderd en hieronder in het label van het actieve
+        kiezertype gezet, zodat de knoppen- en de dropdownmodus dezelfde knop
+        krijgen zonder hem twee keer op de pagina te zetten. Bij de andere
+        opties blijft size_chart leeg.
+      {%- endcomment -%}
+      {%- capture size_chart -%}
+        {%- if option_name_downcase == 'size' -%}
+          {% render 'size-chart', product: product %}
+        {%- endif -%}
+      {%- endcapture -%}
       {%- if picker_type == 'photo' -%}
         {%- comment -%}
           Is er maar één kleur, dan valt er niets te kiezen en tonen we de
@@ -96,6 +108,7 @@
             <span data-selected-value>
               {{- option.selected_value -}}
             </span>
+            {{ size_chart }}
           </legend>
           {% render 'product-variant-options',
             product: product,
@@ -106,7 +119,7 @@
         </fieldset>
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+          <legend class="form__label">{{ option.name }}{{ size_chart }}</legend>
           {% render 'product-variant-options',
             product: product,
             option: option,
@@ -118,6 +131,7 @@
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
+            {{ size_chart }}
           </label>
           <div class="select">
             {%- if picker_type == 'swatch_dropdown' -%}
