@@ -294,8 +294,10 @@ Daarmee hoeft Simprosys geen uitzonderingsregel voor deze twee; de mapping
   werkdagen** (Shopify: Shipping → Processing time) + transit **4–9 werkdagen**
   (custom transit time op de rate). Samen 5–12, gelijk aan Terms, Shipping Policy en
   productpagina. In GMC dezelfde split: handling 1–3, transit 4–9, $0, alleen US.
-  **Op 27-10 omgezet van 6–12 / 7–15 naar 4–9 / 5–12** in de pagina's en het thema; of
-  de rate in de checkout en de GMC-instelling al zijn meegegaan is niet nagemeten.
+  **Op 27-10 omgezet van 6–12 / 7–15 naar 4–9 / 5–12** in de pagina's en het thema. GMC
+  is dezelfde dag door Mees aangepast (zijn melding, niet nagemeten). Open: de rate in
+  Shopify, en — omdat de checkout sinds 23-10 via Revio loopt — wat Revio toont als
+  verzendnaam en levertijd. Bij de testbestelling nalopen.
   Eerdere checkout-metingen zagen de USPS-naam niet omdat op het woord "Free shipping"
   werd gematcht, niet op de volledige naam.
 - **Shopify Payments ís actief** (PCI-iframe van Shopify, Apple/Google/Shop Pay, geen
