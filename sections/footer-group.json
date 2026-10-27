@@ -50,8 +50,8 @@
         "policy-4": {
           "type": "policy_link",
           "settings": {
-            "label": "Billing Terms & Conditions",
-            "url": "/pages/billing-terms"
+            "label": "Payment Policy",
+            "url": "/pages/payment-policy"
           }
         },
         "policy-5": {

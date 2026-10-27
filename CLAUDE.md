@@ -53,7 +53,13 @@ Dit is de context die het langst onduidelijk was en die de meeste teksten raakt:
   in Ningbo. Producten gaan van de leverancier naar de klant; er is geen eigen magazijn.
 - **Verzendzone: alleen de VS.** Dat gaat over wíe mag kopen, niet over waar het pakket
   vandaan komt. Die twee zijn eerder door elkaar gehaald en dat kostte een halve dag.
-- **Levertijd**: 1–3 werkdagen verwerking, 6–12 werkdagen transit, 7–15 totaal.
+- **Levertijd**: 1–3 werkdagen verwerking, 4–9 werkdagen transit, 5–12 totaal. Sinds
+  27-10-2026; daarvoor 6–12 transit en 7–15 totaal.
+- **Tijdzone: CST.** Cut-off 5:00 PM CST, klantenservice
+  `Monday – Friday, 9:00 AM – 5:00 PM CST`. Niet meer "US time".
+- **Noem in klantzichtbare tekst geen herkomst** — geen China, geen leverancier, geen
+  warehouse. Sinds 27-10-2026. De feiten hierboven en hieronder blijven intern waar; ze
+  horen alleen niet op de site.
 - **Geen douanekosten voor de klant** — in een jaar nooit voorgekomen, bevestigd door
   Mees.
 - **Noem geen vervoerder.** Bij directe verzending uit China is de laatste etappe niet te
@@ -74,7 +80,7 @@ leeg en wordt bewust ingevuld.** Wat er nu staat en waarom het mag:
 | "Free shipping" | Verzendzone US rekent $ 0,00, geverifieerd |
 | "30-day returns" | Retourbeleid beschrijft 30 dagen. **Niet** "guarantee" — dat is een blocker-triggerwoord |
 | "1–3 business days" verwerking | Gelijk in Terms, Shipping Policy, FAQ en productpagina |
-| "6–12 business days" transit / "7–15" totaal | Gelijk in Terms artikel 7, Shipping Policy en de productpagina-FAQ |
+| "4–9 business days" transit / "5–12" totaal | Gelijk in Terms artikel 7, Shipping Policy en de productpagina-FAQ — sinds 27-10, daarvoor 6–12 / 7–15 |
 | "We reply within 1–2 business days" | Toegevoegd 15-08. Haalbaar bij een e-mailpostvak dat ma-vr wordt gelezen; **de enige claim in deze tabel die op een voornemen rust en niet op een gemeten instelling** |
 
 Vier blokken in `sections/main-product.liquid` — `hh_rating`, `hh_urgency`,
@@ -285,9 +291,11 @@ Daarmee hoeft Simprosys geen uitzonderingsregel voor deze twee; de mapping
   53/54 opent. Zit in Settings → Shipping and delivery → rate voor de VS; hernoemen naar
   `Free shipping`. **Besluit Mees 11-09: de bezorgschatting blijft**, in de checkout én
   in GMC — dan moet hij overal uit dezelfde twee getallen bestaan: verwerking **1–3
-  werkdagen** (Shopify: Shipping → Processing time) + transit **6–12 werkdagen**
-  (custom transit time op de rate). Samen 7–15, gelijk aan Terms, Shipping Policy en
-  productpagina. In GMC dezelfde split: handling 1–3, transit 6–12, $0, alleen US.
+  werkdagen** (Shopify: Shipping → Processing time) + transit **4–9 werkdagen**
+  (custom transit time op de rate). Samen 5–12, gelijk aan Terms, Shipping Policy en
+  productpagina. In GMC dezelfde split: handling 1–3, transit 4–9, $0, alleen US.
+  **Op 27-10 omgezet van 6–12 / 7–15 naar 4–9 / 5–12** in de pagina's en het thema; of
+  de rate in de checkout en de GMC-instelling al zijn meegegaan is niet nagemeten.
   Eerdere checkout-metingen zagen de USPS-naam niet omdat op het woord "Free shipping"
   werd gematcht, niet op de volledige naam.
 - **Shopify Payments ís actief** (PCI-iframe van Shopify, Apple/Google/Shop Pay, geen
@@ -296,9 +304,13 @@ Daarmee hoeft Simprosys geen uitzonderingsregel voor deze twee; de mapping
   vermoedelijk `cavohillusa@gmail.com`. Of daar een echt account achter zit is via de
   API niet te zien. Stappen, testprotocol en de tekstgevolgen staan in
   `~/gmc-project/paypal-koppelen.md`.
-- **Payment policy en Billing Terms missen PayPal en Diners Club**, die de checkout en
-  de footer-iconen wél tonen (punt 50). Tekstvoorstel staat in datzelfde document;
-  klantzichtbaar, dus wacht op akkoord.
+- **De Payment Policy mist mogelijk betaalmethoden** die de checkout en de
+  footer-iconen tonen (punt 50). Sinds 23-10 loopt de checkout via Revio; de
+  betaalmethoden op de Payment Policy blijven ongemoeid tot de testbestelling via Revio
+  laat zien wat er werkelijk wordt aangeboden.
+- **Billing Terms bestaat niet meer als losse pagina** — sinds 27-10-2026 ongepubliceerd,
+  `/pages/billing-terms` redirect naar `/pages/payment-policy`. De footerlink (blok
+  `policy-4` in `sections/footer-group.json`) heet nu "Payment Policy" en wijst daarheen.
 
 **De maattabel komt uit het metaobject `size_chart`, niet meer uit Kiwi** — sinds
 26-10-2026. Vier entries (`womens-clothing`, `mens-clothing`, `womens-shoes`,
@@ -376,8 +388,9 @@ na een push altijd het themabestand via `themes { files }` met wat er in git sta
 
 Nieuw op 06-09, nog open:
 
-- **"Stripe Identity" staat nog in de Billing Terms** als mogelijke verificatiedienst bij
-  transacties met een hoger bedrag. Of die dienst werkelijk aanstaat is nooit nagegaan.
+- **"Stripe Identity" stond in de Billing Terms** als mogelijke verificatiedienst bij
+  transacties met een hoger bedrag. Die pagina is sinds 27-10 offline; "Stripe" staat op
+  de scanlijst voor de crawl van `/pages/*` en `/policies/*`.
 - **De About us gaat alleen over vrouwen** ("Designed for women who appreciate timeless
   style") terwijl er een volledige herenafdeling is. De Contact-pagina zegt wél "for men
   and women".
