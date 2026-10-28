@@ -301,6 +301,12 @@
           </div>
         {%- endif -%}
       </a>
+
+      {%- if section.settings.extra_link_label != blank and section.settings.extra_link_url != blank -%}
+        <a href="{{ section.settings.extra_link_url }}" class="header__extra-link link focus-inset">
+          {{- section.settings.extra_link_label | escape -}}
+        </a>
+      {%- endif -%}
     </div>
   </header>
 </{{ header_tag }}>
@@ -596,6 +602,17 @@
       "default": true,
       "label": "t:sections.header.settings.enable_customer_avatar.label",
       "info": "t:sections.header.settings.enable_customer_avatar.info"
+    },
+    {
+      "type": "text",
+      "id": "extra_link_label",
+      "label": "Extra link rechts — tekst",
+      "info": "Leeg = niet getoond. Staat rechts van het winkelmandje."
+    },
+    {
+      "type": "url",
+      "id": "extra_link_url",
+      "label": "Extra link rechts — URL"
     },
     {
       "type": "header",
