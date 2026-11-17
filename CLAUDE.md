@@ -55,11 +55,17 @@ Dit is de context die het langst onduidelijk was en die de meeste teksten raakt:
   vandaan komt. Die twee zijn eerder door elkaar gehaald en dat kostte een halve dag.
 - **Levertijd**: 1–3 werkdagen verwerking, 4–9 werkdagen transit, 5–12 totaal. Sinds
   27-10-2026; daarvoor 6–12 transit en 7–15 totaal.
-- **Tijdzone: CST.** Cut-off 5:00 PM CST, klantenservice
-  `Monday – Friday, 9:00 AM – 5:00 PM CST`. Niet meer "US time".
-- **Noem in klantzichtbare tekst geen herkomst** — geen China, geen leverancier, geen
-  warehouse. Sinds 27-10-2026. De feiten hierboven en hieronder blijven intern waar; ze
-  horen alleen niet op de site.
+- **Tijdzone: Central Time (Chicago).** Sinds 17-11-2026, gelijk aan GMC
+  (`America/Chicago`). Cut-off `5:00 PM Central Time (Chicago)`, klantenservice
+  `Monday – Friday, 9:00 AM – 5:00 PM Central Time (Chicago)`. Niet "CST" (klopt alleen
+  in de winter), niet "US time".
+- **Herkomst: alleen de goedgekeurde zin** — `Orders are fulfilled by our international
+  fulfillment partners.` Sinds 17-11-2026, akkoord Mees. Staat in de Shipping Policy
+  (sectie Shipping Carriers, pagina én checkout) en in de verzend-FAQ-tab van
+  `templates/product.json`. Nooit een land, "supplier", "warehouse" of "China". Reden:
+  Google noemt het *verbergen* van de fulfilmentbron ook misleiding, dus helemaal niets
+  zeggen (de regel van 27-10) was niet de veilige kant. De feiten hierboven blijven intern
+  waar.
 - **Geen douanekosten voor de klant** — in een jaar nooit voorgekomen, bevestigd door
   Mees.
 - **Noem geen vervoerder.** Bij directe verzending uit China is de laatste etappe niet te
@@ -80,7 +86,10 @@ leeg en wordt bewust ingevuld.** Wat er nu staat en waarom het mag:
 | "Free shipping" | Verzendzone US rekent $ 0,00, geverifieerd |
 | "30-day returns" | Retourbeleid beschrijft 30 dagen. **Niet** "guarantee" — dat is een blocker-triggerwoord |
 | "1–3 business days" verwerking | Gelijk in Terms, Shipping Policy, FAQ en productpagina |
-| "4–9 business days" transit / "5–12" totaal | Gelijk in Terms artikel 7, Shipping Policy en de productpagina-FAQ — sinds 27-10, daarvoor 6–12 / 7–15 |
+| "4–9 business days" transit / "5–12" totaal | Gelijk in Terms artikel 7, Shipping Policy en de productpagina-FAQ — sinds 27-10, daarvoor 6–12 / 7–15. Verwerking én transit dragen "(Monday – Friday)", gelijk aan GMC (handling en transit ma–vr) |
+| "There is no restocking fee" | Akkoord Mees 17-11. Refund policy (pagina én checkout), FAQ en de retour-FAQ-tab op de productpagina |
+| Retourkosten | Klant betaalt: eigen label, of ons label met de kosten van de refund af. Per post, 30 dagen vanaf levering |
+| "Payments are processed by Whop" | Payment policy, sinds 17-11. Betaalmethoden: Visa, Mastercard, Amex, Discover, Apple Pay, Google Pay. **Geen PayPal** — Mees zet het uit in Whop |
 | "We reply within 1–2 business days" | Toegevoegd 15-08. Haalbaar bij een e-mailpostvak dat ma-vr wordt gelezen; **de enige claim in deze tabel die op een voornemen rust en niet op een gemeten instelling** |
 
 Vier blokken in `sections/main-product.liquid` — `hh_rating`, `hh_urgency`,
@@ -159,6 +168,29 @@ het merkteken óók in het hoofdbeeld, want het zit op het kledingstuk zelf. Lei
   met de prompt erbij.
 
 ## Belangrijk om te weten bij het oppakken
+
+**GMC-ronde 17-11-2026 (vóór de eerste Simprosys-sync).** Gemeten die dag: **39 actief,
+54 draft** (93 totaal) — de getallen van 08-09 hieronder zijn achterhaald. Backups:
+`~/gmc-project/backup-ronde-17-11-2026/`. Wat er veranderde:
+
+- **Checkout-policies (`/policies/*`) zijn nu identiek aan `/pages/*`** voor Shipping,
+  Refund, Terms en Contact information. Ze waren op 27-10 vergeten en droegen nog "supplier
+  in China", 7–15 dagen en "US time". Wie een van de twee aanpast, past de ander mee aan
+  (`shopPolicyUpdate` met `type`). **Privacy** staat nog op automatisch beheer en weigert
+  elke write; datum en bedrijfsblok daar blijven open tot Mees die schakelaar uitzet.
+- **Revio-script laadt van `checkout.cavohill.com/embed/checkout.js`**, niet meer van
+  `revio-checkout.com` — byte-identiek bestand. De Revio-checkoutpagina zelf (titel
+  "Novelle House", og-tags van Revio) zit buiten Shopify; ligt bij Mees en Revio-support.
+- **`snippets/price.liquid` rendert "Sale price" en de Sale/Sold out-badges alleen als ze
+  waar zijn.** Dawn zette ze altijd in de HTML en verborg ze met CSS.
+- **Footer: Refund Policy 1×** (in de RETURNS-kolom); blok `policy-5` is weg.
+- **Men > Jeans & Pants** (`jeans-trousers`, alleen drafts) is ongepubliceerd en uit menu
+  `hoofd-1`, met 301 naar `/collections/men`. Women > Jeans & Pants blijft (actieve jeans).
+- **Blog `nieuws`** (leeg) is verwijderd, met 301 naar `/`.
+- **Productteksten:** supplier-zinnen en hype ("Why is this … so popular?", "Don't miss
+  out…", "Elevate your…") zijn uit alle producten, ook de drafts. De draft
+  `mens-relaxed-fit-cargo-shorts` noemt een "Woven branded patch" — beeldscan vóór
+  livegang.
 
 Bijgewerkt 08-09-2026, gemeten tegen de live winkel — niet overgenomen uit een gesprek.
 
@@ -285,7 +317,11 @@ Daarmee hoeft Simprosys geen uitzonderingsregel voor deze twee; de mapping
 
 **Gevonden 11-09 in de live checkout, nog open — ligt bij Mees (geen API-scope):**
 
-- **De verzendmethode heet "Free shipping (USPS)"** en toont een bezorgschatting van
+- **Opgelost 27-10: de rate heet nu `Free shipping`.** Hernoemd via
+  `deliveryProfileUpdate`; ID, prijs ($ 0,00), zone (alleen US) en status ongewijzigd,
+  nagemeten. Backup: `~/gmc-project/backup-verzendrate-voor-hernoemen-27-10-2026.json`.
+  De custom transittijd geeft de API niet terug — die blijft in de admin na te kijken.
+  Oorspronkelijke bevinding: **de verzendmethode heette "Free shipping (USPS)"** en toonde een bezorgschatting van
   6–10 kalenderdagen. Dat breekt de regel "noem geen vervoerder" én spreekt de
   gepubliceerde 7–15 werkdagen tegen, precies op de pagina die een reviewer bij punt
   53/54 opent. Zit in Settings → Shipping and delivery → rate voor de VS; hernoemen naar
@@ -405,8 +441,11 @@ de hele "dat kan niet via de API"-categorie uit oudere notities vervallen: polic
 redirects, publicaties, pagina's, thema's en markten zijn nu wél te lezen en te schrijven.
 Wat er in zit: `read/write` op `products`, `files`, `inventory`, `content`,
 `legal_policies`, `online_store_navigation`, `publications`, plus `read_themes` en
-`read_markets`. Alleen `read_shipping` ontbreekt nog — daardoor is de claim "free
-shipping" nog steeds niet tegen de werkelijke verzendzone te controleren.
+`read_markets`.
+
+**Sinds 27-10-2026 negentien:** `read_shipping`, `write_shipping` en `read_orders` erbij.
+Daarmee is "free shipping" wél gemeten: één profiel, één zone (alleen US), $ 0,00.
+Ontbreekt nog `read_locations` — `deliveryProfiles` weigert dan alleen de locatienamen.
 
 Afgerond op 27-08 dankzij die scopes:
 
