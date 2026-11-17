@@ -98,6 +98,14 @@
           </span>
         {%- endif -%}
       </div>
+      {%- comment -%}
+        Cavo Hill: het sale-blok en de badges worden alleen gerenderd als ze waar zijn.
+        Dawn zette ze altijd in de HTML en verborg ze met CSS, waardoor elke
+        productpagina "Sale price" en "Sold out" in de bron droeg zonder dat er een
+        compare-at-prijs bestaat. Variantwissels halen de prijs server-side opnieuw op,
+        dus deze voorwaarde wordt per variant opnieuw geëvalueerd.
+      {%- endcomment -%}
+      {%- if compare_at_price > price -%}
       <div class="price__sale">
         {%- unless product.price_varies == false and product.compare_at_price_varies %}
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
@@ -116,22 +124,27 @@
           {{ money_price }}
         </span>
       </div>
+      {%- endif -%}
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
       {%- endif -%}
     </div>
     {%- if show_badges -%}
-      <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
-        {%- if savings_percent > 0 -%}
-          Save {{ savings_percent }}%
-        {%- else -%}
-          {{ 'products.product.on_sale' | t }}
-        {%- endif -%}
-      </span>
+      {%- if compare_at_price > price -%}
+        <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
+          {%- if savings_percent > 0 -%}
+            Save {{ savings_percent }}%
+          {%- else -%}
+            {{ 'products.product.on_sale' | t }}
+          {%- endif -%}
+        </span>
+      {%- endif -%}
 
-      <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
-        {{ 'products.product.sold_out' | t }}
-      </span>
+      {%- if available == false -%}
+        <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
+          {{ 'products.product.sold_out' | t }}
+        </span>
+      {%- endif -%}
     {%- endif -%}
   </div>
 {% endunless %}
