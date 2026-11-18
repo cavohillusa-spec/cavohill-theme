@@ -206,6 +206,12 @@ steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven st
   na opt-out gaat er niets naar Google. **Geen footerlink "Your Privacy Choices"** —
   bewust niet: de policy linkt de pagina al, en de CCPA-drempels haalt deze winkel
   vermoedelijk niet.
+- **Policies 18-11 (akkoord):** "guarantee" uit Shipping Policy ("…we may no longer be
+  able to change or cancel it.") en de zin "Some products may be available exclusively
+  online and in limited quantities." helemaal uit Terms artikel 7 — er is geen fysieke
+  winkel. Pagina én checkout, live nagemeten; nul treffers meer in pagina's, actieve
+  producten en thema. De jas `womens-oversized-open-front-long-coat` blijft live: het
+  label op de mouw zit op elke variant en hoort bij het kledingstuk.
 - **Aankoopconversie via Revio's eigen Google Ads-koppeling** (Revio → Google Ads:
   `AW-18287802149`, label `qKbbCPfl9LodEKXuppBE`, checkout-started en import leeg).
   Conversieactie "Aankoop": primair, verschillende waarden (standaard $72 = gemiddelde
