@@ -1608,3 +1608,31 @@ body.size-chart-open {
     padding: 0.7rem 1.2rem;
   }
 }
+
+/* ------------------------------------------------------------------
+   Tabellen in productbeschrijvingen (eindaudit 18-11-2026)
+   Een maattabel met zes of zeven kolommen duwde de productpagina op
+   390px breed tot 575px: horizontale scroll over de hele pagina, op 9
+   van de 39 actieve producten. De tabel scrollt nu binnen zijn eigen
+   vak; de rest van de pagina blijft op schermbreedte. Op mobiel krimpt
+   de celpadding zodat de meeste tabellen er zonder scroll in passen.
+   ------------------------------------------------------------------ */
+.rte table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rte table > tbody,
+.rte table > thead {
+  display: table;
+  width: 100%;
+}
+
+@media screen and (max-width: 749px) {
+  .rte table th,
+  .rte table td {
+    padding: 0.6rem 0.4rem;
+  }
+}
