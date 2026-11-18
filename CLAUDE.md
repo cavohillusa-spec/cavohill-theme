@@ -191,7 +191,14 @@ steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven st
   site-verificatie). Web pixels: alleen Parcel Panel en Shopify.
 - **Op 13 kledingproducten staan twee maattabellen met verschillende getallen**: de
   beschrijving geeft kledingstukmaten (length/shoulder/sleeve), de popup lichaamsmaten
-  met "describe the body, not the garment". Tekstkwestie, ligt bij Mees.
+  met "describe the body, not the garment". **Opgelost 18-11 op verzoek: het blok
+  "Size guide" (commentaar + `<h3>` + tabel + `<em>`-notitie) is uit 34 actieve
+  beschrijvingen gehaald**; de popup is nu de enige maattabel. Bewust níét bij
+  `womens-2-piece-wide-leg-loungewear-set` (heeft geen popup) en niet bij de drafts (50
+  hebben nog een tabel, 41 daarvan zonder popup — meenemen bij publicatie). Restjes in
+  lopende tekst: bust 33–46 in bij `womens-long-sleeve-midi-dress` (Q&A + lijst), bust- en
+  lengtebereik bij de blazer, voetlengte bij `womens-cushioned-flat-slip-on-shoes`.
+  Backup: `~/gmc-project/audit-18-11/api/backup-beschrijvingen-voor-maattabel-18-11.json`.
 - **Gefixt 18-11**: brede beschrijvingstabellen scrolden 9 productpagina's op 390px tot
   575px breed (commit `a9dcd76`); redirect `/pages/cookie-policy` wees via
   `billing-terms` (2 hops), nu direct naar `/pages/payment-policy`; het menu
