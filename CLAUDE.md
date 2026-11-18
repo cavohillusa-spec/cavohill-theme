@@ -219,8 +219,15 @@ steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven st
 - **`sitemap.xml` verwijst nog naar `sitemap_blogs_1.xml`, die 404 geeft** — restant van
   de verwijderde blog. Zit in Shopify, niet in het thema.
 - `crawl.py` en `CODE-BRIEF-GMC-ronde-17-11.md` bestonden niet; de crawler staat nu in
-  `~/gmc-project/audit-18-11/`. Let op: Shopify geeft `/search` aan een Python-client
-  aanhoudend 429, ook na het wissen van cookies; curl krijgt er gewoon 200.
+  `~/gmc-project/audit-18-11/`. Let op: Shopify's botbescherming (Cloudflare,
+  body `local_rate_limited`, `retry-after: 60`) geeft kale HTTP-clients (curl, Python,
+  WebFetch) met een browser-UA aanhoudend 429 op product- en collectiepagina's — ook na een
+  uur wachten en vanaf een ander IP. Geen afkoelend IP dus. Meet de browserkant met een echte
+  (headless) Chromium; die krijgt 200. Googlebot, Storebot-Google en AdsBot zijn op UA
+  vrijgesteld, `Google-InspectionTool` niet (gemeten 18-11).
+- **Googlebot tegenover browser, 18-11: geen cloaking.** Acht pagina's (home, beide
+  collecties, vier producten, shipping policy): titel, canonical, prijzen en zichtbare tekst
+  identiek, alle 200, geen robots-meta.
 
 **GMC-ronde 17-11-2026 (vóór de eerste Simprosys-sync).** Gemeten die dag: **39 actief,
 54 draft** (93 totaal) — de getallen van 08-09 hieronder zijn achterhaald. Backups:
