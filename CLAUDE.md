@@ -169,6 +169,25 @@ het merkteken óók in het hoofdbeeld, want het zit op het kledingstuk zelf. Lei
 
 ## Belangrijk om te weten bij het oppakken
 
+**GMC-account 5816792809 staat onder actieve schorsing "Misrepresentation"** — free
+listings én Shopping ads. Mail kwam ~half september 2026, pas op 18-11 opgemerkt; alle
+audits daarvóór gingen uit van een schoon account. Geen enkel product wordt getoond tot een
+herbeoordeling slaagt, en het aantal pogingen is beperkt — één goed voorbereide aanvraag.
+Gedaan op 18-11:
+- GMC-bedrijfsnaam stond op `Novelle House LLC` (melding "Invalid business name", Google
+  viel terug op `cavohill.com`) → nu **Cavo Hill**. Adres in Business details:
+  `30 N Gould St` / `Ste R`, gelijk aan de site.
+- **Bedrijfsverificatie ingediend** als Novelle House LLC met de EIN-brief (147C). Die brief
+  kapt het adres af tot `30 N GOULD ST STE`; zonder R weigerde het formulier, dus
+  ingediend als `30 N Gould St Ste R`, ZIP `82801` (níét de USPS-suggestie `82801-6317`).
+- Revio: tabtitel nu "Checkout - Cavo Hill" (gemeten). Policylinks en verzendnaam
+  "Standard (5–12 business days)" zijn volgens de gebruiker ingesteld; alleen met een
+  checkoutsessie te meten. og-tags blijven "Revio" / `revio-checkout.com`.
+- V1/V2 in de policies (zie verderop).
+Volgorde vanaf hier: Simprosys-sync → itemfouten oplossen → verificatie goedgekeurd →
+herbeoordeling aanvragen. **Geen campagnes vóór de herbeoordeling slaagt**: Shopping/PMax
+draaien niet, en de promotietermijn begint bij de eerste uitgave.
+
 **Eindaudit 18-11-2026 (vóór de Simprosys-sync).** Gemeten op de live winkel; ruwe data,
 scripts en screenshots in `~/gmc-project/audit-18-11/` (rapport: `RAPPORT.md` daar). Nog
 steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven staat:
