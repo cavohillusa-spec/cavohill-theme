@@ -169,6 +169,41 @@ het merkteken óók in het hoofdbeeld, want het zit op het kledingstuk zelf. Lei
 
 ## Belangrijk om te weten bij het oppakken
 
+**Eindaudit 18-11-2026 (vóór de Simprosys-sync).** Gemeten op de live winkel; ruwe data,
+scripts en screenshots in `~/gmc-project/audit-18-11/` (rapport: `RAPPORT.md` daar). Nog
+steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven staat:
+
+- **Alle 39 actieve producten staan sinds 10-11-2026 óók op het kanaal Google & YouTube.**
+  De notitie van 27-08 ("kanaal staat op nul, geen probleem") is daarmee achterhaald. Of
+  die app aan dezelfde GMC hangt en synct, is via de API niet te zien. Gebeurt dat, dan
+  komen er dubbele items naast de Simprosys-feed.
+- **Revio-checkout: `<title>` is "Checkout - Novelle House", `og:title`/`og:site_name`
+  zijn "Revio", `og:url` is `https://revio-checkout.com`, de description is Revio's eigen
+  slogan.** Er staat géén enkele link op de checkoutpagina: geen policies, geen
+  terugweg naar de winkel. Bedragen kloppen ($0 verzending, "Standard (5-12 business
+  days)", geen taxregel vóór het adres). Betaalblok: Card + Google Pay, express Google
+  Pay + Apple Pay, "Powered by Whop". Geen PayPal-knop, al laadt Whop wél zijn
+  PayPal-chunk. SSL: Let's Encrypt, geldig tot 21-01-2027.
+- **Een checkoutbezoek maakt (gemeten) géén Shopify-order aan**: na twee bezoeken op
+  18-11 stond `ordersCount` nog op 0. Draft orders zijn met deze scopes niet te zien.
+- **Nergens een Google-tag**: geen GA4, Ads of Google & YouTube-pixel op de storefront of
+  in de checkout. Het Simprosys-embed staat aan maar rendert leeg (ook geen
+  site-verificatie). Web pixels: alleen Parcel Panel en Shopify.
+- **Op 13 kledingproducten staan twee maattabellen met verschillende getallen**: de
+  beschrijving geeft kledingstukmaten (length/shoulder/sleeve), de popup lichaamsmaten
+  met "describe the body, not the garment". Tekstkwestie, ligt bij Mees.
+- **Gefixt 18-11**: brede beschrijvingstabellen scrolden 9 productpagina's op 390px tot
+  575px breed (commit `a9dcd76`); redirect `/pages/cookie-policy` wees via
+  `billing-terms` (2 hops), nu direct naar `/pages/payment-policy`; het menu
+  `customer-account-main-menu` heette "Bestellingen"/"Profiel", nu "Orders"/"Profile".
+- **`theme check`-baseline 18-11**: 13 meldingen, 1 error (`ParserBlockingScript` op het
+  Revio-script, `layout/theme.liquid:406`). Er bestond geen eerdere baseline.
+- **`sitemap.xml` verwijst nog naar `sitemap_blogs_1.xml`, die 404 geeft** — restant van
+  de verwijderde blog. Zit in Shopify, niet in het thema.
+- `crawl.py` en `CODE-BRIEF-GMC-ronde-17-11.md` bestonden niet; de crawler staat nu in
+  `~/gmc-project/audit-18-11/`. Let op: Shopify geeft `/search` aan een Python-client
+  aanhoudend 429, ook na het wissen van cookies; curl krijgt er gewoon 200.
+
 **GMC-ronde 17-11-2026 (vóór de eerste Simprosys-sync).** Gemeten die dag: **39 actief,
 54 draft** (93 totaal) — de getallen van 08-09 hieronder zijn achterhaald. Backups:
 `~/gmc-project/backup-ronde-17-11-2026/`. Wat er veranderde:
