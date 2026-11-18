@@ -195,8 +195,9 @@ geen ID-churn), maar op 18-11 nog niet toegepast — Simprosys-support gevraagd 
 resync. Verder: Custom Product (`identifier_exists: false`), geen checkout link template,
 Sale Price uit, eigen tracking (niet die van Simprosys). `gender`/`age_group` sinds 18-11
 ook in `mm-google-shopping` (naast `custom`).
-Revio-checkout toont Refund Policy en Whop's terms; Privacy, Shipping en Terms van Cavo
-Hill moeten er nog bij.
+Revio-checkout: Privacy, Shipping en Terms van Cavo Hill op 18-11 toegevoegd naast de
+Refund Policy (melding gebruiker, niet nagemeten — alleen met een checkoutsessie te zien).
+Open bij Revio: og-tags, noindex, en "you agree to Whop's Terms" zonder Cavo Hill's Terms.
 Volgorde vanaf hier: Simprosys-sync → itemfouten oplossen → verificatie goedgekeurd →
 herbeoordeling aanvragen. **Geen campagnes vóór de herbeoordeling slaagt**: Shopping/PMax
 draaien niet, en de promotietermijn begint bij de eerste uitgave.
