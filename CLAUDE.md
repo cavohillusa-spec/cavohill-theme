@@ -173,7 +173,16 @@ het merkteken óók in het hoofdbeeld, want het zit op het kledingstuk zelf. Lei
 scripts en screenshots in `~/gmc-project/audit-18-11/` (rapport: `RAPPORT.md` daar). Nog
 steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven staat:
 
-- **Alle 39 actieve producten staan sinds 10-11-2026 óók op het kanaal Google & YouTube.**
+- **Google & YouTube-app is op 18-11 verwijderd** (had geen Google-account gekoppeld). Tot
+  dan stonden alle 39 producten sinds 10-11 op dat kanaal. In GMC staat nog een lege bron
+  "PRODUCTS SOURCE 1" (Merchant API, nooit bijgewerkt): pas ná de eerste Simprosys-sync
+  beoordelen of die weg kan — het kan de bron zijn waarin Simprosys gaat schrijven.
+- **Verzending blijft gratis** (besluit 18-11); een drempel van $50 / $3.95 is overwogen
+  en niet ingevoerd.
+- **Revio-checkout heeft een eigen config** (in de HTML): `merchantName: "Novelle House"`
+  (bron van tabtitel en logo-alt), `policyLinks: []`, eigen rate "Standard (5-12 business
+  days)". Policylinks en naam zijn daar dus vermoedelijk zelf in te stellen.
+- (Oorspronkelijke bevinding:) **Alle 39 actieve producten stonden sinds 10-11-2026 óók op het kanaal Google & YouTube.**
   De notitie van 27-08 ("kanaal staat op nul, geen probleem") is daarmee achterhaald. Of
   die app aan dezelfde GMC hangt en synct, is via de API niet te zien. Gebeurt dat, dan
   komen er dubbele items naast de Simprosys-feed.
@@ -199,8 +208,8 @@ steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven st
   bust-getallen uit de lopende tekst: midi-dress (Q&A verwijst nu naar de Size Chart,
   lijstregels bust xs/3xl weg), blazer ("Bust width" weg) en de voetlengteregel bij de
   flat slip-on. Lengtes van het kledingstuk zijn blijven staan — die spreken de popup niet
-  tegen. Backup: `backup-maatzinnen-18-11.json`.
-  Backup: `~/gmc-project/audit-18-11/api/backup-beschrijvingen-voor-maattabel-18-11.json`.
+  tegen. Backups: `backup-maatzinnen-18-11.json` en
+  `backup-beschrijvingen-voor-maattabel-18-11.json` in `~/gmc-project/audit-18-11/api/`.
 - **Gefixt 18-11**: brede beschrijvingstabellen scrolden 9 productpagina's op 390px tot
   575px breed (commit `a9dcd76`); redirect `/pages/cookie-policy` wees via
   `billing-terms` (2 hops), nu direct naar `/pages/payment-policy`; het menu
