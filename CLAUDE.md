@@ -195,9 +195,11 @@ steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven st
   "Size guide" (commentaar + `<h3>` + tabel + `<em>`-notitie) is uit 34 actieve
   beschrijvingen gehaald**; de popup is nu de enige maattabel. Bewust níét bij
   `womens-2-piece-wide-leg-loungewear-set` (heeft geen popup) en niet bij de drafts (50
-  hebben nog een tabel, 41 daarvan zonder popup — meenemen bij publicatie). Restjes in
-  lopende tekst: bust 33–46 in bij `womens-long-sleeve-midi-dress` (Q&A + lijst), bust- en
-  lengtebereik bij de blazer, voetlengte bij `womens-cushioned-flat-slip-on-shoes`.
+  hebben nog een tabel, 41 daarvan zonder popup — meenemen bij publicatie). Daarna ook de
+  bust-getallen uit de lopende tekst: midi-dress (Q&A verwijst nu naar de Size Chart,
+  lijstregels bust xs/3xl weg), blazer ("Bust width" weg) en de voetlengteregel bij de
+  flat slip-on. Lengtes van het kledingstuk zijn blijven staan — die spreken de popup niet
+  tegen. Backup: `backup-maatzinnen-18-11.json`.
   Backup: `~/gmc-project/audit-18-11/api/backup-beschrijvingen-voor-maattabel-18-11.json`.
 - **Gefixt 18-11**: brede beschrijvingstabellen scrolden 9 productpagina's op 390px tot
   575px breed (commit `a9dcd76`); redirect `/pages/cookie-policy` wees via
