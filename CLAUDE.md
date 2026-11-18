@@ -294,6 +294,10 @@ steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven st
 - **Footer: Refund Policy 1×** (in de RETURNS-kolom); blok `policy-5` is weg.
 - **Men > Jeans & Pants** (`jeans-trousers`, alleen drafts) is ongepubliceerd en uit menu
   `hoofd-1`, met 301 naar `/collections/men`. Women > Jeans & Pants blijft (actieve jeans).
+  **Vergeten toen: de homepagetegel "Shop by category"** in `templates/index.json` wees er
+  nog naar en toonde tot 18-11 de placeholder "Your collection's name". Nu `tops-shirts`
+  (commit `523eb8a`). Wie een collectie ongepubliceerd zet of verwijdert: grep eerst
+  `templates/` en `sections/` op de handle.
 - **Blog `nieuws`** (leeg) is verwijderd, met 301 naar `/`.
 - **Productteksten:** supplier-zinnen en hype ("Why is this … so popular?", "Don't miss
   out…", "Elevate your…") zijn uit alle producten, ook de drafts. De draft
