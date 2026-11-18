@@ -195,9 +195,14 @@ steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven st
   PayPal-chunk. SSL: Let's Encrypt, geldig tot 21-01-2027.
 - **Een checkoutbezoek maakt (gemeten) géén Shopify-order aan**: na twee bezoeken op
   18-11 stond `ordersCount` nog op 0. Draft orders zijn met deze scopes niet te zien.
-- **Nergens een Google-tag**: geen GA4, Ads of Google & YouTube-pixel op de storefront of
-  in de checkout. Het Simprosys-embed staat aan maar rendert leeg (ook geen
-  site-verificatie). Web pixels: alleen Parcel Panel en Shopify.
+- **Google-tag `AW-18287802149` staat sinds 18-11 direct in `layout/theme.liquid`**
+  (commit `82dfcea`), bewust níét via de Google & YouTube-app die Google's eigen
+  installatie-instructie voorschrijft — die app is juist verwijderd. Live gemeten: `gtag`
+  bestaat en `page_view` gaat naar `google.com/ccm/collect` op home, collectie en product.
+  **De aankoopconversie ontbreekt nog:** de checkout is Revio en maakt geen Shopify-order,
+  dus die moet op Revio's bedankpagina of via Whop. Geen GA4. In de Revio-checkout zelf
+  staat geen tag. Het Simprosys-embed rendert leeg; web pixels: alleen Parcel Panel en
+  Shopify.
 - **Op 13 kledingproducten staan twee maattabellen met verschillende getallen**: de
   beschrijving geeft kledingstukmaten (length/shoulder/sleeve), de popup lichaamsmaten
   met "describe the body, not the garment". **Opgelost 18-11 op verzoek: het blok
