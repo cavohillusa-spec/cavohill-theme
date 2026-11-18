@@ -184,6 +184,19 @@ Gedaan op 18-11:
   "Standard (5–12 business days)" zijn volgens de gebruiker ingesteld; alleen met een
   checkoutsessie te meten. og-tags blijven "Revio" / `revio-checkout.com`.
 - V1/V2 in de policies (zie verderop).
+Nog **nooit een herbeoordeling aangevraagd** (bevestigd 18-11). Productgeschiedenis:
+nul items in GMC van 22-10 tot 18-11 20:55 — de schorsing kwam dus van de website en
+bedrijfsgegevens, niet van de feed. Bij de eerste items stond alleen "Misrepresentation of
+business identity, business model, and policies" (100%), géén itemfouten.
+**Simprosys / productlimiet:** 39 producten = 1.070 varianten; het GMC-quotum liet er 76
+door ("Product limit exceeded"), quotumverhoging kan pas zonder actieve schorsing.
+Ingesteld op "Submit first variant only" (Global ID-formaat, dus later uitbreiden geeft
+geen ID-churn), maar op 18-11 nog niet toegepast — Simprosys-support gevraagd om een full
+resync. Verder: Custom Product (`identifier_exists: false`), geen checkout link template,
+Sale Price uit, eigen tracking (niet die van Simprosys). `gender`/`age_group` sinds 18-11
+ook in `mm-google-shopping` (naast `custom`).
+Revio-checkout toont Refund Policy en Whop's terms; Privacy, Shipping en Terms van Cavo
+Hill moeten er nog bij.
 Volgorde vanaf hier: Simprosys-sync → itemfouten oplossen → verificatie goedgekeurd →
 herbeoordeling aanvragen. **Geen campagnes vóór de herbeoordeling slaagt**: Shopping/PMax
 draaien niet, en de promotietermijn begint bij de eerste uitgave.
