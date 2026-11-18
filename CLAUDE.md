@@ -199,10 +199,28 @@ steeds 39 actief / 54 draft, nul orders. Wat nieuw is of anders dan hierboven st
   (commit `82dfcea`), bewust níét via de Google & YouTube-app die Google's eigen
   installatie-instructie voorschrijft — die app is juist verwijderd. Live gemeten: `gtag`
   bestaat en `page_view` gaat naar `google.com/ccm/collect` op home, collectie en product.
-  **De aankoopconversie ontbreekt nog:** de checkout is Revio en maakt geen Shopify-order,
-  dus die moet op Revio's bedankpagina of via Whop. Geen GA4. In de Revio-checkout zelf
-  staat geen tag. Het Simprosys-embed rendert leeg; web pixels: alleen Parcel Panel en
-  Shopify.
+  **De tag volgt de opt-out** (commit `01e48d6`): consent-default `granted` behalve bij
+  Global Privacy Control, daarna `update` uit Shopify's Customer Privacy API
+  (`saleOfDataAllowed` && `marketingAllowed`). Nodig omdat de privacy policy beide belooft
+  en naar `/pages/data-sharing-opt-out-1` linkt. Gemeten: normaal `gcs=G111`; met GPC of
+  na opt-out gaat er niets naar Google. **Geen footerlink "Your Privacy Choices"** —
+  bewust niet: de policy linkt de pagina al, en de CCPA-drempels haalt deze winkel
+  vermoedelijk niet.
+- **Aankoopconversie via Revio's eigen Google Ads-koppeling** (Revio → Google Ads:
+  `AW-18287802149`, label `qKbbCPfl9LodEKXuppBE`, checkout-started en import leeg).
+  Conversieactie "Aankoop": primair, verschillende waarden (standaard $72 = gemiddelde
+  productprijs 18-11), aantal Alle, verbeterde conversies aan op accountniveau. Bewust
+  níét via de Google & YouTube-app of Simprosys: die meten via Shopify's checkout.
+  **Testbestelling 18-11**: Tag Assistant zag op `checkout.cavohill.com/thank-you` twee
+  Conversie-hits plus een page_view. Of Google 1 of 2 aankopen telt, nog nalopen in Google
+  Ads (1 / $3.05 = goed; 2 / $6.10 = aantal op Eén zetten en Revio melden).
+- **Een Revio-aankoop maakt wél een Shopify-order** (alleen een checkoutbezoek niet):
+  testorder `#100121`, PAID, $3.05 na kortingscode `FPGNPCZCDAHG` (−$58), e-mail
+  `info@cavohill.com`. Afschrift: `WHOP*CAVOHILL`. Bedankpagina: logo Cavo Hill,
+  `info@cavohill.com`, link Refund Policy, maar geen kortingsregel tussen $60.95 en het
+  totaal. Verzendmethode in de checkout heet nu "Standard – Tracking Included", zónder
+  levertijd. Geen GA4. Het Simprosys-embed rendert leeg; web pixels: alleen Parcel Panel
+  en Shopify.
 - **Op 13 kledingproducten staan twee maattabellen met verschillende getallen**: de
   beschrijving geeft kledingstukmaten (length/shoulder/sleeve), de popup lichaamsmaten
   met "describe the body, not the garment". **Opgelost 18-11 op verzoek: het blok
